@@ -1,7 +1,7 @@
 package org.example.test.practice;
 
 
-public class Test {
+public class Practice1 {
 
     public static void main(String[] args) {
         int num_list[] = {3, 4, 5, 2, 1};
