@@ -11,7 +11,6 @@
         * {
             font-family: 'Lato', 'Nanum Gothic', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Dotum', '돋움', sans-serif !important;
         }
-
     </style>
 </head>
 <body>
@@ -31,23 +30,21 @@
                     <a class="nav-link" href="#">홈 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">마이 페이지</a>
+                    <a class="nav-link" href="#">주문 관리</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">공지사항</a>
+                    <a class="nav-link" href="#">상품 관리</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">전체 상품</a>
+                    <a class="nav-link" href="#">사용자 관리</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">할인 관리</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">카테고리</a>
                 </li>
-                <li th:if="${session.loggedIn}" class="nav-item">
-                    <a class="nav-link" href="#">주문내역</a>
-                </li>
-                <li th:if="${session.loggedIn}" class="nav-item">
-                    <a class="nav-link" href="#">장바구니</a>
-                </li>
+
             </ul>
         </div>
         <form class="form-inline my-2 my-lg-0">
@@ -55,46 +52,44 @@
         </form>
     </nav>
 </header>
-<main th:replace="~{fragments :: main-content}">
-    <div class="container mt-4 mb-3">
-        <h1>로그인 후 페이지</h1>
+<main th:replace="~{fragments :: main-content}"><div class="container mt-4 mb-3">
+    <h1>관리자 로그인 후 페이지</h1>
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-3">
-            <th:block th:each="product : ${products}">
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="100"
-                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                             preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <th:block th:if="${product.productImage != null}">
-                                <image th:src="@{/resources/{productImage}(productImage=${product.productImage})}" height="100%" width="100%"
-                                       preserveAspectRatio="xMidYMid slice"></image>
-                            </th:block>
-                            <th:block th:unless="${product.productImage != null}">
-                                <image src="@{/resources/no-image.png}" height="100%" width="100%"
-                                       preserveAspectRatio="xMidYMid slice"></image>
-                            </th:block>
-                        </svg>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-3">
+        <th:block th:each="product : ${products}">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="100"
+                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                         preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Placeholder</title>
+                        <th:block th:if="${product.productImage != null}">
+                            <image th:src="@{/resources/{productImage}(productImage=${product.productImage})}" height="100%" width="100%"
+                                   preserveAspectRatio="xMidYMid slice"></image>
+                        </th:block>
+                        <th:block th:unless="${product.productImage != null}">
+                            <image src="@{/resources/no-image.png}" height="100%" width="100%"
+                                   preserveAspectRatio="xMidYMid slice"></image>
+                        </th:block>
+                    </svg>
 
-                        <div class="card-body">
-                            <p class="card-text" th:text="${product.modelName}"></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a th:href="@{/productDetail(productId=${product.productId})}" class="btn btn-sm btn-outline-secondary">View</a>
-                                </div>
-                                <small class="text-muted" th:text="${product.unitCost + '원'}">99999원</small>
+                    <div class="card-body">
+                        <p class="card-text" th:text="${product.modelName}"></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a th:href="@{/productDetail(productId=${product.productId})}" class="btn btn-sm btn-outline-secondary">View</a>
                             </div>
+                            <small class="text-muted" th:text="${product.unitCost + '원'}">99999원</small>
                         </div>
                     </div>
                 </div>
-            </th:block>
-        </div>
-        <p>test</p>
-        <p>test</p>
-        <p>test</p>
+            </div>
+        </th:block>
     </div>
-</main>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+</div></main>
 
 <footer class="footer mt-auto py-3 bg-dark">
     <div class="container">

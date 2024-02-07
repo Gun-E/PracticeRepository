@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>고객과 함께하는 Y-MART</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        * {
+            font-family: 'Lato', 'Nanum Gothic', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Dotum', '돋움', sans-serif !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" style="margin: auto; width: 500px;">
+    <div class="row justify-content-center mb-3">
+        <div class="col-md-6">
+            <a href="링크_URL" target="_blank">
+                <img src="/image/logo.gif" alt="Y-MART 로고" class="img-fluid d-block mx-auto my-4">
+            </a>
+        </div>
+    </div>
+    <form th:action="@{/login}" method="post" id="loginForm">
+        <div class="form-group mt-4 mb-4">
+            <label for="mall_id">아이디</label>
+            <input type="text" class="form-control" id="mall_id" name="loginId" placeholder="아이디를 입력하세요." maxlength="20" required>
+        </div>
+        <div class="form-group mt-4 mb-4">
+            <label for="userpasswd">비밀번호</label>
+            <div class="input-group">
+                <input type="password" class="form-control" id="userpasswd" name="loginPasswd" placeholder="비밀번호를 입력하세요." maxlength="20" required>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary ePasswordClick" onclick="togglePassword()">보기</button>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="w-100 btn btn-lg btn-success mt-3">로그인</button>
+        <p id="normal_msg" class="message txtWarn typeLeft" style="display:none;">아이디 또는 비밀번호를 확인해주세요.</p>
+    </form>
+    <div class="mt-3">
+        <span class="text-muted">아직 회원이 아니신가요?</span>
+        <a href="https://?????" target="_blank">회원가입</a>
+        <span class="mx-2">|</span>
+        <a href="https://?????" target="_blank">아이디/비밀번호 찾기</a>
+    </div>
+    <p class="mt-5 mb-3 text-muted">Copyright &copy; Y-MART Corp. All Rights Reserved.</p>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function togglePassword() {
+        var passwordInput = $('#userpasswd');
+        var passwordButton = $('.ePasswordClick');
+        if (passwordInput.attr('type') === "password") {
+            passwordInput.attr('type', 'text');
+            passwordButton.text('숨기기');
+        } else {
+            passwordInput.attr('type', 'password');
+            passwordButton.text('보기');
+        }
+    }
+</script>
+</body>
+</html>
