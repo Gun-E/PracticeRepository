@@ -31,7 +31,9 @@
             <div class="input-group">
                 <input type="password" class="form-control" id="userpasswd" name="loginPasswd" placeholder="비밀번호를 입력하세요." maxlength="20" required>
                 <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-secondary ePasswordClick" onclick="togglePassword()">보기</button>
+                    <button type="button" class="btn ePasswordClick" onclick="togglePassword()">
+                        <img id="passwordImg" src="/image/show_password.png" alt="비밀번호 보이기">
+                    </button>
                 </div>
             </div>
         </div>
@@ -53,12 +55,14 @@
     function togglePassword() {
         var passwordInput = $('#userpasswd');
         var passwordButton = $('.ePasswordClick');
+        var passwordImg = $('#passwordImg');
+
         if (passwordInput.attr('type') === "password") {
             passwordInput.attr('type', 'text');
-            passwordButton.text('숨기기');
+            passwordImg.attr('src', '/image/hide_password.png');
         } else {
             passwordInput.attr('type', 'password');
-            passwordButton.text('보기');
+            passwordImg.attr('src', '/image/show_password.png');
         }
     }
 </script>
