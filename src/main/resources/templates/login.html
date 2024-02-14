@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>고객과 함께하는 Y-MART</title>
+    <link rel="icon" type="image/png" href="/images/thumbnail">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
@@ -16,8 +17,8 @@
 <div class="container" style="margin: auto; width: 500px;">
     <div class="row justify-content-center mb-3">
         <div class="col-md-6">
-            <a href="링크_URL" target="_blank">
-                <img src="/images/logo.gif" alt="Y-MART 로고" class="img-fluid d-block mx-auto my-4">
+            <a href="/" target="_blank">
+                <img src="/images/logo" alt="Y-MART 로고" class="img-fluid d-block mx-auto my-4">
             </a>
         </div>
     </div>
@@ -31,8 +32,8 @@
             <div class="input-group">
                 <input type="password" class="form-control" id="userpasswd" name="loginPasswd" placeholder="비밀번호를 입력하세요." maxlength="20" required>
                 <div class="input-group-append">
-                    <button type="button" class="btn ePasswordClick" onclick="togglePassword()">
-                        <img id="passwordImg" src="/images/show_password.png" alt="비밀번호 보이기">
+                    <button type="button" class="btn btn-outline-success btn-sm" onclick="togglePassword()">
+                        <img id="passwordImg" src="/images/show_password" alt="비밀번호 보이기">
                     </button>
                 </div>
             </div>
@@ -40,8 +41,11 @@
         <button type="submit" class="w-100 btn btn-lg btn-success mt-3">로그인</button>
         <p id="normal_msg" class="message txtWarn typeLeft" style="display:none;">아이디 또는 비밀번호를 확인해주세요.</p>
     </form>
-    <div class="mt-3">
-        <span class="text-muted">아직 회원이 아니신가요?</span>
+
+
+
+    <div class="mt-4">
+        <span class="text-muted mr-1">아직 회원이 아니신가요?</span>
         <a href="https://?????" target="_blank">회원가입</a>
     </div>
     <p class="mt-5 mb-3 text-muted">Copyright &copy; Y-MART Corp. All Rights Reserved.</p>
@@ -57,10 +61,10 @@
 
         if (passwordInput.attr('type') === "password") {
             passwordInput.attr('type', 'text');
-            passwordImg.attr('src', '/image/hide_password.png');
+            passwordImg.attr('src', '/images/hide_password');
         } else {
             passwordInput.attr('type', 'password');
-            passwordImg.attr('src', '/image/show_password.png');
+            passwordImg.attr('src', '/images/show_password');
         }
     }
 </script>

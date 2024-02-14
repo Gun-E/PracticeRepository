@@ -55,6 +55,14 @@ public class ImageController {
     public ResponseEntity<byte[]> getThumbnail() throws IOException {
         return getImage("파비콘.png");
     }
+    @GetMapping("/images/hide_password")
+    public ResponseEntity<byte[]> gethide_password() throws IOException {
+        return getImage("hide_password.png");
+    }
+    @GetMapping("/images/show_password")
+    public ResponseEntity<byte[]> getshow_passwordl() throws IOException {
+        return getImage("show_password.png");
+    }
 
 
     private ResponseEntity<byte[]> getImage(String imageName) throws IOException {
