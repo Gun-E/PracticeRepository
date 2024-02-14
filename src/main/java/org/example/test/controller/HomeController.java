@@ -129,4 +129,8 @@ public class HomeController {
         model.addAttribute("categories",categories);
         return "test";
     }
+    @GetMapping("/login")
+    public String logincontroller(){
+        return "login";
+    }
 }
