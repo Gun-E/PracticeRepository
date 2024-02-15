@@ -63,6 +63,10 @@ public class ImageController {
     public ResponseEntity<byte[]> getshow_passwordl() throws IOException {
         return getImage("show_password.png");
     }
+    @GetMapping("/images/kakao_login")
+    public ResponseEntity<byte[]> getkakao_login() throws IOException {
+        return getImage("kakao_login.png");
+    }
 
 
     private ResponseEntity<byte[]> getImage(String imageName) throws IOException {
