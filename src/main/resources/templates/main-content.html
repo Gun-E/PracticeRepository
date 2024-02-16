@@ -1,28 +1,102 @@
-<h2 class="font-weight-bold mb-2 text-center">즐겨찾는 목록</h2>
-    <nav class="navbar navbar-light fixed-width">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            상품 카테고리
-        </button>
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
 
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <!-- 카테고리 목록 -->
-                <th:block th:each="testDto : ${categories}">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="${testDto.categoryName.replace(/\s+/g, '-').toLowerCase()}Dropdown"
-                           role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" th:text="${testDto.categoryName}"></a>
-                        <!-- 서브카테고리 목록 -->
-                        <div class="dropdown-menu" aria-labelledby="${testDto.categoryName.replace(/\s+/g, '-').toLowerCase()}Dropdown">
-                            <th:block th:each="category : ${testDto.categories}">
-                                <a class="dropdown-item" href="#" th:text="${category.categoryName}"></a>
-                            </th:block>
-                        </div>
-                    </li>
-                </th:block>
-            </ul>
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .grid-container {
+        display: grid; /* 그리드로 변경 */
+        grid-template-columns: repeat(5, 1fr); /* 5개의 열 생성 */
+        grid-gap: 10px; /* 그리드 간격 설정 */
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        border: 1px solid transparent;
+        /* 텍스트를 수직에서 가로로 변경 */
+        writing-mode: horizontal-tb;
+        white-space: nowrap;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+        border-color: #ccc; /* 마우스 오버 시 테두리 색상 변경 */
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+</style>
+<!--<nav class="navbar navbar-light fixed-width mt-2">-->
+<!--    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"-->
+<!--            aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--        <span class="text-dark">전체 상품 카테고리</span>-->
+<!--    </button>-->
+
+
+<!--    <div class="collapse navbar-collapse" id="navbarNavDropdown">-->
+<!--        <ul class="navbar-nav">-->
+<!--            &lt;!&ndash; 카테고리 목록 &ndash;&gt;-->
+<!--            <th:block th:each="testDto : ${categories}">-->
+<!--                <li class="nav-item dropdown">-->
+<!--                    <a class="nav-link dropdown-toggle" href="#"-->
+<!--                       id="${testDto.categoryName.replace(/\s+/g, '-').toLowerCase()}Dropdown"-->
+<!--                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"-->
+<!--                       th:text="${testDto.categoryName}"></a>-->
+<!--                    &lt;!&ndash; 서브카테고리 목록 &ndash;&gt;-->
+<!--                    <div class="dropdown-menu"-->
+<!--                         aria-labelledby="${testDto.categoryName.replace(/\s+/g, '-').toLowerCase()}Dropdown">-->
+<!--                        <th:block th:each="category : ${testDto.categories}">-->
+<!--                            <a class="dropdown-item" href="#" th:text="${category.categoryName}"></a>-->
+<!--                        </th:block>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--            </th:block>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</nav>-->
+<div class="container mt-2 mb-3">
+    <div class="dropdown mb-3">
+        <button class="btn btn-secondary">전체 카테고리</button>
+        <div class="dropdown-content">
+            <div class="grid-container">
+                <a href="/category/goods_detail/1">채소 과일</a>
+                <a href="/category/goods_detail/2">쌀 잡곡 견과</a>
+                <a href="/category/goods_detail/56">축산 계란류</a>
+                <a href="/category/goods_detail/72">생선 해산물 건어물</a>
+                <a href="/category/goods_detail/114">냉장 냉동 간편식</a>
+                <a href="/category/goods_detail/155">반찬류</a>
+                <a href="/category/goods_detail/179">소스 양념 육수</a>
+                <a href="/category/goods_detail/209">장류 조미료 식용유</a>
+                <a href="/category/goods_detail/257">캔 통조림</a>
+                <a href="/category/goods_detail/285">면류 가공식품</a>
+                <a href="/category/goods_detail/322">스낵 안주류</a>
+                <a href="/category/goods_detail/336">커피 차 음료 생수</a>
+                <a href="/category/goods_detail/390">일반용품</a>
+                <a href="/category/goods_detail/420">주방용품</a>
+                <a href="/category/goods_detail/450">포장용기 일회용품</a>
+                <a href="/category/goods_detail/450">포장용기 일회용품</a>
+                <a href="/category/goods_detail/450">포장용기 일회용품</a>
+            </div>
         </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="font-weight-bold ml-2">고객님의 즐겨찾는 목록</h4>
         <!-- 검색 폼 -->
         <form class="form-inline">
             <div class="input-group">
@@ -32,117 +106,118 @@
                 </div>
             </div>
         </form>
-    </nav>
-    <div class="container mt-2 mb-3">
-        <div class="row row-cols-custom g-3  text-center">
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">삼양라면 5+1개입</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/ramen-box" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">삼양라면 5개입*12</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
-
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/carrot" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">당근 5개입*12</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
-
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/omok-eye" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">오목눈이 5개입*12</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
-
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/beef" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">소고기 500g</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
-
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
-
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
-
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
-
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
+    </div>
 
 
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
-                <form action="링크" method="get">
-                    <button type="submit" class="btn btn-link p-0 border border-success">
-                        <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
-                        <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
-                        <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
-                        <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
-                    </button>
-                </form>
-            </div>
+    <div class="row row-cols-custom g-3  text-center">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">삼양라면 5+1개입</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/ramen-box" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">삼양라면 5개입*12</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/carrot" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">당근 5개입*12</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/omok-eye" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">오목눈이 5개입*12</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/beef" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">소고기 500g</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
+        </div>
+
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3">
+            <form action="링크" method="get">
+                <button type="submit" class="btn btn-link p-0 border border-success">
+                    <img src="/images/noddle" class="card-img-top img-fixed" alt="이미지 없음"></br>
+                    <small class="text-muted mt-1 mb-1" th:text="브랜드">[브랜드]</small>
+                    <p class="text-dark font-weight-bold mt-1 mb-1">라면 5개입*12</p>
+                    <h5 class="text-dark font-weight-bold mt-1 mb-1" th:text="99999원">99999원</h5>
+                </button>
+            </form>
         </div>
     </div>
+</div>
