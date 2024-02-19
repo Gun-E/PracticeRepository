@@ -1,26 +1,78 @@
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var dropdownButton = document.querySelector(".dropdown button");
-        var dropdownContent = document.querySelector(".dropdown-content");
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
 
-        dropdownButton.addEventListener("click", function() {
-            dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
-        });
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        z-index: 1;
+    }
 
-        document.addEventListener("click", function(event) {
-            var isDropdownButton = event.target.closest(".dropdown button");
-            var isDropdownContent = event.target.closest(".dropdown-content");
+    .grid-container {
+        display: grid; /* 그리드로 변경 */
+        grid-template-columns: repeat(5, 1fr); /* 5개의 열 생성 */
+        grid-gap: 10px; /* 그리드 간격 설정 */
+    }
 
-            if (!isDropdownButton && !isDropdownContent) {
-                dropdownContent.style.display = "none";
-            }
-        });
-    });
-</script>
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        border: 1px solid transparent;
+        /* 텍스트를 수직에서 가로로 변경 */
+        writing-mode: horizontal-tb;
+        white-space: nowrap;
+    }
 
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+        border-color: #ccc; /* 마우스 오버 시 테두리 색상 변경 */
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+</style>
+<!--<nav class="navbar navbar-light fixed-width mt-2">-->
+<!--    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"-->
+<!--            aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--        <span class="text-dark">전체 상품 카테고리</span>-->
+<!--    </button>-->
+
+
+<!--    <div class="collapse navbar-collapse" id="navbarNavDropdown">-->
+<!--        <ul class="navbar-nav">-->
+<!--            &lt;!&ndash; 카테고리 목록 &ndash;&gt;-->
+<!--            <th:block th:each="testDto : ${categories}">-->
+<!--                <li class="nav-item dropdown">-->
+<!--                    <a class="nav-link dropdown-toggle" href="#"-->
+<!--                       id="${testDto.categoryName.replace(/\s+/g, '-').toLowerCase()}Dropdown"-->
+<!--                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"-->
+<!--                       th:text="${testDto.categoryName}"></a>-->
+<!--                    &lt;!&ndash; 서브카테고리 목록 &ndash;&gt;-->
+<!--                    <div class="dropdown-menu"-->
+<!--                         aria-labelledby="${testDto.categoryName.replace(/\s+/g, '-').toLowerCase()}Dropdown">-->
+<!--                        <th:block th:each="category : ${testDto.categories}">-->
+<!--                            <a class="dropdown-item" href="#" th:text="${category.categoryName}"></a>-->
+<!--                        </th:block>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--            </th:block>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</nav>-->
 <div class="container mt-2 mb-3">
     <div class="dropdown mb-3">
-        <button class="btn btn-outline-success">전체 카테고리</button>
+        <button class="btn btn-secondary">전체 카테고리</button>
         <div class="dropdown-content">
             <div class="grid-container">
                 <a href="/category/goods_detail/1">채소 과일</a>
