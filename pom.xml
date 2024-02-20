@@ -42,6 +42,12 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version> <!-- 또는 최신 버전 -->
+            <scope>provided</scope> <!-- 서블릿 컨테이너에서 제공될 것이므로 provided로 설정 -->
+        </dependency>
     </dependencies>
 
     <build>

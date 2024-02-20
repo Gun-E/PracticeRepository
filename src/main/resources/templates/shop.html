@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
+        /* styles.css */
+
         * {
             font-family: 'Lato', 'Nanum Gothic', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Dotum', '돋움', sans-serif !important;
         }
@@ -53,6 +55,7 @@
                 }
             }
         }
+
         button.btn-link:hover {
             text-decoration: none;
         }
@@ -63,15 +66,18 @@
             object-fit: cover;
             object-position: center;
         }
+
         .fixed-width {
             max-width: 1140px;
             margin-left: auto;
             margin-right: auto;
         }
+
         .navbar {
             display: flex;
             align-items: flex-end;
         }
+
         .dropdown {
             position: relative;
             display: inline-block;
@@ -106,6 +112,7 @@
             background-color: #f1f1f1;
             border-color: #ccc;
         }
+
         header {
             position: fixed;
             top: 0;
@@ -115,6 +122,9 @@
             background-color: white;
         }
 
+        .shadow-sm {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -133,7 +143,8 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="/">
-            <img src="/images/logo" alt="Logo" width="192" height="52" class="d-inline-block align-text-top"></a>
+            <img src="/images/logo" alt="Logo" width="192" height="52" class="d-inline-block align-text-top">
+        </a>
 
         <button class="navbar-toggler ml-auto mr-2" type="button" data-toggle="collapse"
                 data-target="#navbarSupportedContent"
@@ -143,9 +154,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto font-weight-bold">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">홈 <span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/myPage">마이 페이지</a>
                 </li>
@@ -167,9 +175,7 @@
             </form>
         </div>
     </nav>
-
 </header>
-
 <div style="margin-top: 95px">
     <main th:replace="~{${content}}"></main>
 </div>
