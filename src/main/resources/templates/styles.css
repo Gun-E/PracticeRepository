@@ -49,8 +49,7 @@
 button.btn-link:hover {
     text-decoration: none;
 }
-
-.img-fixed {
+.card-img-custom {
     width: 210px;
     height: 210px;
     object-fit: cover;

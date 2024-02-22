@@ -1,50 +1,56 @@
 <div class="container-fluid d-flex justify-content-center">
     <div class="col-md-6 mt-2">
-        <h3 class="mb-4 font-weight-bold d-inline-block">내 정보</h3>
-        <form class="d-inline-block float-right">
-            <button type="submit" class="btn btn-sm" style="color: rgba(85,95,103,0.87); background-color: rgba(142,146,147,0.26); border-color: rgba(145,141,141,0.3);">✏️</button>
-        </form>
-        <div class="card shadow" style="margin-bottom: 100px">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="mb-4 fw-bold">내 정보</h3>
+            </div>
+            <div class="col-auto">
+                <form class="form-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill"><i class="bi bi-pencil-fill"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="card shadow mt-2">
             <h5 class="card-header bg-success text-white">회원 정보</h5>
             <div class="card-body pb-0">
                 <div class="row mb-3 border-bottom">
                     <div class="col-6">
-                        <label for="name" class="form-label font-weight-bold font-weight-bold">회원 이름</label>
+                        <label for="name" class="form-label fw-bold">회원 이름</label>
                     </div>
                     <div class="col-6">
-                        <p id="name" class="form-control-static">홍길동</p>
-                    </div>
-                </div>
-                <div class="row mb-3 border-bottom">
-                    <div class="col-6">
-                        <label for="email" class="form-label font-weight-bold">회원 이메일</label>
-                    </div>
-                    <div class="col-6">
-                        <p id="email" class="form-control-static">hong@example.com</p>
+                        <p id="name">홍길동</p>
                     </div>
                 </div>
                 <div class="row mb-3 border-bottom">
                     <div class="col-6">
-                        <label for="company" class="form-label font-weight-bold">상호 명</label>
+                        <label for="email" class="form-label fw-bold">회원 이메일</label>
                     </div>
                     <div class="col-6">
-                        <p id="company" class="form-control-static">ABC 주식회사</p>
+                        <p id="email">hong@example.com</p>
                     </div>
                 </div>
                 <div class="row mb-3 border-bottom">
                     <div class="col-6">
-                        <label for="address" class="form-label font-weight-bold">회원 주소</label>
+                        <label for="company" class="form-label fw-bold">상호 명</label>
                     </div>
                     <div class="col-6">
-                        <p id="address" class="form-control-static">서울특별시 강남구 역삼동 123-45</p>
+                        <p id="company">ABC 주식회사</p>
+                    </div>
+                </div>
+                <div class="row mb-3 border-bottom">
+                    <div class="col-6">
+                        <label for="address" class="form-label fw-bold">회원 주소</label>
+                    </div>
+                    <div class="col-6">
+                        <p id="address">서울특별시 강남구 역삼동 123-45</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <label for="phone" class="form-label font-weight-bold">휴대폰 번호</label>
+                        <label for="phone" class="form-label fw-bold">휴대폰 번호</label>
                     </div>
                     <div class="col-6">
-                        <p id="phone" class="form-control-static">010-1234-5678</p>
+                        <p id="phone">010-1234-5678</p>
                     </div>
                 </div>
             </div>
