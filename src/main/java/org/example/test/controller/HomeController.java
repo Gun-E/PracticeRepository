@@ -32,6 +32,7 @@ public class HomeController {
     @GetMapping("/detail/1")
     public String detail(Model model){
         model.addAttribute("content", "detail");
+        model.addAttribute("won", 6000);
         return "shop";
     }
     @GetMapping("/login")
