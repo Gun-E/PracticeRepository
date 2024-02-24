@@ -26,38 +26,46 @@
             <form th:action="@{/register}" method="post" id="registerForm">
                 <div class="form-group">
                     <label for="name">이름</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요." maxlength="20" required>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요."
+                           maxlength="20" required>
                 </div>
                 <div class="form-group mb-5">
                     <label for="phone">전화번호</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="ex) 01012345678" maxlength="20" required>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="ex) 01012345678"
+                           maxlength="20" required>
                 </div>
                 <div class="form-group">
                     <label for="companyName">상호 명</label>
-                    <input type="text" class="form-control" id="companyName" name="companyName" placeholder="상호 명을 입력하세요." maxlength="50" required>
+                    <input type="text" class="form-control" id="companyName" name="companyName"
+                           placeholder="상호 명을 입력하세요." maxlength="50" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="zipcode">우편번호</label>
-                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="ex) 62010" maxlength="100" required>
+                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="ex) 62010"
+                               maxlength="100" required>
                     </div>
                     <div class="form-group col-md-9">
                         <label for="address">도로명 주소</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="도로명 주소를 입력하세요." maxlength="100" required>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="도로명 주소를 입력하세요."
+                               maxlength="100" required>
                     </div>
                 </div>
                 <div class="form-group mb-5">
                     <label for="detail_address">상세 주소</label>
-                    <input type="text" class="form-control" id="detail_address" name="detailAddress" placeholder="상세 주소를 입력하세요." maxlength="100">
+                    <input type="text" class="form-control" id="detail_address" name="detailAddress"
+                           placeholder="상세 주소를 입력하세요." maxlength="100">
                 </div>
                 <div class="form-group">
                     <label for="email">아이디</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="ex) ymart@example.com" maxlength="50" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="ex) ymart@example.com"
+                           maxlength="50" required>
                 </div>
                 <div class="form-group">
                     <label for="userpasswd">비밀번호</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="userpasswd" name="loginPasswd" placeholder="비밀번호를 입력하세요." maxlength="20" required>
+                        <input type="password" class="form-control" id="userpasswd" name="loginPasswd"
+                               placeholder="비밀번호를 입력하세요." maxlength="20" required>
                         <div class="input-group-append">
                             <button type="button" class="btn btn-outline-success btn-sm" onclick="togglePassword()">
                                 <img id="passwordImg" src="/images/show_password" alt="비밀번호 보이기">
@@ -67,8 +75,10 @@
                 </div>
                 <div class="form-group">
                     <label for="userpasswd_confirm">비밀번호 확인</label>
-                    <input type="password" class="form-control" id="userpasswd_confirm" name="loginPasswdConfirm" placeholder="비밀번호를 다시 입력하세요." maxlength="20" required>
-                    <small id="passwordMatchMessage" class="form-text text-danger mt-2" style="display: none;">비밀번호가 일치하지 않습니다.</small>
+                    <input type="password" class="form-control" id="userpasswd_confirm" name="loginPasswdConfirm"
+                           placeholder="비밀번호를 다시 입력하세요." maxlength="20" required>
+                    <small id="passwordMatchMessage" class="form-text text-danger mt-2" style="display: none;">비밀번호가
+                        일치하지 않습니다.</small>
                 </div>
                 <div class="row mt-5">
                     <div class="col-md-9 mb-2">
@@ -79,21 +89,34 @@
                     </div>
                 </div>
             </form>
-            <p class="mt-5 mb-4 text-muted text-center" style="font-size: 12px;">Copyright &copy; Y-MART Corp. All Rights Reserved.</p>
+            <p class="mt-5 mb-4 text-muted text-center" style="font-size: 12px;">Copyright &copy; Y-MART Corp. All
+                Rights Reserved.</p>
         </div>
     </div>
 </div>
 
-<div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalChoice">
+<div class="modal modal-sheet p-4 py-md-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content rounded-3 shadow">
-            <div class="modal-body p-4 text-center">
-                <h5 class="mb-2">회원가입</h5>
-                <p class="mb-0">회원가입을 하시겠습니까?</p>
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLabel">회원가입</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-footer flex-nowrap p-0">
-                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>확인</strong></button>
-                <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">취소</button>
+            <div class="modal-body py-0">
+                회원가입을 하시겠습니까?
+            </div>
+            <div class="container-fluid">
+                <div class="row mt-4 mb-2">
+                    <div class="col-md-7 mb-2">
+                        <button type="button" class="btn btn-success w-100" id="confirmRegisterBtn">확인</button>
+                    </div>
+                    <div class="col-md-5 mb-2">
+                        <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">취소</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -131,6 +154,15 @@
             passwordMatchMessage.show();
             registerBtn.prop('disabled', true);
         }
+    });
+    // 회원가입 버튼 클릭 시 모달 창 표시
+    $('#registerBtn').click(function () {
+        $('#myModal').modal('show');
+    });
+
+    // 모달 내 확인 버튼 클릭 시 회원가입 폼 제출
+    $('#confirmRegisterBtn').click(function () {
+        $('#registerForm').submit();
     });
 </script>
 </body>
