@@ -6,6 +6,7 @@
     <link rel="icon" type="image/png" href="/images/thumbnail">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         * {
             font-family: 'Lato', 'Nanum Gothic', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Dotum', '돋움', sans-serif !important;
@@ -21,38 +22,39 @@
             </a>
     </div>
     <form th:action="@{/login}" method="post" id="loginForm">
-        <div class="form-group mt-4 mb-4">
+        <div class="form-group mt-4 mb-3">
             <label for="mall_id">아이디</label>
-            <input type="text" class="form-control" id="mall_id" name="loginId" placeholder="아이디를 입력하세요." maxlength="20" required>
+            <input type="email" class="form-control" id="mall_id" name="loginId" placeholder="아이디를 입력하세요." maxlength="20" required>
         </div>
-        <div class="form-group mt-4 mb-4">
+        <div class="form-group mb-5">
             <label for="userpasswd">비밀번호</label>
             <div class="input-group">
                 <input type="password" class="form-control" id="userpasswd" name="loginPasswd" placeholder="비밀번호를 입력하세요." maxlength="20" required>
                 <div class="input-group-append">
-                    <button type="button" class="btn btn-outline-success btn-sm" onclick="togglePassword()">
-                        <img id="passwordImg" src="/images/show_password" alt="비밀번호 보이기">
+                    <button type="button" class="btn btn-outline-success" onclick="togglePassword()">
+                        <i id="passwordIcon" class="bi bi-eye-fill"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <button type="submit" class="w-100 btn btn-lg btn-success mt-3 mb-3">로그인</button>
+        <button type="submit" class="w-100 btn btn-lg btn-success mt-4 mb-3 d-flex justify-content-center align-items-center font-weight-bold " style="height: 45px; font-size: 16px">로그인</button>
         <p id="normal_msg" class="message txtWarn typeLeft" style="display:none;">아이디 또는 비밀번호를 확인해주세요.</p>
     </form>
 
     <div class="mb-3">
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-5">
+            <div class="col-md-4 col-4">
                 <hr>
             </div>
-            <div class="col-md-2 text-center">
+            <div class="col-md-2 col-2 text-center">
                 <span class="text-muted" style="writing-mode: horizontal-tb; white-space: nowrap;">또는</span>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4 col-4">
                 <hr>
             </div>
         </div>
     </div>
+
 
     <div>
         <a id="custom-login-btn">
@@ -73,6 +75,10 @@
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/${VERSION}/kakao.min.js"
         integrity="${INTEGRITY_VALUE}" crossorigin="anonymous"></script>
 <script>
+    // 페이지가 로드될 때 아이디 입력란에 포커스 설정
+    $(document).ready(function () {
+        $('#mall_id').focus();
+    });
     // 카카오 로그인 함수
     function loginWithKakao() {
         Kakao.Auth.login({
@@ -87,17 +93,18 @@
         });
     }
 
+
     // 비밀번호 토글 함수
     function togglePassword() {
         var passwordInput = $('#userpasswd');
-        var passwordImg = $('#passwordImg');
+        var passwordIcon = $('#passwordIcon');
 
         if (passwordInput.attr('type') === "password") {
             passwordInput.attr('type', 'text');
-            passwordImg.attr('src', '/images/hide_password');
+            passwordIcon.removeClass('bi-eye-fill').addClass('bi-eye-slash');
         } else {
             passwordInput.attr('type', 'password');
-            passwordImg.attr('src', '/images/show_password');
+            passwordIcon.removeClass('bi-eye-slash').addClass('bi-eye-fill');
         }
     }
 </script>
