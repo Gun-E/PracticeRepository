@@ -8,11 +8,11 @@
                 <h1 class="fw-bold mt-1 mb-4">상품 이름</h1>
                 <div class="row mb-3">
                     <div class="col-md-4 fw-bold">정가</div>
-                    <div class="col-md-8">10000원</div>
+                    <div class="col-md-8" data-th-text="${#numbers.formatInteger(10000,3, 'COMMA')} + '원'"></div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4 fw-bold">판매가</div>
-                    <h4 id="salePrice" class="col-md-8 fw-bold text-success" th:text="${won}+'원'"></h4>
+                    <h4 id="salePrice" class="col-md-8 fw-bold text-success" data-th-text="${#numbers.formatInteger(won,3, 'COMMA')} + '원'"></h4>
                 </div>
 
                 <hr class="my-3">
@@ -80,34 +80,35 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     // 판매가 합계를 계산하고 표시하는 함수
     function calculateSaleTotal() {
-        var quantityInput = document.getElementById("quantityInput");
-        var quantity = parseInt(quantityInput.value);
-        var pricePerUnit = parseInt(document.getElementById("salePrice").innerText); // 단위당 가격을 가져옵니다.
+        var quantity = parseInt($("#quantityInput").val());
+        var pricePerUnit = parseInt($("#salePrice").text().replace("원", "").replace(",", ""));
         var salePrice = quantity * pricePerUnit;
-        document.getElementById("totalSalePrice").textContent = salePrice + "원"; // 판매가 합계 표시
+        var formattedSalePrice = new Intl.NumberFormat('ko-KR').format(salePrice); // 숫자를 한국식 통화 포맷으로 변환
+        $("#totalSalePrice").text(formattedSalePrice + "원"); // 판매가 합계 표시
     }
 
     // 마이너스 버튼 클릭 시 수량 감소
-    document.getElementById("minusBtn").addEventListener("click", function() {
-        var quantityInput = document.getElementById("quantityInput");
-        var quantity = parseInt(quantityInput.value);
+    $("#minusBtn").click(function() {
+        var quantity = parseInt($("#quantityInput").val());
         if (quantity > 1) {
-            quantityInput.value = quantity - 1;
+            $("#quantityInput").val(quantity - 1);
             calculateSaleTotal(); // 수량 변경 시 판매가 합계를 다시 계산
         }
     });
 
     // 플러스 버튼 클릭 시 수량 증가
-    document.getElementById("plusBtn").addEventListener("click", function() {
-        var quantityInput = document.getElementById("quantityInput");
-        var quantity = parseInt(quantityInput.value);
-        quantityInput.value = quantity + 1;
+    $("#plusBtn").click(function() {
+        var quantity = parseInt($("#quantityInput").val());
+        $("#quantityInput").val(quantity + 1);
         calculateSaleTotal(); // 수량 변경 시 판매가 합계를 다시 계산
     });
 
     // 페이지 로드 시 초기 판매가 합계 계산
-    calculateSaleTotal();
+    $(document).ready(function() {
+        calculateSaleTotal();
+    });
 </script>

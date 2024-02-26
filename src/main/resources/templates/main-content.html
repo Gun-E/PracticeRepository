@@ -1,4 +1,13 @@
-<div class="container mb-3">
+<style>
+    .card-container {
+        z-index: 1;
+    }
+
+    .cart-button {
+        z-index: 2;
+    }
+</style>
+<div class="container mb-3 card-container">
     <h4 class="fw-bold mb-4">고객님의 즐겨찾는 상품</h4>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex flex-column flex-md-row gap-4 align-items-center justify-content-start">
@@ -44,7 +53,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 5'+'+'+'1개입'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="5000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(5000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -58,7 +67,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 1 박스'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="49000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(50000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -71,7 +80,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'국내산'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="당근" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="1000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(100,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -84,7 +93,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'국내산'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'한우 A++'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="99999원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(9999999,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -97,7 +106,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 5'+'+'+'1개입'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="5000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(5000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -110,7 +119,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 5'+'+'+'1개입'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="5000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(5000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -123,7 +132,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 5'+'+'+'1개입'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="5000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(5000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -136,7 +145,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 5'+'+'+'1개입'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="5000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(5000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -149,7 +158,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 5'+'+'+'1개입'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="5000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(5000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -162,7 +171,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 5'+'+'+'1개입'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="5000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(5000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -175,7 +184,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 5'+'+'+'1개입'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="5000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(5000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -188,7 +197,7 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h6 class="text-muted mb-3" th:text="'['+'삼양'+']'"></h6>
                         <h6 class="card-title text-dark fw-bold mb-1" th:text="'삼양라면 5'+'+'+'1개입'" style="height: 35px"></h6>
-                        <h5 class="card-text text-dark fw-bold mb-1" th:text="5000원"></h5>
+                        <h5 class="card-text text-success fw-bold mb-1" data-th-text="${#numbers.formatInteger(5000,3, 'COMMA')} + '원'"></h5>
                         <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                     </div>
                 </div>
@@ -209,4 +218,10 @@
             </li>
         </ul>
     </nav>
+</div>
+
+<div class="position-fixed bottom-0 end-0 mb-4 me-4 cart-button">
+    <a href="/cart" class="btn btn-success btn-lg rounded-pill py-2 opacity-75 shadow-sm bg-gradient">
+        <i class="bi bi-cart" style="font-size: 2.0rem;"></i>
+    </a>
 </div>

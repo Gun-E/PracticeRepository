@@ -5,7 +5,7 @@
                 <h3 class="mb-4 fw-bold">내 정보</h3>
             </div>
             <div class="col-auto">
-                <form class="form-inline">
+                <form class="form-inline" th:action = "@{/modify}" method="get" id="loginForm">
                     <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill"><i class="bi bi-pencil-fill"></i></button>
                 </form>
             </div>
@@ -19,6 +19,14 @@
                     </div>
                     <div class="col-6">
                         <p id="name">홍길동</p>
+                    </div>
+                </div>
+                <div class="row mb-3 border-bottom">
+                    <div class="col-6">
+                        <label for="phone" class="form-label fw-bold">휴대폰 번호</label>
+                    </div>
+                    <div class="col-6">
+                        <p id="phone">010-1234-5678</p>
                     </div>
                 </div>
                 <div class="row mb-3 border-bottom">
@@ -37,20 +45,28 @@
                         <p id="company">ABC 주식회사</p>
                     </div>
                 </div>
-                <div class="row mb-3 border-bottom">
+                <div class="row">
                     <div class="col-6">
-                        <label for="address" class="form-label fw-bold">회원 주소</label>
+                        <label for="address" class="form-label fw-bold">우편번호</label>
                     </div>
                     <div class="col-6">
-                        <p id="address">서울특별시 강남구 역삼동 123-45</p>
+                        <p id="zipcode">62010</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <label for="phone" class="form-label fw-bold">휴대폰 번호</label>
+                        <label for="address" class="form-label fw-bold">도로명 주소</label>
                     </div>
                     <div class="col-6">
-                        <p id="phone">010-1234-5678</p>
+                        <p id="address">광주광역시 서구 서광주로 28</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="address" class="form-label fw-bold">상세 주소</label>
+                    </div>
+                    <div class="col-6">
+                        <p id="detail_address">Y-Mart</p>
                     </div>
                 </div>
             </div>

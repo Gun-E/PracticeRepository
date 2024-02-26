@@ -29,6 +29,11 @@ public class HomeController {
         model.addAttribute("content", "allPage");
         return "shop";
     }
+    @GetMapping("/modify")
+    public String modify(Model model) {
+        model.addAttribute("content", "modify");
+        return "shop";
+    }
     @GetMapping("/detail/1")
     public String detail(Model model){
         model.addAttribute("content", "detail");
