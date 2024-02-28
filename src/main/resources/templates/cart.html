@@ -1,4 +1,4 @@
-<div class="container-fluid d-flex justify-content-center">
+<div class="container-fluid d-flex justify-content-center" th:attr="data-cart-size=${cartList.size()}">
     <div class="col-md-8 mt-2">
         <div class="row align-items-center">
             <div class="col">
@@ -7,111 +7,67 @@
         </div>
         <div class="card shadow mt-2">
             <h5 class="card-header bg-success text-white fw-semibold">장바구니 내역</h5>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="row mb-3">
-                        <div class="col-auto">
-                            <img src="/images/noddle" alt="상품 이미지" class="card-img img-fluid object-fit-cover"
-                                 style="width: 100px; height: 100px;">
-                        </div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="fw-bold">(브랜드) 상품 이름 <span class="text-muted">1box</span></div>
-                                </div>
-                                <div class="col-auto">
-                                    <button type="button" class="btn-close"></button>
-                                </div>
+            <div class="card-body mt-2">
+                <div th:each="item, itemStat : ${cartList}" th:id="'cartItem' + ${itemStat.index}">
+                    <div class="container rounded border mb-3">
+                        <div class="row mt-2 mb-3">
+                            <div class="col-auto">
+                                <form action="/detail/1" method="get">
+                                    <button type="submit" class="btn p-0 border-0 bg-transparent">
+                                        <img th:src="${item.image}" alt="상품 이미지"
+                                             class="card-img img-fluid object-fit-cover"
+                                             style="width: 100px; height: 100px;">
+                                    </button>
+                                </form>
                             </div>
-                            <div class="row">
-                                <div>
-                                <span class="badge rounded-pill text-bg-danger">태그1</span>
-                                <span class="badge rounded-pill text-bg-info">태그2</span>
-                                <span class="badge rounded-pill text-bg-warning">태그3</span>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <form action="/detail/1" method="get">
+                                            <button type="submit" class="btn p-0 border-0 bg-transparent">
+                                                <span class="fw-bold text-success"
+                                                      th:text="${'('+item.brand+')'}"></span>
+                                                <span class="fw-bold" th:text="${item.name}"></span>
+                                                <span class="text-muted" th:text="${item.option}"></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-auto">
+                                        <form th:action="@{/delete}" method="post">
+                                            <button type="submit" class="btn-close"></button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                    <h8 class="text-decoration-line-through text-muted mb-0">10,000원</h8>
-                                    <h5 class="fw-bold text-success">5,000원</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <h6 class="fw-bold">수량</h6>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <div class="input-group w-25">
-                                <button id="minusBtn" class="btn btn-success btn-sm" type="button">-</button>
-                                <input id="quantityInput" type="text" class="form-control form-control-sm text-center" value="1">
-                                <button id="plusBtn" class="btn btn-success btn-sm" type="button">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <h6 class="fw-bold">
-                                상품 금액
-                            </h6>
-                        </div>
-                        <div class="col-6 text-end">
-                            <h5 class="fw-bold text-end">
-                                5,000원
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="row mb-3">
-                        <div class="col-auto">
-                            <img src="/images/beef" alt="상품 이미지" class="card-img img-fluid object-fit-cover"
-                                 style="width: 100px; height: 100px;">
-                        </div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="fw-bold">(국내산) 한우 A++ <span class="text-muted">500g</span></div>
+                                <div class="row">
+                                    <div class="col mr-1">
+                                        <div th:each="tag : ${item.tags}" class="badge rounded-pill text-bg-success"
+                                             th:text="${tag}"></div>
+                                    </div>
                                 </div>
-                                <div class="col-auto">
-                                    <button type="button" class="btn-close"></button>
+                                <div class="row">
+                                    <h8 class="text-decoration-line-through text-muted mb-0"
+                                        th:text="${#numbers.formatInteger(item.originalPrice,3, 'COMMA')} + '원'"></h8>
+                                    <h5 id="salePrice" class="fw-bold text-success"
+                                        th:text="${#numbers.formatInteger(item.discountedPrice,3, 'COMMA')} + '원'"></h5>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div>
-                                    <span class="badge rounded-pill text-bg-danger">태그1</span>
-                                    <span class="badge rounded-pill text-bg-info">태그2</span>
-                                    <span class="badge rounded-pill text-bg-warning">태그3</span>
-                                </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <h6 class="fw-bold">수량</h6>
                             </div>
-                            <div class="row">
-                                <h8 class="text-decoration-line-through text-muted mb-0">100,000원</h8>
-                                <h5 class="fw-bold text-success">90,000원</h5>
+                            <div class="col-6 text-end">
+                                <h5 id="quantity" class="fw-bold" th:text="${item.quantity+'개'}"></h5>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <h6 class="fw-bold">수량</h6>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <div class="input-group w-25">
-                                <button id="minusBtn2" class="btn btn-success btn-sm" type="button">-</button>
-                                <input id="quantityInput2" type="text" class="form-control form-control-sm text-center" value="1">
-                                <button id="plusBtn2" class="btn btn-success btn-sm" type="button">+</button>
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                <h6 class="fw-bold">상품 금액</h6>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <h6 class="fw-bold">
-                                상품 금액
-                            </h6>
-                        </div>
-                        <div class="col-6 text-end">
-                            <h5 class="fw-bold text-end">
-                                90,000원
-                            </h5>
+                            <div class="col-6 text-end">
+                                <h4 class="fw-bold text-end"
+                                    th:text="${#numbers.formatInteger(item.discountedPrice,3, 'COMMA')+'원'}"></h4>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -125,16 +81,44 @@
                         </h6>
                     </div>
                     <div class="col-6">
-                        <h3 class="fw-bold text-end">
-                            300,000원
-                        </h3>
+                        <h3 id="totalPrice" class="fw-bold text-end"></h3>
                     </div>
                 </div>
                 <div class="row">
                     <button type="button" class="btn btn-success fw-bold">주문하기</button>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function calculateTotalPrice() {
+            var totalPrice = 0;
+
+            $('.card-body .row').each(function () {
+                var priceString = $(this).find('.col-6 h4').text().replace('원', '').replace(/,/g, '').trim();
+                var price = parseInt(priceString);
+
+                var quantityString = $(this).find('.col-6 h5').text().trim();
+                var quantity = parseInt(quantityString);
+
+                if (isNaN(price)) {
+                    price = 0;
+                }
+                if (isNaN(quantity)) {
+                    quantity = 1;
+                }
+
+                totalPrice += price * quantity;
+            });
+
+            $('#totalPrice').text(totalPrice.toLocaleString() + '원');
+        }
+
+        calculateTotalPrice();
+        $('.card-body').on('change', calculateTotalPrice);
+    });
+</script>

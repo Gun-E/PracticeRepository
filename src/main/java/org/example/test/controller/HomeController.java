@@ -1,5 +1,8 @@
 package org.example.test.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.example.test.domain.CartDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,9 +45,15 @@ public class HomeController {
     }
     @GetMapping("/cart")
     public String cart(Model model){
+        List<CartDto> cartList = new ArrayList<>();
+        cartList.add(new CartDto("상품1","브랜드", 10000, 5000, List.of("태그1", "태그2"), "/images/noddle", "1box",1));
+        cartList.add(new CartDto("소고기","국내산", 100000, 90000, List.of("태그3", "태그2"), "/images/beef", "500g",1));
+
+        model.addAttribute("cartList", cartList);
         model.addAttribute("content", "cart");
         return "layout";
     }
+
     @GetMapping("/login")
     public String login(){
         return "login";
