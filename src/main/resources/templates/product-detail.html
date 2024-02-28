@@ -52,7 +52,7 @@
                     <div class="col-md-8 d-flex align-items-center justify-content-between">
                         <div class="input-group w-25">
                             <button id="minusBtn" class="btn btn-success btn-sm" type="button">-</button>
-                            <input id="quantityInput" type="text" class="form-control form-control-sm text-center" value="1">
+                            <input id="quantityInput" type="text" class="form-control form-control-sm text-center" value="1" min="1">
                             <button id="plusBtn" class="btn btn-success btn-sm" type="button">+</button>
                         </div>
                     </div>
@@ -110,5 +110,14 @@
     // 페이지 로드 시 초기 판매가 합계 계산
     $(document).ready(function() {
         calculateSaleTotal();
+    });
+    // 수량 입력란에 숫자를 직접 입력했을 때 판매가 합계를 업데이트하는 함수
+    $("#quantityInput").on('input', function() {
+        var quantity = parseInt($(this).val());
+        if (quantity < 1) { // 최소값인 1보다 작은 경우 1로 설정
+            $(this).val(1);
+            quantity = 1;
+        }
+        calculateSaleTotal(); // 수량 변경 시 판매가 합계를 다시 계산
     });
 </script>
