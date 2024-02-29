@@ -18,12 +18,8 @@
                 <hr class="my-3">
 
                 <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">브랜드</div>
-                    <div class="col-md-8">브랜드</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">원산지</div>
-                    <div class="col-md-8">국내산</div>
+                    <div class="col-md-4 fw-bold">브랜드/원산지</div>
+                    <div class="col-md-8">브랜드/원산지</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4 fw-bold">중량/용량</div>
@@ -38,7 +34,11 @@
 
                 <div class="row mb-3">
                     <div class="col-md-4 fw-bold">태그</div>
-                    <div class="col-md-8">태그1, 태그2, 태그3</div>
+                    <div class="col-md-8">
+                        <span class="badge rounded-pill text-bg-success">태그1</span>
+                        <span class="badge rounded-pill text-bg-success">태그2</span>
+                        <span class="badge rounded-pill text-bg-success">태그3</span>
+                    </div>
                 </div>
 
                 <div class="row mb-3">
@@ -73,7 +73,9 @@
                         <button class="btn btn-secondary w-100">❤</button>
                     </div>
                     <div class="col-md-3 mb-2">
+                        <form th:action="@{/cart}" method="get">
                         <button class="btn btn-outline-dark w-100">장바구니</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -111,13 +113,14 @@
     $(document).ready(function() {
         calculateSaleTotal();
     });
+
     // 수량 입력란에 숫자를 직접 입력했을 때 판매가 합계를 업데이트하는 함수
     $("#quantityInput").on('input', function() {
         var quantity = parseInt($(this).val());
-        if (quantity < 1) { // 최소값인 1보다 작은 경우 1로 설정
+        if (quantity < 1) {
             $(this).val(1);
             quantity = 1;
         }
-        calculateSaleTotal(); // 수량 변경 시 판매가 합계를 다시 계산
+        calculateSaleTotal();
     });
 </script>

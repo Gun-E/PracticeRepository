@@ -50,7 +50,7 @@ public class HomeController {
         cartList.add(new CartDto("소고기","국내산", 100000, 90000, List.of("태그3", "태그2"), "/images/beef", "500g",1));
 
         model.addAttribute("cartList", cartList);
-        model.addAttribute("content", "cart");
+        model.addAttribute("content", "user-cart");
         return "layout";
     }
 

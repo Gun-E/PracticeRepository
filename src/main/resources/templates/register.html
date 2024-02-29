@@ -59,9 +59,6 @@
                     <label for="userpasswd" class="form-label">비밀번호</label>
                     <div class="input-group">
                         <input type="password" class="form-control" id="userpasswd" name="loginPasswd" placeholder="비밀번호를 입력하세요." maxlength="20" required>
-                        <button class="btn btn-outline-success" type="button" onclick="togglePassword()">
-                            <i id="passwordIcon" class="bi bi-eye-fill"></i>
-                        </button>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -111,10 +108,21 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 <script>
-    // 페이지가 로드될 때 이름 입력란에 포커스 설정
     $(document).ready(function () {
+        // 페이지가 로드될 때 이름 입력란에 포커스 설정
         $('#name').focus();
+
+        // 버튼 생성
+        var passwordToggleBtn = $('<button>')
+            .addClass('btn btn-outline-success')
+            .attr('type', 'button')
+            .html('<i id="passwordIcon" class="bi-eye-slash"></i>')
+            .click(togglePassword);
+
+        // 생성한 버튼을 비밀번호 입력란 뒤에 추가
+        $('#userpasswd').after(passwordToggleBtn);
     });
+
     // 비밀번호 토글 함수
     function togglePassword() {
         var passwordInput = $('#userpasswd');
@@ -122,10 +130,10 @@
 
         if (passwordInput.attr('type') === "password") {
             passwordInput.attr('type', 'text');
-            passwordIcon.removeClass('bi-eye-fill').addClass('bi-eye-slash');
+            passwordIcon.removeClass('bi-eye-slash').addClass('bi-eye-fill');
         } else {
             passwordInput.attr('type', 'password');
-            passwordIcon.removeClass('bi-eye-slash').addClass('bi-eye-fill');
+            passwordIcon.removeClass('bi-eye-fill').addClass('bi-eye-slash');
         }
     }
 
@@ -145,7 +153,6 @@
     // 회원가입 버튼 클릭 시 모달 창 표시 및 입력 확인
     $('#registerBtn').click(function () {
         event.preventDefault();
-        // 각 입력 필드의 값을 가져옴
         var name = $('#name').val();
         var phone = $('#phone').val();
         var companyName = $('#companyName').val();
