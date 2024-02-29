@@ -2,7 +2,13 @@ package org.example.test.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.example.test.domain.AddressDTO;
 import org.example.test.domain.CartDto;
+import org.example.test.domain.MemberDTO;
+import org.example.test.domain.OrderDTO;
+import org.example.test.domain.ProductDTO;
+import org.example.test.domain.ProductDetailDTO;
+import org.example.test.domain.ProductListDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +19,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @GetMapping
     public String home(Model model){
+        List<ProductListDTO> products = new ArrayList<>();
+
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스", 50000));
+        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", 100));
+        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", 9999999));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+
+
+        model.addAttribute("products", products);
         model.addAttribute("content", "product-list-starred");
         return "layout";
     }
     @GetMapping("/myPage")
     public String myPage(Model model) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setName("홍길동");
+        memberDTO.setPhone("010-1234-5678");
+        memberDTO.setEmail("hong@example.com");
+        memberDTO.setCompany("ABC 주식회사");
+        memberDTO.setZipcode("62010");
+        memberDTO.setAddress("광주광역시 서구 서광주로 28");
+        memberDTO.setDetailAddress("Y-Mart");
+
+        model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("content", "user-detail");
         return "layout";
     }
@@ -29,18 +62,56 @@ public class HomeController {
     }
     @GetMapping("/allPage")
     public String allPage(Model model) {
+        List<ProductListDTO> products = new ArrayList<>();
+
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스", 50000));
+        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", 100));
+        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", 9999999));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+
+        model.addAttribute("products", products);
         model.addAttribute("content", "product-list");
         return "layout";
     }
     @GetMapping("/modify")
     public String modify(Model model) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setName("홍길동");
+        memberDTO.setPhone("010-1234-5678");
+        memberDTO.setEmail("hong@example.com");
+        memberDTO.setCompany("ABC 주식회사");
+        memberDTO.setZipcode("62010");
+        memberDTO.setAddress("광주광역시 서구 서광주로 28");
+        memberDTO.setDetailAddress("Y-Mart");
+
+        model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("content", "user-detail-modify");
         return "layout";
     }
     @GetMapping("/detail/1")
     public String detail(Model model){
+        ProductDetailDTO productDTO = new ProductDetailDTO();
+        productDTO.setName("상품 이름");
+        productDTO.setImage("/images/noddle");
+        productDTO.setOriginalPrice(10000);
+        productDTO.setSalePrice(8000);
+        productDTO.setBrandOrigin("브랜드/원산지");
+        productDTO.setWeight("500g");
+        productDTO.setPackaging("박스");
+        productDTO.setTags(List.of("태그1","태그2","태그3"));
+        productDTO.setCategory("카테고리 이름");
+        productDTO.setQuantity(1);
+
+        model.addAttribute("productDTO", productDTO);
         model.addAttribute("content", "product-detail");
-        model.addAttribute("won", 6000);
         return "layout";
     }
     @GetMapping("/cart")
@@ -53,7 +124,25 @@ public class HomeController {
         model.addAttribute("content", "user-cart");
         return "layout";
     }
+    @GetMapping("/order")
+    public String getOrderPage(Model model) {
+        List<ProductDTO> products = new ArrayList<>();
+        products.add(new ProductDTO("삼양", "라면", "1 box", 2));
+        products.add(new ProductDTO("국내산", "소고기", "500g", 1));
 
+        List<AddressDTO> addressList = new ArrayList<>();
+        addressList.add(new AddressDTO(1, "서울시 강남구"));
+        addressList.add(new AddressDTO(2, "서울시 종로구"));
+
+        OrderDTO order = new OrderDTO();
+        order.setProducts(products);
+        order.setAddressList(addressList);
+        order.setTotalPrice(50000.0);
+
+        model.addAttribute("order", order);
+        model.addAttribute("content", "user-order");
+        return "layout";
+    }
     @GetMapping("/login")
     public String login(){
         return "login";

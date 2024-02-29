@@ -16,67 +16,76 @@
 </head>
 <body>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="text-center mb-4">
-                <a href="/">
-                    <img src="/images/logo" alt="Y-MART 로고" class="my-4">
-                </a>
-            </div>
-            <form action="/register" method="post" id="registerForm">
-                <div class="mb-3">
-                    <label for="name" class="form-label">이름</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요." maxlength="20" required>
-                </div>
-                <div class="mb-5">
-                    <label for="phone" class="form-label">전화번호</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="ex) 01012345678" maxlength="20" required>
-                </div>
-                <div class="mb-3">
-                    <label for="companyName" class="form-label">상호 명</label>
-                    <input type="text" class="form-control" id="companyName" name="companyName" placeholder="상호 명을 입력하세요." maxlength="50" required>
-                </div>
-                <div class="mb-3 row">
-                    <div class="col-md-3 mb-3 mb-md-0">
-                        <label for="zipcode" class="form-label">우편번호</label>
-                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="ex) 62010" maxlength="100" required>
-                    </div>
-                    <div class="col-md-9">
-                        <label for="address" class="form-label">도로명 주소</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="도로명 주소를 입력하세요." maxlength="100" required>
-                    </div>
-                </div>
-                <div class="mb-5">
-                    <label for="detail_address" class="form-label">상세 주소</label>
-                    <input type="text" class="form-control" id="detail_address" name="detailAddress" placeholder="상세 주소를 입력하세요." maxlength="100">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">아이디 (이메일)</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="ex) ymart@example.com" maxlength="50" required>
-                </div>
-                <div class="mb-3">
-                    <label for="userpasswd" class="form-label">비밀번호</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="userpasswd" name="loginPasswd" placeholder="비밀번호를 입력하세요." maxlength="20" required>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="userpasswd_confirm" class="form-label">비밀번호 확인</label>
-                    <input type="password" class="form-control" id="userpasswd_confirm" name="loginPasswdConfirm" placeholder="비밀번호를 다시 입력하세요." maxlength="20" required>
-                    <small id="passwordMatchMessage" class="form-text text-danger mt-2" style="display: none;">비밀번호가 일치하지 않습니다.</small>
-                </div>
-                <div class="row mt-5 mb-5">
-                    <div class="col-md-9">
-                        <button type="submit" class="btn btn-success w-100 mb-3" id="registerBtn">회원가입</button>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="/login" class="btn btn-secondary w-100">취소</a>
-                    </div>
-                </div>
-            </form>
-            <p class="mt-5 mb-4 text-muted text-center" style="font-size: 12px;">Copyright &copy; Y-MART Corp. All Rights Reserved.</p>
+<div class="container-fluid d-flex justify-content-center mt-5">
+    <div class="col-sm-8 col-md-7 col-lg-6 col-xl-5">
+        <div class="text-center mb-4">
+            <a href="/">
+                <img src="/images/logo" alt="Y-MART 로고" class="my-4">
+            </a>
         </div>
+        <form action="/register" method="post" id="registerForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">이름</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요." maxlength="20"
+                       required>
+            </div>
+            <div class="mb-5">
+                <label for="phone" class="form-label">전화번호</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="ex) 01012345678"
+                       maxlength="20" required>
+            </div>
+            <div class="mb-3">
+                <label for="companyName" class="form-label">상호 명</label>
+                <input type="text" class="form-control" id="companyName" name="companyName" placeholder="상호 명을 입력하세요."
+                       maxlength="50" required>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-3 mb-3 mb-md-0">
+                    <label for="zipcode" class="form-label">우편번호</label>
+                    <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="ex) 62010"
+                           maxlength="100" required>
+                </div>
+                <div class="col-sm-9">
+                    <label for="address" class="form-label">도로명 주소</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="도로명 주소를 입력하세요."
+                           maxlength="100" required>
+                </div>
+            </div>
+            <div class="mb-5">
+                <label for="detail_address" class="form-label">상세 주소</label>
+                <input type="text" class="form-control" id="detail_address" name="detailAddress"
+                       placeholder="상세 주소를 입력하세요." maxlength="100">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">아이디 (이메일)</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="ex) ymart@example.com"
+                       maxlength="50" required>
+            </div>
+            <div class="mb-3">
+                <label for="userpasswd" class="form-label">비밀번호</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="userpasswd" name="loginPasswd"
+                           placeholder="비밀번호를 입력하세요." maxlength="20" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="userpasswd_confirm" class="form-label">비밀번호 확인</label>
+                <input type="password" class="form-control" id="userpasswd_confirm" name="loginPasswdConfirm"
+                       placeholder="비밀번호를 다시 입력하세요." maxlength="20" required>
+                <small id="passwordMatchMessage" class="form-text text-danger mt-2" style="display: none;">비밀번호가 일치하지
+                    않습니다.</small>
+            </div>
+            <div class="row mt-5 mb-5">
+                <div class="col-9">
+                    <button type="submit" class="btn btn-success w-100 mb-3" id="registerBtn">회원가입</button>
+                </div>
+                <div class="col-3">
+                    <a href="/login" class="btn btn-secondary w-100">취소</a>
+                </div>
+            </div>
+        </form>
+        <p class="mt-5 mb-4 text-muted text-center" style="font-size: 12px;">Copyright &copy; Y-MART Corp. All Rights
+            Reserved.</p>
     </div>
 </div>
 <div class="modal modal-sheet p-4 py-md-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -92,10 +101,10 @@
             </div>
             <div class="container-fluid">
                 <div class="row mt-4 mb-2">
-                    <div class="col-md-7 mb-2">
+                    <div class="col-7 mb-2">
                         <button type="button" class="btn btn-success w-100" id="confirmRegisterBtn">확인</button>
                     </div>
-                    <div class="col-md-5 mb-2">
+                    <div class="col-5 mb-2">
                         <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">취소</button>
                     </div>
                 </div>

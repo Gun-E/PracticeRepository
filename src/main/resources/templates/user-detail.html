@@ -1,24 +1,24 @@
 <div class="container-fluid d-flex justify-content-center">
-    <div class="col-md-6 mt-2">
+    <div class="col-sm-10 col-11">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="mb-4 fw-bold">내 정보</h3>
+                <h4 class="mb-4 fw-bold">내 정보</h4>
             </div>
             <div class="col-auto">
-                <form class="form-inline" th:action = "@{/modify}" method="get" id="loginForm">
+                <form th:action="@{/modify}" method="get" id="loginForm">
                     <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill"><i class="bi bi-pencil-fill"></i></button>
                 </form>
             </div>
         </div>
-        <div class="card shadow mt-2">
-            <h5 class="card-header bg-success text-white fw-semibold">회원 정보</h5>
+        <div class="card shadow">
+            <div class="card-header bg-success text-white fw-semibold">회원 정보</div>
             <div class="card-body pb-0">
                 <div class="row mb-3 border-bottom">
                     <div class="col-6">
                         <label for="name" class="form-label fw-bold">회원 이름</label>
                     </div>
                     <div class="col-6">
-                        <p id="name">홍길동</p>
+                        <p th:text="${memberDTO.name}" id="name"></p>
                     </div>
                 </div>
                 <div class="row mb-3 border-bottom">
@@ -26,7 +26,7 @@
                         <label for="phone" class="form-label fw-bold">휴대폰 번호</label>
                     </div>
                     <div class="col-6">
-                        <p id="phone">010-1234-5678</p>
+                        <p th:text="${memberDTO.phone}" id="phone"></p>
                     </div>
                 </div>
                 <div class="row mb-3 border-bottom">
@@ -34,7 +34,7 @@
                         <label for="email" class="form-label fw-bold">회원 이메일</label>
                     </div>
                     <div class="col-6">
-                        <p id="email">hong@example.com</p>
+                        <p th:text="${memberDTO.email}" id="email"></p>
                     </div>
                 </div>
                 <div class="row mb-3 border-bottom">
@@ -42,7 +42,7 @@
                         <label for="company" class="form-label fw-bold">상호 명</label>
                     </div>
                     <div class="col-6">
-                        <p id="company">ABC 주식회사</p>
+                        <p th:text="${memberDTO.company}" id="company"></p>
                     </div>
                 </div>
                 <div class="row">
@@ -50,7 +50,7 @@
                         <label for="address" class="form-label fw-bold">우편번호</label>
                     </div>
                     <div class="col-6">
-                        <p id="zipcode">62010</p>
+                        <p th:text="${memberDTO.zipcode}" id="zipcode"></p>
                     </div>
                 </div>
                 <div class="row">
@@ -58,7 +58,7 @@
                         <label for="address" class="form-label fw-bold">도로명 주소</label>
                     </div>
                     <div class="col-6">
-                        <p id="address">광주광역시 서구 서광주로 28</p>
+                        <p th:text="${memberDTO.address}" id="address"></p>
                     </div>
                 </div>
                 <div class="row">
@@ -66,7 +66,7 @@
                         <label for="address" class="form-label fw-bold">상세 주소</label>
                     </div>
                     <div class="col-6">
-                        <p id="detail_address">Y-Mart</p>
+                        <p th:text="${memberDTO.detailAddress}" id="detail_address"></p>
                     </div>
                 </div>
             </div>
