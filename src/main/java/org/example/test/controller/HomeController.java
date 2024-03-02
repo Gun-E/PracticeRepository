@@ -9,6 +9,8 @@ import org.example.test.domain.MemberDTO;
 import org.example.test.domain.NoticeDetailDto;
 import org.example.test.domain.NoticeDto;
 import org.example.test.domain.OrderDTO;
+import org.example.test.domain.OrderDetailDto;
+import org.example.test.domain.OrderListDto;
 import org.example.test.domain.ProductDTO;
 import org.example.test.domain.ProductDetailDTO;
 import org.example.test.domain.ProductListDTO;
@@ -61,10 +63,10 @@ public class HomeController {
     @GetMapping("/notice")
     public String noticePage(Model model) {
         List<NoticeDto> notices = new ArrayList<>();
-        notices.add(new NoticeDto(1, "2024년 2월 17일: 새로운 기능 추가되었습니다."));
-        notices.add(new NoticeDto(1, "2024년 2월 15일: 서버 점검 안내입니다."));
-        notices.add(new NoticeDto(1, "2024년 2월 10일: 이용약관이 변경되었습니다."));
-        notices.add(new NoticeDto(1, "2024년 2월 5일: 회원가입 이벤트가 진행 중입니다."));
+        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 1), "🦾 새로운 기능 추가되었습니다."));
+        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 2), "🖥️ 서버 점검 안내입니다."));
+        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 3), "✏️ 이용약관이 변경되었습니다."));
+        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 4), "😘 회원가입 이벤트가 진행 중입니다."));
 
         model.addAttribute("notices", notices);
         model.addAttribute("content", "notice");
@@ -166,7 +168,38 @@ public class HomeController {
         order.setTotalPrice(50000.0);
 
         model.addAttribute("order", order);
-        model.addAttribute("content", "user-order");
+        model.addAttribute("content", "user-order-address");
+        return "layout";
+    }
+    @GetMapping("/orderList")
+    public String getOrderListPage(Model model) {
+
+        List<OrderListDto> orderList = new ArrayList<>();
+        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDate.of(2024, 3, 1)));
+        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDate.of(2024, 3, 2)));
+        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDate.of(2024, 3, 3)));
+
+        model.addAttribute("orderList", orderList);
+        model.addAttribute("content", "user-order-list");
+        return "layout";
+    }
+    @GetMapping("/orderDetail/1")
+    public String getOrderDetailPage(Model model) {
+        OrderDetailDto orderDetailDto = new OrderDetailDto();
+        orderDetailDto.setOrderNumber(12345);
+        orderDetailDto.setStatus("승인 완료");
+        orderDetailDto.setDay(LocalDate.now());
+        orderDetailDto.setAddress("서울시 강남구");
+        //orderDetailDto.setComment("특이 사항 없음");
+        orderDetailDto.setTotalPrice(50000);
+
+        List<ProductDTO> products = new ArrayList<>();
+        products.add(new ProductDTO("삼양", "라면", "1 box", 2));
+        products.add(new ProductDTO("국내산", "소고기", "500g", 1));
+        orderDetailDto.setProducts(products);
+
+        model.addAttribute("orderDetail", orderDetailDto);
+        model.addAttribute("content", "user-order-detail");
         return "layout";
     }
     @GetMapping("/login")

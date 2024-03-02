@@ -1,17 +1,19 @@
 package org.example.test.domain;
 
 import java.time.LocalDate;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class NoticeDto {
-    private int id;
+public class OrderListDto {
+    private int orderId;
+    private String status;
+    private int totalPrice;
     private LocalDate day;
-    private String title;
 }

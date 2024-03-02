@@ -15,10 +15,11 @@
     <div class="col-sm-10 col-11">
         <h4 class="mb-4 fw-bold">공지사항</h4>
         <div class="card shadow">
-            <div class="card-header bg-success text-white fw-semibold">공지사항</div>
+            <div class="card-header bg-success text-white fw-bold">공지사항</div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" th:each="notice : ${notices}">
-                    <a th:href="@{'/notice_detail/' + ${notice.id}}" th:text="${notice.title}"></a>
+                    <a th:href="@{'/notice_detail/' + ${notice.id}}"
+                       th:text="${#temporals.format(notice.day, 'yyyy년 MM월 dd일') + ' : ' + notice.title}"></a>
                 </li>
             </ul>
         </div>

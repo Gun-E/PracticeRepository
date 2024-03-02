@@ -6,8 +6,8 @@
             </div>
         </div>
         <div class="card shadow">
-            <div class="card-header bg-success text-white fw-semibold">장바구니 내역</div>
-            <div class="card-body">
+            <div class="card-header bg-success text-white fw-bold">장바구니 내역</div>
+            <div class="card-body pb-0">
                 <div th:each="item, itemStat : ${cartList}" th:id="'cartItem' + ${itemStat.index}">
                     <div class="container-fluid rounded border mb-3">
                         <div class="row mt-2 mb-3">
