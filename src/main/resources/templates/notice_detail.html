@@ -1,0 +1,19 @@
+<div class="container-fluid d-flex justify-content-center">
+    <div class="col-sm-10 col-11">
+        <h4 class="mb-4 fw-bold">공지사항</h4>
+        <div class="card shadow">
+            <div class="card-header bg-success text-white fw-bold">공지사항 상세 페이지</div>
+            <div class="card-body">
+                <h5 class="card-title fw-semibold mb-3" th:text="${notice_detail.title}"></h5>
+                <hr class="border-top border-secondary">
+                <p class="card-text" th:text="${notice_detail.content}"></p>
+                <hr class="border-top border-secondary">
+                <p class="card-text">작성자: <span th:text="${notice_detail.name}"></span></p>
+                <p class="card-text">작성일: <span th:text="${notice_detail.day}"></span></p>
+            </div>
+        </div>
+
+        <button class="btn btn-secondary btn-sm mt-4" onclick="history.back()">목록으로</button>
+
+    </div>
+</div>

@@ -17,10 +17,9 @@
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-semibold">공지사항</div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="notice_detail.html">2024년 2월 17일: 새로운 기능 추가되었습니다.</a></li>
-                <li class="list-group-item"><a href="notice_detail.html">2024년 2월 15일: 서버 점검 안내입니다.</a></li>
-                <li class="list-group-item"><a href="notice_detail.html">2024년 2월 10일: 이용약관이 변경되었습니다.</a></li>
-                <li class="list-group-item"><a href="notice_detail.html">2024년 2월 5일: 회원가입 이벤트가 진행 중입니다.</a></li>
+                <li class="list-group-item" th:each="notice : ${notices}">
+                    <a th:href="@{'/notice_detail/' + ${notice.id}}" th:text="${notice.title}"></a>
+                </li>
             </ul>
         </div>
         <nav class="mt-4" aria-label="Page navigation">

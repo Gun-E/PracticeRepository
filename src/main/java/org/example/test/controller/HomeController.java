@@ -1,10 +1,13 @@
 package org.example.test.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.example.test.domain.AddressDTO;
 import org.example.test.domain.CartDto;
 import org.example.test.domain.MemberDTO;
+import org.example.test.domain.NoticeDetailDto;
+import org.example.test.domain.NoticeDto;
 import org.example.test.domain.OrderDTO;
 import org.example.test.domain.ProductDTO;
 import org.example.test.domain.ProductDetailDTO;
@@ -12,6 +15,7 @@ import org.example.test.domain.ProductListDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -56,7 +60,29 @@ public class HomeController {
     }
     @GetMapping("/notice")
     public String noticePage(Model model) {
+        List<NoticeDto> notices = new ArrayList<>();
+        notices.add(new NoticeDto(1, "2024년 2월 17일: 새로운 기능 추가되었습니다."));
+        notices.add(new NoticeDto(1, "2024년 2월 15일: 서버 점검 안내입니다."));
+        notices.add(new NoticeDto(1, "2024년 2월 10일: 이용약관이 변경되었습니다."));
+        notices.add(new NoticeDto(1, "2024년 2월 5일: 회원가입 이벤트가 진행 중입니다."));
+
+        model.addAttribute("notices", notices);
         model.addAttribute("content", "notice");
+
+        return "layout";
+    }
+    @GetMapping("/notice_detail/{id}")
+    public String showNoticeDetail(@PathVariable int id, Model model) {
+
+        NoticeDetailDto noticeDetailDto = new NoticeDetailDto(
+                "새로운 기능 추가 안내",
+                "저희 서비스에 새로운 기능이 추가되었습니다. 이제 더 많은 기능을 이용하실 수 있습니다.",
+                "관리자",
+                LocalDate.of(2024, 2, 17)
+        );
+
+        model.addAttribute("notice_detail", noticeDetailDto);
+        model.addAttribute("content", "notice_detail");
 
         return "layout";
     }
@@ -99,7 +125,7 @@ public class HomeController {
     @GetMapping("/detail/1")
     public String detail(Model model){
         ProductDetailDTO productDTO = new ProductDetailDTO();
-        productDTO.setName("상품 이름");
+        productDTO.setName("라면 박스");
         productDTO.setImage("/images/noddle");
         productDTO.setOriginalPrice(10000);
         productDTO.setSalePrice(8000);
