@@ -1,38 +1,57 @@
-<style>
-    .list-group-item a {
-        color: rgba(0, 0, 0, 0.7);
-        text-decoration: none;
-        transition: color 0.1s ease, font-weight 0.1s ease;
-    }
-
-    .list-group-item a:hover {
-        color: rgba(0, 0, 0, 0.9);
-        font-weight: bold;
-    }
-</style>
-
 <div class="container-fluid d-flex justify-content-center">
     <div class="col-sm-10 col-11">
-        <h4 class="mb-4 fw-bold">공지사항</h4>
+        <div class="row">
+            <div class="col">
+                <h4 class="mb-4 fw-bold">공지사항</h4>
+            </div>
+            <div class="col-auto">
+                <form th:action="@{/noticeRegistration}" method="get" id="noticeRegistrationForm">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold">공지사항</div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" th:each="notice : ${notices}">
-                    <a th:href="@{'/notice_detail/' + ${notice.id}}"
-                       th:text="${#temporals.format(notice.day, 'yyyy년 MM월 dd일') + ' : ' + notice.title}"></a>
-                </li>
-            </ul>
+
+                <div class="table-responsive" >
+                    <table class="table table-hover table-bordered mb-0">
+                        <thead class="table-success">
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">날짜</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="notice : ${notices}">
+                            <td th:text="${notice.id}"></td>
+                            <td>
+                                <a th:href="@{'/notice_detail/' + ${notice.id}}"
+                                   th:text="${notice.title}"
+                                   class="text-decoration-none text-reset"></a>
+                            </td>
+                            <td th:text="${notice.admin}"></td>
+                            <td th:text="${#temporals.format(notice.day, 'yyyy년 MM월 dd일')}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
         </div>
-        <nav class="mt-4" aria-label="Page navigation">
+        <nav class="mt-4">
             <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">◀</a>
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i
+                            class="bi bi-caret-left-fill"></i></a>
                 </li>
                 <li class="page-item"><a class="page-link text-success" href="#">1</a></li>
                 <li class="page-item"><a class="page-link text-success" href="#">2</a></li>
                 <li class="page-item"><a class="page-link text-success" href="#">3</a></li>
                 <li class="page-item">
-                    <a class="page-link text-success" href="#">▶</a>
+                    <a class="page-link text-success" href="#"><i class="bi bi-caret-right-fill"></i></a>
                 </li>
             </ul>
         </nav>

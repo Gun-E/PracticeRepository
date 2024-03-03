@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.example.test.domain.AddressDTO;
 import org.example.test.domain.CartDto;
+import org.example.test.domain.CategoryDTO;
 import org.example.test.domain.MemberDTO;
 import org.example.test.domain.NoticeDetailDto;
 import org.example.test.domain.NoticeDto;
@@ -14,6 +15,8 @@ import org.example.test.domain.OrderListDto;
 import org.example.test.domain.ProductDTO;
 import org.example.test.domain.ProductDetailDTO;
 import org.example.test.domain.ProductListDTO;
+import org.example.test.domain.ProductRegistrationDTO;
+import org.example.test.domain.TagDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +43,6 @@ public class HomeController {
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
 
-
         model.addAttribute("products", products);
         model.addAttribute("content", "product-list-starred");
         return "layout";
@@ -63,10 +65,11 @@ public class HomeController {
     @GetMapping("/notice")
     public String noticePage(Model model) {
         List<NoticeDto> notices = new ArrayList<>();
-        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 1), "🦾 새로운 기능 추가되었습니다."));
-        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 2), "🖥️ 서버 점검 안내입니다."));
-        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 3), "✏️ 이용약관이 변경되었습니다."));
-        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 4), "😘 회원가입 이벤트가 진행 중입니다."));
+        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 1), "🦾 새로운 기능 추가되었습니다.","관리자1"));
+        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 2), "🖥️ 서버 점검 안내입니다.","관리자2"));
+        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 3), "✏️ 이용약관이 변경되었습니다.","관리자3"));
+        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 4), "😘 회원가입 이벤트가 진행 중입니다.","관리자4"));
+        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 4), "😘 회원가입 이벤트가 진행 중입니다.","관리자4"));
 
         model.addAttribute("notices", notices);
         model.addAttribute("content", "notice");
@@ -77,6 +80,7 @@ public class HomeController {
     public String showNoticeDetail(@PathVariable int id, Model model) {
 
         NoticeDetailDto noticeDetailDto = new NoticeDetailDto(
+                id,
                 "새로운 기능 추가 안내",
                 "저희 서비스에 새로운 기능이 추가되었습니다. 이제 더 많은 기능을 이용하실 수 있습니다.",
                 "관리자",
@@ -88,6 +92,12 @@ public class HomeController {
 
         return "layout";
     }
+    @GetMapping("/noticeRegistration")
+    public String showNoticeModify(Model model) {
+        model.addAttribute("content", "notice_registration");
+        return "layout";
+    }
+
     @GetMapping("/allPage")
     public String allPage(Model model) {
         List<ProductListDTO> products = new ArrayList<>();
@@ -109,9 +119,47 @@ public class HomeController {
         model.addAttribute("content", "product-list");
         return "layout";
     }
+    @GetMapping("/productRegistration")
+    public String productRegistrationPage(Model model) {
+        // 예시 데이터 생성
+        List<TagDTO> tags = new ArrayList<>();
+        tags.add(new TagDTO(1, "태그1"));
+        tags.add(new TagDTO(2, "태그2"));
+        tags.add(new TagDTO(4, "태그3"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+
+        List<CategoryDTO> categories = new ArrayList<>();
+        categories.add(new CategoryDTO(1, "Category1"));
+        categories.add(new CategoryDTO(2, "Category2"));
+        categories.add(new CategoryDTO(3, "Category4"));
+        categories.add(new CategoryDTO(4, "Category6"));
+
+        model.addAttribute("productRegistration", new ProductRegistrationDTO(tags, categories));
+        model.addAttribute("content", "product-registration");
+        return "layout";
+    }
+
     @GetMapping("/modify")
     public String modify(Model model) {
         MemberDTO memberDTO = new MemberDTO();
+
         memberDTO.setName("홍길동");
         memberDTO.setPhone("010-1234-5678");
         memberDTO.setEmail("hong@example.com");
@@ -140,6 +188,7 @@ public class HomeController {
 
         model.addAttribute("productDTO", productDTO);
         model.addAttribute("content", "product-detail");
+
         return "layout";
     }
     @GetMapping("/cart")
@@ -150,6 +199,7 @@ public class HomeController {
 
         model.addAttribute("cartList", cartList);
         model.addAttribute("content", "user-cart");
+
         return "layout";
     }
     @GetMapping("/order")
@@ -173,7 +223,6 @@ public class HomeController {
     }
     @GetMapping("/orderList")
     public String getOrderListPage(Model model) {
-
         List<OrderListDto> orderList = new ArrayList<>();
         orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDate.of(2024, 3, 1)));
         orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDate.of(2024, 3, 2)));
@@ -181,6 +230,7 @@ public class HomeController {
 
         model.addAttribute("orderList", orderList);
         model.addAttribute("content", "user-order-list");
+
         return "layout";
     }
     @GetMapping("/orderDetail/1")
