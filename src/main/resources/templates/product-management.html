@@ -1,16 +1,16 @@
 <div class="container-fluid d-flex justify-content-center">
     <div class="col-sm-10 col-11">
         <div class="row">
-            <h4 class="mb-4 fw-bold">상품 등록 (관리자)</h4>
+            <h4 class="mb-4 fw-bold" th:text="${productDTO.id} ? '상품 수정 (관리자)' : '상품 등록 (관리자)'"></h4>
         </div>
         <div class="card shadow">
-            <div class="card-header bg-success text-white fw-bold">상품 등록</div>
+            <div class="card-header bg-success text-white fw-bold" th:text="${productDTO.id} ? '상품 수정' : '상품 등록'"></div>
             <div class="card-body">
-                <form th:action="@{/productRegistration}" th:object="${productDTO}" method="post" id="productForm">
+                <form th:action="@{/product}" th:object="${productDTO}" method="post" id="productForm">
 
                     <h6 class="fw-bold mb-2">상품 이름</h6>
                     <div class="form-floating mb-4">
-                        <input type="text" class="form-control" id="name" placeholder="상품 이름">
+                        <input type="text" class="form-control" id="name" placeholder="상품 이름" th:value="${productDTO.name}">
                         <label for="name">상품 이름</label>
                     </div>
 
@@ -18,14 +18,14 @@
                         <div class="col-6">
                             <h6 class="fw-bold mb-2">상품 정가</h6>
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="originalPrice" placeholder="상품 정가">
+                                <input type="text" class="form-control" id="originalPrice" placeholder="상품 정가" th:value="${productDTO.originalPrice}">
                                 <label for="originalPrice">상품 정가</label>
                             </div>
                         </div>
                         <div class="col-6">
                             <h6 class="fw-bold mb-2">상품 판매가</h6>
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="salePrice" placeholder="상품 판매가">
+                                <input type="text" class="form-control" id="salePrice" placeholder="상품 판매가" th:value="${productDTO.salePrice}">
                                 <label for="salePrice">상품 판매가</label>
                             </div>
                         </div>
@@ -33,22 +33,27 @@
 
                     <h6 class="fw-bold mb-2">상품 바코드 번호</h6>
                     <div class="form-floating mb-4">
-                        <input type="text" class="form-control" id="barCodeNumber" placeholder="상품 바코드 번호">
+                        <input type="text" class="form-control" id="barCodeNumber" placeholder="상품 바코드 번호" th:value="${productDTO.barCodeNumber}">
                         <label for="barCodeNumber">상품 바코드 번호</label>
+                    </div>
+
+                    <h6 class="fw-bold mb-2">상품 이미지</h6>
+                    <div class="mb-4">
+                        <input type="file" class="form-control" id="image" name="image" accept="image/jpeg, image/png">
                     </div>
 
                     <div class="row mb-4">
                         <div class="col-6">
                             <h6 class="fw-bold mb-2">브랜드/원산지</h6>
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="brandOrigin" placeholder="상품 브랜드/원산지">
+                                <input type="text" class="form-control" id="brandOrigin" placeholder="상품 브랜드/원산지" th:value="${productDTO.brandOrigin}">
                                 <label for="brandOrigin">브랜드/원산지</label>
                             </div>
                         </div>
                         <div class="col-6">
                             <h6 class="fw-bold mb-2">중량/용량</h6>
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="weight" placeholder="중량/용량">
+                                <input type="text" class="form-control" id="weight" placeholder="중량/용량" th:value="${productDTO.weight}">
                                 <label for="weight">중량/용량</label>
                             </div>
                         </div>
@@ -56,12 +61,12 @@
 
                     <h6 class="fw-bold mb-2">상품 포장 타입</h6>
                     <div class="form-floating mb-4">
-                        <input type="text" class="form-control" id="packaging" placeholder="상품 포장 타입">
+                        <input type="text" class="form-control" id="packaging" placeholder="상품 포장 타입" th:value="${productDTO.packaging}">
                         <label for="packaging">상품 포장 타입</label>
                     </div>
 
                     <h6 class="fw-bold mb-2">상품 카테고리</h6>
-                    <select class="form-select mb-4">
+                    <select class="form-select mb-4" th:value="${productDTO.category}">
                         <option selected>카테고리 선택</option>
                         <option th:each="category : ${productRegistration.categorys}"
                                 th:value="${category.id}"
@@ -79,7 +84,7 @@
 
                     <div class="row">
                         <div class="col-8">
-                            <button type="submit" class="btn btn-success fw-bold w-100">등록</button>
+                            <button type="submit" class="btn btn-success fw-bold w-100" th:text="${productDTO.id} ? '수정' : '등록'"></button>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-secondary w-100 fw-bold" onclick="history.back()">취소</button>
