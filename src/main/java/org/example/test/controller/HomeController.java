@@ -1,5 +1,7 @@
 package org.example.test.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ import org.example.test.domain.ProductDetailDTO;
 import org.example.test.domain.ProductListDTO;
 import org.example.test.domain.ProductRegistrationDTO;
 import org.example.test.domain.TagDTO;
+import org.example.test.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
     @GetMapping
-    public String home(Model model){
+    public String home(HttpSession session, Model model){
         List<ProductListDTO> products = new ArrayList<>();
 
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
@@ -43,8 +46,19 @@ public class HomeController {
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
 
+        User user = new User(1,"회원1");
+        session.setAttribute("isUser", user);
+        session.setAttribute("isAdmin", user);
+
+        model.addAttribute("isUser", user);
+        model.addAttribute("isAdmin", user);
         model.addAttribute("products", products);
         model.addAttribute("content", "product-list-starred");
+        return "layout";
+    }
+    @GetMapping("/admin")
+    public String admin(Model model){
+        model.addAttribute("content", "admin-management");
         return "layout";
     }
     @GetMapping("/userDetail")
@@ -199,6 +213,33 @@ public class HomeController {
         model.addAttribute("productDTO", productDTO);
         model.addAttribute("productRegistration", new ProductRegistrationDTO(tags, categories));
         model.addAttribute("content", "product-management");
+        return "layout";
+    }
+    @GetMapping("/tagManagement")
+    public String tagManagementPage(Model model) {
+
+        List<TagDTO> tags = new ArrayList<>();
+        tags.add(new TagDTO(1, "태그1"));
+        tags.add(new TagDTO(2, "태그2"));
+        tags.add(new TagDTO(4, "태그3"));
+        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그4"));
+
+        model.addAttribute("tags", tags);
+        model.addAttribute("content", "tag-management");
+        return "layout";
+    }
+    @GetMapping("/categoryManagement")
+    public String categoryManagementPage(Model model) {
+
+        List<CategoryDTO> categories = new ArrayList<>();
+        categories.add(new CategoryDTO(1, "Category1",""));
+        categories.add(new CategoryDTO(2, "Category2",""));
+        categories.add(new CategoryDTO(3, "Category4",""));
+        categories.add(new CategoryDTO(4, "Category6",""));
+
+        model.addAttribute("categories", categories);
+        model.addAttribute("content", "category-management");
         return "layout";
     }
     @GetMapping("/productModify/{id}")

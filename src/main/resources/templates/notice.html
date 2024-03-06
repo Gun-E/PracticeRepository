@@ -15,30 +15,30 @@
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold">공지사항</div>
 
-                <div class="table-responsive" >
-                    <table class="table table-hover table-bordered mb-0">
-                        <thead class="table-success">
-                        <tr>
-                            <th scope="col">번호</th>
-                            <th scope="col">제목</th>
-                            <th scope="col">작성자</th>
-                            <th scope="col">날짜</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="notice : ${notices}">
-                            <td th:text="${notice.id}"></td>
-                            <td>
-                                <a th:href="@{'/notice_detail/' + ${notice.id}}"
-                                   th:text="${notice.title}"
-                                   class="text-decoration-none text-reset"></a>
-                            </td>
-                            <td th:text="${notice.admin}"></td>
-                            <td th:text="${#temporals.format(notice.day, 'yyyy년 MM월 dd일')}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered mb-0">
+                    <thead class="table-success">
+                    <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">날짜</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="notice : ${notices}">
+                        <td th:text="${notice.id}"></td>
+                        <td>
+                            <a th:href="@{'/notice_detail/' + ${notice.id}}"
+                               th:text="${notice.title}"
+                               class="text-decoration-none text-reset"></a>
+                        </td>
+                        <td th:text="${notice.admin}"></td>
+                        <td th:text="${#temporals.format(notice.day, 'yyyy년 MM월 dd일')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
         </div>
         <nav class="mt-4">

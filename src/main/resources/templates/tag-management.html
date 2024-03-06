@@ -1,0 +1,63 @@
+<div class="container-fluid d-flex justify-content-center">
+    <div class="col-sm-10 col-11">
+        <div class="row">
+            <div class="col">
+                <h4 class="mb-4 fw-bold">태그 관리</h4>
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#myModal">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card shadow">
+            <div class="card-header bg-success text-white fw-bold">관리</div>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered mb-0 text-center">
+                    <thead class="table-success">
+                    <tr>
+                        <th scope="col" class="col-2">번호</th>
+                        <th scope="col" class="col-6">이름</th>
+                        <th scope="col" class="col-2">수정</th>
+                        <th scope="col" class="col-2">삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="tag : ${tags}">
+                        <td th:text="${tag.id}"></td>
+                        <td th:text="${tag.name}"></td>
+                        <td>
+                            <a th:href="@{/tag/edit/{id}(id=${tag.id})}" class="btn btn-success btn-sm">수정</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/tag/delete/{id}(id=${tag.id})}" class="btn btn-danger btn-sm">삭제</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-sheet p-4 py-md-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold" id="modalLabel">태그 등록</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form class="">
+                    <h6  class="fw-bold">태그 이름</h6>
+                    <div class="form-floating mb-5">
+                        <input type="text" class="form-control rounded-3" id="name" placeholder="태그 이름">
+                        <label for="name">태그 이름</label>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">확인</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
