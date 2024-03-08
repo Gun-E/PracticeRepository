@@ -14,5 +14,6 @@ public class ProductListDTO {
     private String imagePath;
     private String brand;
     private String name;
+    private String weight;
     private int price;
 }

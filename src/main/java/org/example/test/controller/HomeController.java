@@ -3,6 +3,7 @@ package org.example.test.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.example.test.domain.AddressDTO;
@@ -33,18 +34,18 @@ public class HomeController {
     public String home(HttpSession session, Model model){
         List<ProductListDTO> products = new ArrayList<>();
 
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스", 50000));
-        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", 100));
-        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", 9999999));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스","1box", 50000));
+        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", "1개",100));
+        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", "500g",9999999));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
 
         User user = new User(1,"회원1");
         session.setAttribute("isUser", user);
@@ -79,11 +80,11 @@ public class HomeController {
     @GetMapping("/notice")
     public String noticePage(Model model) {
         List<NoticeDto> notices = new ArrayList<>();
-        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 1), "🦾 새로운 기능 추가되었습니다.","관리자1"));
-        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 2), "🖥️ 서버 점검 안내입니다.","관리자2"));
-        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 3), "✏️ 이용약관이 변경되었습니다.","관리자3"));
-        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 4), "😘 회원가입 이벤트가 진행 중입니다.","관리자4"));
-        notices.add(new NoticeDto(1,LocalDate.of(2024, 3, 4), "😘 회원가입 이벤트가 진행 중입니다.","관리자4"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 1, 0, 0), "🦾 새로운 기능 추가되었습니다.","관리자1"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 2, 0, 0), "🖥️ 서버 점검 안내입니다.","관리자2"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 3, 0, 0), "✏️ 이용약관이 변경되었습니다.","관리자3"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.","관리자4"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.","관리자4"));
 
         model.addAttribute("notices", notices);
         model.addAttribute("content", "notice");
@@ -131,18 +132,18 @@ public class HomeController {
     public String allPage(Model model) {
         List<ProductListDTO> products = new ArrayList<>();
 
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(2L, "/images/ramen-box", "삼양", "삼양라면 1 박스", 50000));
-        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", 100));
-        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", 9999999));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스","1box", 50000));
+        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", "1개",100));
+        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", "500g",9999999));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
 
         List<CategoryDTO> categories = new ArrayList<>();
         categories.add(new CategoryDTO(1, "채소 • 과일", "bi bi-egg"));
@@ -173,11 +174,12 @@ public class HomeController {
     public String categoryPage(@PathVariable int id, Model model) {
         List<ProductListDTO> products = new ArrayList<>();
 
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
-        products.add(new ProductListDTO(2L, "/images/ramen-box", "삼양", "삼양라면 1 박스", 50000));
-        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", 100));
-        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", 9999999));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스","1box", 50000));
+        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", "1개",100));
+        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", "500g",9999999));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
 
         List<CategoryDTO> categories = new ArrayList<>();
         CategoryDTO vegetableFruitCategory = new CategoryDTO(1, "채소 • 과일", "bi bi-egg");
@@ -354,8 +356,9 @@ public class HomeController {
         orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDate.of(2024, 3, 3)));
 
         model.addAttribute("orderList", orderList);
-        model.addAttribute("content", "user-order-list");
 
+
+        model.addAttribute("content", "user-order-list");
         return "layout";
     }
     @GetMapping("/orderDetail/1")

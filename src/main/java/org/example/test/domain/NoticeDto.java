@@ -1,6 +1,7 @@
 package org.example.test.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class NoticeDto {
     private int id;
-    private LocalDate day;
+    private LocalDateTime day;
     private String title;
     private String admin;
 }
