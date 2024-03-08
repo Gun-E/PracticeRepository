@@ -5,7 +5,8 @@
                 <h4 class="mb-4 fw-bold">카테고리 관리</h4>
             </div>
             <div class="col-auto">
-                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#myModal">
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-bs-toggle="modal"
+                        data-bs-target="#myModal">
                     <i class="bi bi-plus-lg"></i>
                 </button>
             </div>
@@ -30,7 +31,8 @@
                             <a th:href="@{/category/edit/{id}(id=${category.id})}" class="btn btn-success btn-sm">수정</a>
                         </td>
                         <td>
-                            <a th:href="@{/category/delete/{id}(id=${category.id})}" class="btn btn-danger btn-sm">삭제</a>
+                            <a th:href="@{/category/delete/{id}(id=${category.id})}"
+                               class="btn btn-danger btn-sm">삭제</a>
                         </td>
                     </tr>
                     </tbody>
@@ -50,13 +52,14 @@
             </div>
 
             <div class="modal-body">
-                <form class="">
+                <form action="/category" method="post"roq>
                     <h6 class="fw-bold">부모 카테고리 번호</h6>
                     <div class="form-floating mb-4">
-                        <input type="text" class="form-control rounded-3" id="parentProductCategoryId" placeholder="부모 카테고리 번호">
+                        <input type="text" class="form-control rounded-3" id="parentProductCategoryId"
+                               placeholder="부모 카테고리 번호">
                         <label for="parentProductCategoryId">부모 카테고리 번호</label>
                     </div>
-                    <h6  class="fw-bold">카테고리 이름</h6>
+                    <h6 class="fw-bold">카테고리 이름</h6>
                     <div class="form-floating mb-5">
                         <input type="text" class="form-control rounded-3" id="name" placeholder="카테고리 이름">
                         <label for="name">카테고리 이름</label>

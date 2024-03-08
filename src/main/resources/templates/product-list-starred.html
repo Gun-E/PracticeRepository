@@ -1,88 +1,80 @@
-<style>
-    .dropdown-item:focus{
-        background-color: #ffffff;
-        color: #000000;
-    }
-</style>
-
-<div class="container-fluid d-flex justify-content-center mb-3 z-1">
+<div class="container-fluid d-flex justify-content-center">
     <div class="col-sm-10 col-11">
         <div class="row">
             <div class="col">
                 <h4 class="fw-bold mb-4">즐겨찾는 상품</h4>
             </div>
-            <div class="col-auto">
-                <form th:action="@{/productRegistration}" method="get" id="productRegistrationForm">
-                    <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill">
-                        <i class="bi bi-plus-lg"></i>
-                    </button>
-                </form>
-            </div>
         </div>
-        <div class="row mb-2">
-            <div class="col">
-                <button class="btn btn-success  btn-sm dropdown-toggle fw-bold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    상품 카테고리
-                </button>
-                <ul class="dropdown-menu shadow w-75">
-                    <div class="row">
-                        <li th:each="category : ${categories}" class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <a th:href="@{/category/{id}(id=${category.id})}" class="dropdown-item">
-                                <i th:class="${category.icon} + ' text-success'"></i> [[${category.name}]]
-                            </a>
-                        </li>
-                    </div>
-                </ul>
-            </div>
-            <div class="col-auto">
-                <form class="form-inline">
-                    <div class="input-group input-group-sm">
-                        <input type="search" class="form-control focus-ring focus-ring-success" placeholder="검색어 입력">
-                        <button class="btn btn-success input-group-append" type="button"><i class="bi bi-search"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <form id="cartForm" th:action="@{/addCart}" method="post">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white fw-bold">공지사항</div>
 
-        <div class="row text-center">
-            <div th:each="product : ${products}" class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-2 mb-3">
-                <form th:action="@{/productDetail/{id}(id=${product.id})}" method="get">
-                    <div class="card h-100 border border-success shadow">
-                        <img th:src="@{${product.imagePath}}" class="card-img-top img-fluid object-fit-cover"
-                             alt="이미지 없음" style="height: 210px;">
-                        <div class="card-body d-flex flex-column justify-content-between">
-                            <h6 class="text-muted mb-3" th:text="${'[' + product.brand + ']'}"></h6>
-                            <h6 class="card-title text-dark fw-bold mb-1" th:text="${product.name}"
-                                style="height: 35px"></h6>
-                            <h5 class="card-text text-success fw-bold mb-1"
-                                th:text="${#numbers.formatInteger(product.price,3, 'COMMA')} + '원'"
-                                style="height: 35px"></h5>
-                            <button type="submit" class="btn btn-link p-0 stretched-link"></button>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered mb-0 text-center">
+                        <thead class="table-success">
+                        <tr>
+                            <th scope="col">체크박스</th>
+                            <th scope="col">상품</th>
+                            <th scope="col">금액</th>
+                            <th scope="col">찜 삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product : ${products}">
+                            <td>
+                                <input class="form-check-input" type="checkbox" th:value="${product.id}" checked>
+                            </td>
+                            <td>
+                                <a class="btn p-0 border-0 bg-transparent"
+                                   th:href="@{/productDetail/{id}(id=${product.id})}">
+                                    <span class="fw-bold text-success" th:text="${'('+product.brand+')'}"></span>
+                                    <span class="fw-bold" th:text="${product.name}"></span>
+                                    <span class="text-muted" th:text="${product.weight}"></span>
+                                </a>
+                            </td>
+                            <td th:text="${#numbers.formatInteger(product.price,3, 'COMMA')} + '원'"></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                        th:attr="data-bs-toggle='modal', data-bs-target='#deleteModal'+${product.id}">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-success fw-bold w-100" type="submit">장바구니에 추가</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div th:each="product : ${products}" class="modal fade modal-sheet p-4 py-md-5" th:id="'deleteModal'+${product.id}" tabindex="-1"
+     aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header  border-bottom-0">
+                <h5 class="modal-title" id="deleteModalLabel">즐겨찾기 삭제</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                즐겨찾기에서 제거하시겠습니까?
+            </div>
+            <div class="modal-footer border-0">
+                <form th:action="@{/favoriteDelete}" method="post" class="w-100">
+                    <input type="hidden" th:value="${product.id}" name="productId"/>
+                    <div class="row">
+                        <div class="col-7 pr-1">
+                            <button type="submit" class="btn btn-danger w-100">삭제</button>
+                        </div>
+                        <div class="col-5 pl-1">
+                            <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">취소</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        <nav class="mt-4">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i
-                            class="bi bi-caret-left-fill"></i></a>
-                </li>
-                <li class="page-item"><a class="page-link text-success" href="#">1</a></li>
-                <li class="page-item"><a class="page-link text-success" href="#">2</a></li>
-                <li class="page-item"><a class="page-link text-success" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link text-success" href="#"><i class="bi bi-caret-right-fill"></i></a>
-                </li>
-            </ul>
-        </nav>
     </div>
-</div>
-
-<div class="position-fixed bottom-0 end-0 mb-4 me-4 cart-button z-2">
-    <a href="/cart" class="btn btn-success btn-lg rounded-pill py-2 opacity-75 shadow bg-gradient">
-        <i class="bi bi-cart" style="font-size: 2.0rem;"></i>
-    </a>
 </div>
