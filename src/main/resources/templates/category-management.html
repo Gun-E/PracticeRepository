@@ -28,11 +28,17 @@
                         <td th:text="${category.id}"></td>
                         <td th:text="${category.name}"></td>
                         <td>
-                            <a th:href="@{/category/edit/{id}(id=${category.id})}" class="btn btn-success btn-sm">수정</a>
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#myModal"
+                                    th:data-category-id="${category.id}"
+                                    th:data-category-name="${category.name}"
+                                    th:data-category-parent-id="${category.parentCategory.id}">수정
+                            </button>
                         </td>
                         <td>
-                            <a th:href="@{/category/delete/{id}(id=${category.id})}"
-                               class="btn btn-danger btn-sm">삭제</a>
+                            <form th:action="@{/category/delete/{id}(id=${category.id})}" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
@@ -47,22 +53,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header border-bottom-0">
-                <h5 class="modal-title fw-bold" id="modalLabel">카테고리 등록</h5>
+                <h5 class="modal-title fw-bold" id="modalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
-                <form action="/category" method="post"roq>
+                <form id="categoryForm" method="post">
+                    <input type="hidden" id="categoryId">
                     <h6 class="fw-bold">부모 카테고리 번호</h6>
                     <div class="form-floating mb-4">
-                        <input type="text" class="form-control rounded-3" id="parentProductCategoryId"
+                        <input type="text" class="form-control rounded-3" id="categoryParentId"
                                placeholder="부모 카테고리 번호">
-                        <label for="parentProductCategoryId">부모 카테고리 번호</label>
+                        <label for="categoryParentId">부모 카테고리 번호</label>
                     </div>
                     <h6 class="fw-bold">카테고리 이름</h6>
                     <div class="form-floating mb-5">
-                        <input type="text" class="form-control rounded-3" id="name" placeholder="카테고리 이름">
-                        <label for="name">카테고리 이름</label>
+                        <input type="text" class="form-control rounded-3" id="categoryName" placeholder="카테고리 이름">
+                        <label for="categoryName">카테고리 이름</label>
                     </div>
                     <button type="submit" class="btn btn-success w-100">확인</button>
                 </form>
@@ -70,3 +77,23 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var categoryId = button.data('category-id');
+            var categoryName = button.data('category-name');
+            var categoryParentId = button.data('category-parent-id');
+            var formAction = categoryId ? '/category/edit/' + categoryId : '/category';
+            var modalTitle = categoryId ? '카테고리 정보 수정' : '새 카테고리 등록';
+
+            $('#categoryForm').attr('action', formAction);
+            $('#categoryId').val(categoryId);
+            $('#categoryParentId').val(categoryParentId);
+            $('#categoryName').val(categoryName);
+            $('#modalLabel').text(modalTitle);
+        });
+    });
+</script>

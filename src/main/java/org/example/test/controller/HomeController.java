@@ -234,11 +234,13 @@ public class HomeController {
     @GetMapping("/categoryManagement")
     public String categoryManagementPage(Model model) {
 
+        CategoryDTO parentCategory = new CategoryDTO(12,"부모","");
+
         List<CategoryDTO> categories = new ArrayList<>();
-        categories.add(new CategoryDTO(1, "Category1",""));
-        categories.add(new CategoryDTO(2, "Category2",""));
-        categories.add(new CategoryDTO(3, "Category4",""));
-        categories.add(new CategoryDTO(4, "Category6",""));
+        categories.add(new CategoryDTO(1, "Category1","", parentCategory));
+        categories.add(new CategoryDTO(2, "Category2","", parentCategory));
+        categories.add(new CategoryDTO(3, "Category4","", parentCategory));
+        categories.add(new CategoryDTO(4, "Category6","", parentCategory));
 
         model.addAttribute("categories", categories);
         model.addAttribute("content", "category-management");

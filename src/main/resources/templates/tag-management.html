@@ -5,7 +5,8 @@
                 <h4 class="mb-4 fw-bold">태그 관리</h4>
             </div>
             <div class="col-auto">
-                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-bs-toggle="modal" data-bs-target="#myModal">
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" data-bs-toggle="modal"
+                        data-bs-target="#myModal">
                     <i class="bi bi-plus-lg"></i>
                 </button>
             </div>
@@ -27,10 +28,16 @@
                         <td th:text="${tag.id}"></td>
                         <td th:text="${tag.name}"></td>
                         <td>
-                            <a th:href="@{/tag/edit/{id}(id=${tag.id})}" class="btn btn-success btn-sm">수정</a>
+                            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#myModal"
+                                    th:data-tag-id="${tag.id}"
+                                    th:data-tag-name="${tag.name}">수정
+                            </button>
                         </td>
                         <td>
-                            <a th:href="@{/tag/delete/{id}(id=${tag.id})}" class="btn btn-danger btn-sm">삭제</a>
+                            <form th:action="@{/tag/delete/{id}(id=${tag.id})}" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
@@ -44,16 +51,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header border-bottom-0">
-                <h5 class="modal-title fw-bold" id="modalLabel">태그 등록</h5>
+                <h5 class="modal-title fw-bold" id="modalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
-                <form action="/tag" method="post">
-                    <h6  class="fw-bold">태그 이름</h6>
+                <form id="tagForm" method="post">
+                    <input type="hidden" id="tagId" name="id">
+                    <h6 class="fw-bold">태그 이름</h6>
                     <div class="form-floating mb-5">
-                        <input type="text" class="form-control rounded-3" id="name" placeholder="태그 이름">
-                        <label for="name">태그 이름</label>
+                        <input type="text" class="form-control rounded-3" id="tagName" name="name" placeholder="태그 이름">
+                        <label for="tagName">태그 이름</label>
                     </div>
                     <button type="submit" class="btn btn-success w-100">확인</button>
                 </form>
@@ -61,3 +69,22 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var tagId = button.data('tag-id');
+            var tagName = button.data('tag-name');
+            var formAction = tagId ? '/tag/edit/' + tagId : '/tag';
+            var modalTitle = tagId ? '태그 정보 수정' : '새 태그 등록';
+
+            $('#tagForm').attr('action', formAction);
+            $('#tagId').val(tagId);
+            $('#tagName').val(tagName);
+            $('#modalLabel').text(modalTitle);
+        });
+    });
+</script>
+
