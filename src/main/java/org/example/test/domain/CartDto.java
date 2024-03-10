@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartDto {
+    private int id;
     private String name;
     private String brand;
     private int originalPrice;

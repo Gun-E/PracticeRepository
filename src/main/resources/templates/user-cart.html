@@ -12,28 +12,21 @@
                     <div class="container-fluid rounded border mb-3">
                         <div class="row mt-2 mb-3">
                             <div class="col-auto">
-                                <form action="/detail/1" method="get">
-                                    <button type="submit" class="btn p-0 border-0 bg-transparent">
-                                        <img th:src="${item.image}" alt="상품 이미지"
-                                             class="card-img img-fluid object-fit-cover"
-                                             style="width: 100px; height: 100px;">
-                                    </button>
-                                </form>
+                                <a th:href="@{'/productDetail/' + ${item.id}}" class="btn p-0 border-0 bg-transparent">
+                                    <img th:src="${item.image}" alt="상품 이미지" class="card-img img-fluid object-fit-cover" style="width: 100px; height: 100px;">
+                                </a>
                             </div>
                             <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                        <form action="/detail/1" method="get">
-                                            <button type="submit" class="btn p-0 border-0 bg-transparent">
-                                                <span class="fw-bold text-success"
-                                                      th:text="${'('+item.brand+')'}"></span>
-                                                <span class="fw-bold" th:text="${item.name}"></span>
-                                                <span class="text-muted" th:text="${item.option}"></span>
-                                            </button>
-                                        </form>
+                                        <a th:href="@{'/productDetail/' + ${item.id}}" class="btn p-0 border-0 bg-transparent">
+                                            <span class="fw-bold text-success" th:text="${'('+item.brand+')'}"></span>
+                                            <span class="fw-bold" th:text="${item.name}"></span>
+                                            <span class="text-muted" th:text="${item.option}"></span>
+                                        </a>
                                     </div>
                                     <div class="col-auto">
-                                        <form th:action="@{/cart/id/delete}" method="post">
+                                        <form th:action="@{'/cart/delete/'+ ${item.id}}" method="post">
                                             <button type="submit" class="btn-close"></button>
                                         </form>
                                     </div>
@@ -47,17 +40,21 @@
                                 <div class="row">
                                     <h8 class="text-decoration-line-through text-muted mb-0"
                                         th:text="${#numbers.formatInteger(item.originalPrice,3, 'COMMA')} + '원'"></h8>
-                                    <h5 id="salePrice" class="fw-bold text-success"
+                                    <h5 id="salePrice" class="fw-bold text-success salePrice"
                                         th:text="${#numbers.formatInteger(item.discountedPrice,3, 'COMMA')} + '원'"></h5>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col">
                                 <h6 class="fw-bold">수량</h6>
                             </div>
-                            <div class="col-6 text-end">
-                                <h5 id="quantity" class="fw-bold" th:text="${item.quantity+'개'}"></h5>
+                            <div class="col-auto" style="width: 150px;">
+                                <div class="input-group">
+                                    <button class="btn btn-success btn-sm decrement-btn" type="button">-</button>
+                                    <input type="text" class="form-control form-control-sm quantity-input text-center" th:value="${item.quantity}" readonly>
+                                    <button class="btn btn-success btn-sm increment-btn" type="button">+</button>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -65,8 +62,7 @@
                                 <h6 class="fw-bold">상품 금액</h6>
                             </div>
                             <div class="col-6 text-end">
-                                <h4 class="fw-bold text-end"
-                                    th:text="${#numbers.formatInteger(item.discountedPrice,3, 'COMMA')+'원'}"></h4>
+                                <h4 class="fw-bold text-end product-price" th:text="${#numbers.formatInteger(item.discountedPrice * item.quantity, 3, 'COMMA') + '원'}"></h4>
                             </div>
                         </div>
                     </div>
@@ -81,7 +77,7 @@
                         </h6>
                     </div>
                     <div class="col-6">
-                        <h3 id="totalPrice" class="fw-bold text-end"></h3>
+                        <h3 id="totalPrice" class="fw-bold text-end total-price"></h3>
                     </div>
                 </div>
                 <div class="row">
@@ -99,29 +95,52 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        function calculateTotalPrice() {
+        // 총 가격을 계산하고 업데이트하는 함수
+        function calculateAndUpdateTotalPrice() {
             var totalPrice = 0;
 
-            $('.card-body .row').each(function () {
-                var priceString = $(this).find('.col-6 h4').text().replace('원', '').replace(/,/g, '').trim();
-                var price = parseInt(priceString);
-
-                var quantityString = $(this).find('.col-6 h5').text().trim();
-                var quantity = parseInt(quantityString);
-
-                if (isNaN(price)) {
-                    price = 0;
-                }
-                if (isNaN(quantity)) {
-                    quantity = 1;
-                }
-
-                totalPrice += price * quantity;
+            $('.card-body .container-fluid').each(function () {
+                var productPriceString = $(this).find('.product-price').text().replace('원', '').replace(/,/g, '').trim();
+                var productPrice = parseInt(productPriceString);
+                totalPrice += productPrice;
             });
 
-            $('#totalPrice').text(totalPrice.toLocaleString() + '원');
+            $('.total-price').text(totalPrice.toLocaleString() + '원');
         }
 
-        calculateTotalPrice();
+        // 개별 상품의 가격을 계산하고 업데이트하는 함수
+        function updateProductPrice(container) {
+            var quantity = parseInt(container.find('.quantity-input').val());
+
+            var pricePerUnitString = container.find('.salePrice').text().replace('원', '').replace(/,/g, '').trim();
+            var pricePerUnit = parseInt(pricePerUnitString);
+
+            var totalPrice = quantity * pricePerUnit;
+
+            container.find('.product-price').text(totalPrice.toLocaleString() + '원');
+        }
+
+        // 초기에 총 가격 계산
+        calculateAndUpdateTotalPrice();
+
+        // 증가 버튼 클릭 이벤트
+        $('.increment-btn').click(function () {
+            var input = $(this).parent().find('.quantity-input');
+            var currentValue = parseInt(input.val());
+            input.val(currentValue + 1);
+            updateProductPrice($(this).closest('.container-fluid'));
+            calculateAndUpdateTotalPrice();
+        });
+
+        // 감소 버튼 클릭 이벤트
+        $('.decrement-btn').click(function () {
+            var input = $(this).parent().find('.quantity-input');
+            var currentValue = parseInt(input.val());
+            if (currentValue > 1) {
+                input.val(currentValue - 1);
+                updateProductPrice($(this).closest('.container-fluid'));
+                calculateAndUpdateTotalPrice();
+            }
+        });
     });
 </script>

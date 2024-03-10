@@ -1,6 +1,5 @@
 package org.example.test.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,7 +8,6 @@ import java.util.List;
 import org.example.test.domain.AddressDTO;
 import org.example.test.domain.CartDto;
 import org.example.test.domain.CategoryDTO;
-import org.example.test.domain.MemberDTO;
 import org.example.test.domain.NoticeDetailDto;
 import org.example.test.domain.NoticeDto;
 import org.example.test.domain.OrderDTO;
@@ -20,7 +18,7 @@ import org.example.test.domain.ProductDetailDTO;
 import org.example.test.domain.ProductListDTO;
 import org.example.test.domain.ProductRegistrationDTO;
 import org.example.test.domain.TagDTO;
-import org.example.test.domain.User;
+import org.example.test.domain.UserDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,12 +45,9 @@ public class HomeController {
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
 
-        User user = new User(1,"회원1");
-        session.setAttribute("isUser", user);
-        session.setAttribute("isAdmin", user);
+        model.addAttribute("userId",1);
+        model.addAttribute("role",true);
 
-        model.addAttribute("isUser", user);
-        model.addAttribute("isAdmin", user);
         model.addAttribute("products", products);
         model.addAttribute("content", "product-list-starred");
         return "layout";
@@ -62,18 +57,20 @@ public class HomeController {
         model.addAttribute("content", "admin-management");
         return "layout";
     }
-    @GetMapping("/userDetail")
-    public String myPage(Model model) {
-        MemberDTO memberDTO = new MemberDTO();
-        memberDTO.setName("홍길동");
-        memberDTO.setPhone("010-1234-5678");
-        memberDTO.setEmail("hong@example.com");
-        memberDTO.setCompany("ABC 주식회사");
-        memberDTO.setZipcode("62010");
-        memberDTO.setAddress("광주광역시 서구 서광주로 28");
-        memberDTO.setDetailAddress("Y-Mart");
+    @GetMapping("/user/{id}")
+    public String myPage(@PathVariable int id, Model model) {
+        UserDTO userDTO = new UserDTO();
 
-        model.addAttribute("memberDTO", memberDTO);
+        userDTO.setId(id);
+        userDTO.setName("홍길동");
+        userDTO.setPhone("010-1234-5678");
+        userDTO.setEmail("hong@example.com");
+        userDTO.setCompanyName("ABC 주식회사");
+        userDTO.setZipcode("62010");
+        userDTO.setAddress("광주광역시 서구 서광주로 28");
+        userDTO.setDetailAddress("Y-Mart");
+
+        model.addAttribute("user", userDTO);
         model.addAttribute("content", "user-detail");
         return "layout";
     }
@@ -246,6 +243,38 @@ public class HomeController {
         model.addAttribute("content", "category-management");
         return "layout";
     }
+    @GetMapping("/userManagement")
+    public String userManagementPage(Model model) {
+        List<UserDTO> users = new ArrayList<>();
+        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
+        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
+        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
+        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
+        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
+        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
+
+
+        model.addAttribute("users", users);
+        model.addAttribute("content", "user-management");
+        return "layout";
+    }
+    @GetMapping("/user/modify/{id}")
+    public String showModifyForm(@PathVariable int id, Model model) {
+        UserDTO userDTO = new UserDTO();
+
+        userDTO.setId(id);
+        userDTO.setName("홍길동");
+        userDTO.setPhone("010-1234-5678");
+        userDTO.setEmail("hong@example.com");
+        userDTO.setCompanyName("ABC 주식회사");
+        userDTO.setZipcode("62010");
+        userDTO.setAddress("광주광역시 서구 서광주로 28");
+        userDTO.setDetailAddress("Y-Mart");
+
+        model.addAttribute("user", userDTO);
+        model.addAttribute("content", "user-detail-modify");
+        return "layout";
+    }
     @GetMapping("/productModify/{id}")
     public String productModifyPage(@PathVariable int id, Model model) {
         ProductDetailDTO productDTO = new ProductDetailDTO();
@@ -303,28 +332,11 @@ public class HomeController {
         return "layout";
     }
 
-    @GetMapping("/userDetailModify")
-    public String modify(Model model) {
-        MemberDTO memberDTO = new MemberDTO();
-
-        memberDTO.setName("홍길동");
-        memberDTO.setPhone("010-1234-5678");
-        memberDTO.setEmail("hong@example.com");
-        memberDTO.setCompany("ABC 주식회사");
-        memberDTO.setZipcode("62010");
-        memberDTO.setAddress("광주광역시 서구 서광주로 28");
-        memberDTO.setDetailAddress("Y-Mart");
-
-        model.addAttribute("memberDTO", memberDTO);
-        model.addAttribute("content", "user-detail-modify");
-        return "layout";
-    }
-
     @GetMapping("/userCart")
     public String cart(Model model){
         List<CartDto> cartList = new ArrayList<>();
-        cartList.add(new CartDto("상품1","브랜드", 10000, 5000, List.of("태그1", "태그2"), "/images/noddle", "1box",1));
-        cartList.add(new CartDto("소고기","국내산", 100000, 90000, List.of("태그3", "태그2"), "/images/beef", "500g",1));
+        cartList.add(new CartDto(1,"상품1","브랜드", 10000, 5000, List.of("태그1", "태그2"), "/images/noddle", "1box",1));
+        cartList.add(new CartDto(1,"소고기","국내산", 100000, 90000, List.of("태그3", "태그2"), "/images/beef", "500g",1));
 
         model.addAttribute("cartList", cartList);
         model.addAttribute("content", "user-cart");

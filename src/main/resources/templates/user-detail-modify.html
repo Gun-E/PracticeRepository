@@ -2,19 +2,19 @@
     <div class="col-sm-10 col-11">
         <div class="row align-items-center">
             <div class="col">
-                <h4 class="mb-4 fw-bold">내 정보 수정</h4>
+                <h4 class="mb-4 fw-bold">회원 정보 수정</h4>
             </div>
         </div>
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold">회원 정보</div>
             <div class="card-body pb-0">
-                <form th:action="@{/modify}" th:object="${memberDTO}" method="post" id="updateForm">
+                <form th:action="@{/user/modify/{id}(id=${user.id})}" th:object="${UserDTO}" method="post">
                     <div class="row mb-3 border-bottom">
                         <div class="col-6">
                             <label for="name" class="form-label fw-bold">회원 이름</label>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" class="form-control" id="name" th:value="${memberDTO.name}">
+                            <input type="text" class="form-control" id="name" th:value="${user.name}">
                         </div>
                     </div>
                     <div class="row mb-3 border-bottom">
@@ -22,7 +22,7 @@
                             <label for="phone" class="form-label fw-bold">전화번호</label>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="tel" class="form-control" id="phone" th:value="${memberDTO.phone}">
+                            <input type="tel" class="form-control" id="phone" th:value="${user.phone}">
                         </div>
                     </div>
                     <div class="row mb-3 border-bottom">
@@ -30,7 +30,7 @@
                             <label for="email" class="form-label fw-bold">회원 이메일</label>
                         </div>
                         <div class="col-6  mb-3">
-                            <input type="email" class="form-control" id="email" th:value="${memberDTO.email}">
+                            <input type="email" class="form-control" id="email" th:value="${user.email}">
                         </div>
                     </div>
                     <div class="row mb-3 border-bottom">
@@ -38,7 +38,7 @@
                             <label for="company" class="form-label fw-bold">상호 명</label>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" class="form-control" id="company" th:value="${memberDTO.company}">
+                            <input type="text" class="form-control" id="company" th:value="${user.companyName}">
                         </div>
                     </div>
                     <div class="row">
@@ -46,7 +46,7 @@
                             <label for="zipcode" class="form-label fw-bold">우편번호</label>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" class="form-control" id="zipcode" th:value="${memberDTO.zipcode}">
+                            <input type="text" class="form-control" id="zipcode" th:value="${user.zipcode}">
                         </div>
                     </div>
                     <div class="row">
@@ -54,7 +54,7 @@
                             <label for="address" class="form-label fw-bold">도로명 주소</label>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" class="form-control" id="address" th:value="${memberDTO.address}">
+                            <input type="text" class="form-control" id="address" th:value="${user.address}">
                         </div>
                     </div>
                     <div class="row mb-3 border-bottom">
@@ -62,7 +62,7 @@
                             <label for="detail_address" class="form-label fw-bold">상세 주소</label>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" class="form-control" id="detail_address" th:value="${memberDTO.detailAddress}">
+                            <input type="text" class="form-control" id="detail_address" th:value="${user.detailAddress}">
                         </div>
                     </div>
                     <div class="row mb-3">
