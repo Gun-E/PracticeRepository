@@ -1,7 +1,6 @@
 package org.example.test.domain;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +14,6 @@ public class OrderListDto {
     private int orderId;
     private String status;
     private int totalPrice;
-    private LocalDate day;
+    private LocalDateTime day;
+    private String companyName;
 }
