@@ -29,34 +29,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
     @GetMapping
-    public String home(HttpSession session, Model model){
+    public String home(HttpSession session, Model model) {
         List<ProductListDTO> products = new ArrayList<>();
 
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스","1box", 50000));
-        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", "1개",100));
-        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", "500g",9999999));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스", "1box", 50000));
+        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", "1개", 100));
+        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", "500g", 9999999));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
 
-        model.addAttribute("userId",1);
-        model.addAttribute("role",true);
+        model.addAttribute("userId", 1);
+        model.addAttribute("role", true);
 
         model.addAttribute("products", products);
         model.addAttribute("content", "product-list-starred");
         return "layout";
     }
+
     @GetMapping("/admin")
-    public String admin(Model model){
+    public String admin(Model model) {
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "admin-management");
         return "layout";
     }
+
     @GetMapping("/user/{id}")
     public String myPage(@PathVariable int id, Model model) {
         UserDTO userDTO = new UserDTO();
@@ -70,24 +73,28 @@ public class HomeController {
         userDTO.setAddress("광주광역시 서구 서광주로 28");
         userDTO.setDetailAddress("Y-Mart");
 
+        model.addAttribute("userId", 1);
         model.addAttribute("user", userDTO);
         model.addAttribute("content", "user-detail");
         return "layout";
     }
+
     @GetMapping("/notice")
     public String noticePage(Model model) {
         List<NoticeDto> notices = new ArrayList<>();
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 1, 0, 0), "🦾 새로운 기능 추가되었습니다.","관리자1"));
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 2, 0, 0), "🖥️ 서버 점검 안내입니다.","관리자2"));
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 3, 0, 0), "✏️ 이용약관이 변경되었습니다.","관리자3"));
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.","관리자4"));
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.","관리자4"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 1, 0, 0), "🦾 새로운 기능 추가되었습니다.", "관리자1"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 2, 0, 0), "🖥️ 서버 점검 안내입니다.", "관리자2"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 3, 0, 0), "✏️ 이용약관이 변경되었습니다.", "관리자3"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.", "관리자4"));
+        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.", "관리자4"));
 
+        model.addAttribute("userId", 1);
         model.addAttribute("notices", notices);
         model.addAttribute("content", "notice");
 
         return "layout";
     }
+
     @GetMapping("/notice_detail/{id}")
     public String showNoticeDetail(@PathVariable int id, Model model) {
 
@@ -101,16 +108,20 @@ public class HomeController {
 
         model.addAttribute("notice_detail", noticeDetailDto);
         model.addAttribute("content", "notice_detail");
+        model.addAttribute("userId", 1);
 
         return "layout";
     }
+
     @GetMapping("/noticeRegistration")
     public String showNoticeRegistration(Model model) {
         NoticeDetailDto noticeDTO = new NoticeDetailDto();
         model.addAttribute("noticeDTO", noticeDTO);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "notice_management");
         return "layout";
     }
+
     @GetMapping("/noticeModify/{id}")
     public String showNoticeModify(@PathVariable int id, Model model) {
         NoticeDetailDto noticeDTO = new NoticeDetailDto(
@@ -121,6 +132,7 @@ public class HomeController {
                 LocalDate.of(2024, 2, 17)
         );
         model.addAttribute("noticeDTO", noticeDTO);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "notice_management");
         return "layout";
     }
@@ -129,18 +141,18 @@ public class HomeController {
     public String allPage(Model model) {
         List<ProductListDTO> products = new ArrayList<>();
 
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스","1box", 50000));
-        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", "1개",100));
-        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", "500g",9999999));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스", "1box", 50000));
+        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", "1개", 100));
+        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", "500g", 9999999));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
 
         List<CategoryDTO> categories = new ArrayList<>();
         categories.add(new CategoryDTO(1, "채소 • 과일", "bi bi-egg"));
@@ -164,34 +176,38 @@ public class HomeController {
         model.addAttribute("categories", categories);
 
         model.addAttribute("products", products);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "product-list");
         return "layout";
     }
+
     @GetMapping("/category/{id}")
     public String categoryPage(@PathVariable int id, Model model) {
         List<ProductListDTO> products = new ArrayList<>();
 
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스","1box", 50000));
-        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", "1개",100));
-        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", "500g",9999999));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
-        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입","1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/ramen-box", "삼양", "삼양라면 1 박스", "1box", 50000));
+        products.add(new ProductListDTO(1L, "/images/carrot", "국내산", "당근", "1개", 100));
+        products.add(new ProductListDTO(1L, "/images/beef", "국내산", "한우 A++", "500g", 9999999));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
+        products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
 
         List<CategoryDTO> categories = new ArrayList<>();
         CategoryDTO vegetableFruitCategory = new CategoryDTO(1, "채소 • 과일", "bi bi-egg");
 
-        categories.add(new CategoryDTO(1, "채소", "bi bi-egg-fill",vegetableFruitCategory));
-        categories.add(new CategoryDTO(1, "과일", "bi bi-apple",vegetableFruitCategory));
-        categories.add(new CategoryDTO(1, "야채", "bi bi-pin-map-fill",vegetableFruitCategory));
-        categories.add(new CategoryDTO(1, "야채", "bi bi-pin-map-fill",vegetableFruitCategory));
+        categories.add(new CategoryDTO(1, "채소", "bi bi-egg-fill", vegetableFruitCategory));
+        categories.add(new CategoryDTO(1, "과일", "bi bi-apple", vegetableFruitCategory));
+        categories.add(new CategoryDTO(1, "야채", "bi bi-pin-map-fill", vegetableFruitCategory));
+        categories.add(new CategoryDTO(1, "야채", "bi bi-pin-map-fill", vegetableFruitCategory));
 
         model.addAttribute("categories", categories);
 
         model.addAttribute("products", products);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "product-category-list");
         return "layout";
     }
+
     @GetMapping("/productRegistration")
     public String productRegistrationPage(Model model) {
         ProductDetailDTO productDTO = new ProductDetailDTO();
@@ -204,16 +220,18 @@ public class HomeController {
         tags.add(new TagDTO(5, "태그4"));
 
         List<CategoryDTO> categories = new ArrayList<>();
-        categories.add(new CategoryDTO(1, "Category1",""));
-        categories.add(new CategoryDTO(2, "Category2",""));
-        categories.add(new CategoryDTO(3, "Category4",""));
-        categories.add(new CategoryDTO(4, "Category6",""));
+        categories.add(new CategoryDTO(1, "Category1", ""));
+        categories.add(new CategoryDTO(2, "Category2", ""));
+        categories.add(new CategoryDTO(3, "Category4", ""));
+        categories.add(new CategoryDTO(4, "Category6", ""));
 
         model.addAttribute("productDTO", productDTO);
         model.addAttribute("productRegistration", new ProductRegistrationDTO(tags, categories));
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "product-management");
         return "layout";
     }
+
     @GetMapping("/tagManagement")
     public String tagManagementPage(Model model) {
 
@@ -225,39 +243,51 @@ public class HomeController {
         tags.add(new TagDTO(5, "태그4"));
 
         model.addAttribute("tags", tags);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "tag-management");
         return "layout";
     }
+
     @GetMapping("/categoryManagement")
     public String categoryManagementPage(Model model) {
 
-        CategoryDTO parentCategory = new CategoryDTO(12,"부모","");
+        CategoryDTO parentCategory = new CategoryDTO(12, "부모", "");
 
         List<CategoryDTO> categories = new ArrayList<>();
-        categories.add(new CategoryDTO(1, "Category1","", parentCategory));
-        categories.add(new CategoryDTO(2, "Category2","", parentCategory));
-        categories.add(new CategoryDTO(3, "Category4","", parentCategory));
-        categories.add(new CategoryDTO(4, "Category6","", parentCategory));
+        categories.add(new CategoryDTO(1, "Category1", "", parentCategory));
+        categories.add(new CategoryDTO(2, "Category2", "", parentCategory));
+        categories.add(new CategoryDTO(3, "Category4", "", parentCategory));
+        categories.add(new CategoryDTO(4, "Category6", "", parentCategory));
 
         model.addAttribute("categories", categories);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "category-management");
         return "layout";
     }
+
     @GetMapping("/userManagement")
     public String userManagementPage(Model model) {
         List<UserDTO> users = new ArrayList<>();
-        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
-        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
-        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
-        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
-        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
-        users.add(new UserDTO(1,"John Doe","123-456-7890","ABC Company","12345","123 Main St","Apt 101","john@example.com","password123"));
+        users.add(new UserDTO(1, "John Doe", "123-456-7890", "ABC Company", "12345", "123 Main St", "Apt 101",
+                "john@example.com", "password123"));
+        users.add(new UserDTO(1, "John Doe", "123-456-7890", "ABC Company", "12345", "123 Main St", "Apt 101",
+                "john@example.com", "password123"));
+        users.add(new UserDTO(1, "John Doe", "123-456-7890", "ABC Company", "12345", "123 Main St", "Apt 101",
+                "john@example.com", "password123"));
+        users.add(new UserDTO(1, "John Doe", "123-456-7890", "ABC Company", "12345", "123 Main St", "Apt 101",
+                "john@example.com", "password123"));
+        users.add(new UserDTO(1, "John Doe", "123-456-7890", "ABC Company", "12345", "123 Main St", "Apt 101",
+                "john@example.com", "password123"));
+        users.add(new UserDTO(1, "John Doe", "123-456-7890", "ABC Company", "12345", "123 Main St", "Apt 101",
+                "john@example.com", "password123"));
 
 
         model.addAttribute("users", users);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "user-management");
         return "layout";
     }
+
     @GetMapping("/user/modify/{id}")
     public String showModifyForm(@PathVariable int id, Model model) {
         UserDTO userDTO = new UserDTO();
@@ -272,9 +302,11 @@ public class HomeController {
         userDTO.setDetailAddress("Y-Mart");
 
         model.addAttribute("user", userDTO);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "user-detail-modify");
         return "layout";
     }
+
     @GetMapping("/productModify/{id}")
     public String productModifyPage(@PathVariable int id, Model model) {
         ProductDetailDTO productDTO = new ProductDetailDTO();
@@ -287,7 +319,7 @@ public class HomeController {
         productDTO.setBrandOrigin("브랜드/원산지");
         productDTO.setWeight("500g");
         productDTO.setPackaging("박스");
-        productDTO.setTags(List.of("태그1","태그2","태그3"));
+        productDTO.setTags(List.of("태그1", "태그2", "태그3"));
         productDTO.setCategory("카테고리 이름");
         productDTO.setQuantity(1);
 
@@ -301,18 +333,19 @@ public class HomeController {
         tags.add(new TagDTO(5, "태그4"));
 
         List<CategoryDTO> categories = new ArrayList<>();
-        categories.add(new CategoryDTO(1, "Category1",""));
-        categories.add(new CategoryDTO(2, "Category2",""));
-        categories.add(new CategoryDTO(3, "Category4",""));
-        categories.add(new CategoryDTO(4, "Category6",""));
+        categories.add(new CategoryDTO(1, "Category1", ""));
+        categories.add(new CategoryDTO(2, "Category2", ""));
+        categories.add(new CategoryDTO(3, "Category4", ""));
+        categories.add(new CategoryDTO(4, "Category6", ""));
 
         model.addAttribute("productRegistration", new ProductRegistrationDTO(tags, categories));
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "product-management");
         return "layout";
     }
 
     @GetMapping("/productDetail/{id}")
-    public String detail(@PathVariable int id, Model model){
+    public String detail(@PathVariable int id, Model model) {
         ProductDetailDTO productDTO = new ProductDetailDTO();
         productDTO.setId(id);
         productDTO.setName("라면 박스");
@@ -322,32 +355,35 @@ public class HomeController {
         productDTO.setBrandOrigin("브랜드/원산지");
         productDTO.setWeight("500g");
         productDTO.setPackaging("박스");
-        productDTO.setTags(List.of("태그1","태그2","태그3"));
+        productDTO.setTags(List.of("태그1", "태그2", "태그3"));
         productDTO.setCategory("카테고리 이름");
         productDTO.setQuantity(1);
 
         model.addAttribute("productDTO", productDTO);
         model.addAttribute("content", "product-detail");
+        model.addAttribute("userId", 1);
 
         return "layout";
     }
 
     @GetMapping("/userCart")
-    public String cart(Model model){
+    public String cart(Model model) {
         List<CartDto> cartList = new ArrayList<>();
-        cartList.add(new CartDto(1,"상품1","브랜드", 10000, 5000, List.of("태그1", "태그2"), "/images/noddle", "1box",1));
-        cartList.add(new CartDto(1,"소고기","국내산", 100000, 90000, List.of("태그3", "태그2"), "/images/beef", "500g",1));
+        cartList.add(new CartDto(1, "상품1", "브랜드", 10000, 5000, List.of("태그1", "태그2"), "/images/noddle", "1box", 1));
+        cartList.add(new CartDto(1, "소고기", "국내산", 100000, 90000, List.of("태그3", "태그2"), "/images/beef", "500g", 1));
 
         model.addAttribute("cartList", cartList);
         model.addAttribute("content", "user-cart");
+        model.addAttribute("userId", 1);
 
         return "layout";
     }
+
     @GetMapping("/order")
     public String getOrderPage(Model model) {
         List<ProductDTO> products = new ArrayList<>();
-        products.add(new ProductDTO(1,"삼양", "라면", "1 box", 2));
-        products.add(new ProductDTO(1,"국내산", "소고기", "500g", 1));
+        products.add(new ProductDTO(1, "삼양", "라면", "1 box", 2));
+        products.add(new ProductDTO(1, "국내산", "소고기", "500g", 1));
 
         List<AddressDTO> addressList = new ArrayList<>();
         addressList.add(new AddressDTO(1, "서울시 강남구"));
@@ -359,22 +395,37 @@ public class HomeController {
         order.setTotalPrice(50000.0);
 
         model.addAttribute("order", order);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "user-order-address");
         return "layout";
     }
+
     @GetMapping("/orderList")
     public String getOrderListPage(Model model) {
         List<OrderListDto> orderList = new ArrayList<>();
-        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDate.of(2024, 3, 1)));
-        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDate.of(2024, 3, 2)));
-        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDate.of(2024, 3, 3)));
+        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0 ,0),"마트1"));
+        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2,0,0),"마트2"));
+        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3,0,0),"마트3"));
 
         model.addAttribute("orderList", orderList);
-
-
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "user-order-list");
         return "layout";
     }
+    @GetMapping("/orderManagement")
+    public String orderListManagementPage(Model model) {
+        List<OrderListDto> orderList = new ArrayList<>();
+
+        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0 ,0),"마트1"));
+        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2,0,0),"마트2"));
+        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3,0,0),"마트3"));
+
+        model.addAttribute("orders", orderList);
+        model.addAttribute("userId", 1);
+        model.addAttribute("content", "order-management");
+        return "layout";
+    }
+
     @GetMapping("/orderDetail/1")
     public String getOrderDetailPage(Model model) {
         OrderDetailDto orderDetailDto = new OrderDetailDto();
@@ -382,24 +433,26 @@ public class HomeController {
         orderDetailDto.setStatus("승인 완료");
         orderDetailDto.setDay(LocalDate.now());
         orderDetailDto.setAddress("서울시 강남구");
-        //orderDetailDto.setComment("특이 사항 없음");
         orderDetailDto.setTotalPrice(50000);
 
         List<ProductDTO> products = new ArrayList<>();
-        products.add(new ProductDTO(1,"삼양", "라면", "1 box", 2));
-        products.add(new ProductDTO(1,"국내산", "소고기", "500g", 1));
+        products.add(new ProductDTO(1, "삼양", "라면", "1 box", 2));
+        products.add(new ProductDTO(1, "국내산", "소고기", "500g", 1));
         orderDetailDto.setProducts(products);
 
         model.addAttribute("orderDetail", orderDetailDto);
+        model.addAttribute("userId", 1);
         model.addAttribute("content", "user-order-detail");
         return "layout";
     }
+
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
+
     @GetMapping("/register")
-    public String register(){
+    public String register() {
         return "register";
     }
 }
