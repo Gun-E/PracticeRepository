@@ -416,6 +416,7 @@ public class HomeController {
     public String orderListManagementPage(Model model) {
         List<OrderListDto> orderList = new ArrayList<>();
 
+        orderList.add(new OrderListDto(1, "새 주문", 80000, LocalDateTime.of(2024, 3, 3,0,0),"new 마트"));
         orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0 ,0),"마트1"));
         orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2,0,0),"마트2"));
         orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3,0,0),"마트3"));
@@ -434,6 +435,8 @@ public class HomeController {
         orderDetailDto.setDay(LocalDate.now());
         orderDetailDto.setAddress("서울시 강남구");
         orderDetailDto.setTotalPrice(50000);
+        orderDetailDto.setCompanyName("마트1");
+        orderDetailDto.setUserName("홍길동");
 
         List<ProductDTO> products = new ArrayList<>();
         products.add(new ProductDTO(1, "삼양", "라면", "1 box", 2));

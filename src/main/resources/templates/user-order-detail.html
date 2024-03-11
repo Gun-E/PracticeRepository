@@ -4,6 +4,13 @@
             <div class="col">
                 <h4 class="mb-4 fw-bold">주문 상세</h4>
             </div>
+            <div class="col-auto">
+                <form th:action="@{/oderDetail/download}" method="post">
+                    <button type="submit" class="btn btn-sm btn-success rounded-pill">
+                        <i class="bi bi-file-earmark-spreadsheet-fill"></i> <i class="bi bi-download"></i>
+                    </button>
+                </form>
+            </div>
         </div>
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold">주문 내역</div>
@@ -23,7 +30,9 @@
                     <div class="col-6">
                         <p id="orderStatus" th:text="${orderDetail.status}"
                            th:class="${orderDetail.status == '승인 완료'} ? 'text-success fw-bold' :
-                                           (${orderDetail.status == '승인 거절'} ? 'text-danger fw-bold' : 'text-secondary fw-bold')"></p>
+             (${orderDetail.status == '승인 거절'} ? 'text-danger fw-bold' :
+             (${orderDetail.status == '새 주문'} ? 'text-warning fw-bold' : 'text-secondary fw-bold'))"></p>
+
                     </div>
                 </div>
 
@@ -68,6 +77,24 @@
 
                 <div class="row mb-3 border-bottom">
                     <div class="col-6">
+                        <label for="orderAddress" class="form-label fw-bold">상호 명</label>
+                    </div>
+                    <div class="col-6">
+                        <p id="companyName" th:text="${orderDetail.companyName}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3 border-bottom">
+                    <div class="col-6">
+                        <label for="orderAddress" class="form-label fw-bold">책임자</label>
+                    </div>
+                    <div class="col-6">
+                        <p id="userName" th:text="${orderDetail.userName}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3 border-bottom">
+                    <div class="col-6">
                         <label for="orderAddress" class="form-label fw-bold">배송 주소</label>
                     </div>
                     <div class="col-6">
@@ -84,9 +111,9 @@
                     </div>
                 </div>
 
-
             </div>
         </div>
+
         <button class="btn btn-secondary btn-sm mt-4" onclick="history.back()">목록으로</button>
     </div>
 </div>

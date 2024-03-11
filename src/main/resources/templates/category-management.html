@@ -32,12 +32,15 @@
                                     data-bs-target="#myModal"
                                     th:data-category-id="${category.id}"
                                     th:data-category-name="${category.name}"
-                                    th:data-category-parent-id="${category.parentCategory.id}">수정
+                                    th:data-category-parent-id="${category.parentCategory.id}">
+                                <i class="bi bi-pencil-fill"></i>
                             </button>
                         </td>
                         <td>
                             <form th:action="@{/category/delete/{id}(id=${category.id})}" method="post">
-                                <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -48,7 +51,7 @@
     </div>
 </div>
 
-<div class="modal modal-sheet p-4 py-md-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+<div class="modal fade modal-sheet p-4 py-md-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">

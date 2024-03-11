@@ -20,4 +20,6 @@ public class OrderDetailDto {
     private int totalPrice;
     private String address;
     private String comment;
+    private String companyName;
+    private String userName;
 }
