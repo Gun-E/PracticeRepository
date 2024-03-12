@@ -103,7 +103,7 @@ public class HomeController {
                 "새로운 기능 추가 안내",
                 "저희 서비스에 새로운 기능이 추가되었습니다. 이제 더 많은 기능을 이용하실 수 있습니다.",
                 "관리자",
-                LocalDate.of(2024, 2, 17)
+                LocalDate.of(2024, 3, 17)
         );
 
         model.addAttribute("notice_detail", noticeDetailDto);
