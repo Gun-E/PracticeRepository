@@ -11,17 +11,16 @@
                 <div th:each="item, itemStat : ${cartList}" th:id="'cartItem' + ${itemStat.index}">
                     <div class="container-fluid rounded border mb-3">
                         <div class="row mt-2 mb-3">
-                            <div class="col-auto">
+                            <div class="col-auto mt-1">
                                 <a th:href="@{'/productDetail/' + ${item.id}}" class="btn p-0 border-0 bg-transparent">
                                     <img th:src="${item.image}" alt="상품 이미지" class="card-img img-fluid object-fit-cover" style="width: 100px; height: 100px;">
                                 </a>
                             </div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col">
+                            <div class="col mt-1">
+                                <div class="row mb-1">
+                                    <div class="col mt-1">
                                         <a th:href="@{'/productDetail/' + ${item.id}}" class="btn p-0 border-0 bg-transparent">
-                                            <span class="fw-bold text-success" th:text="${'('+item.brand+')'}"></span>
-                                            <span class="fw-bold" th:text="${item.name}"></span>
+                                            <span class="fw-bold fs-5" th:text="${item.name}"></span>
                                             <span class="text-muted" th:text="${item.option}"></span>
                                         </a>
                                     </div>
@@ -29,12 +28,6 @@
                                         <form th:action="@{'/cart/delete/'+ ${item.id}}" method="post">
                                             <button type="submit" class="btn-close"></button>
                                         </form>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div th:each="tag : ${item.tags}" class="badge rounded-pill text-bg-success"
-                                             th:text="${tag}"></div>
                                     </div>
                                 </div>
                                 <div class="row">
