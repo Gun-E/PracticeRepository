@@ -14,5 +14,4 @@ public class OrderDTO {
     private List<ProductDTO> products;
     private List<AddressDTO> addressList;
     private double totalPrice;
-
 }

@@ -13,12 +13,10 @@ import lombok.Setter;
 public class CategoryDTO {
     private int id;
     private String name;
-    private String icon;
     private CategoryDTO parentCategory;
 
-    public CategoryDTO(int id, String name, String icon) {
+    public CategoryDTO(int id, String name) {
         this.id = id;
         this.name = name;
-        this.icon = icon;
     }
 }

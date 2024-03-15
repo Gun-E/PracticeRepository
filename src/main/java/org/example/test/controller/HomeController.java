@@ -155,21 +155,21 @@ public class HomeController {
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
 
         List<CategoryDTO> categories = new ArrayList<>();
-        categories.add(new CategoryDTO(1, "채소 • 과일", "bi bi-egg"));
-        categories.add(new CategoryDTO(2, "쌀 • 잡곡 • 견과", "bi bi-basket2"));
-        categories.add(new CategoryDTO(3, "축산 • 계란류", "bi bi-egg-fried"));
-        categories.add(new CategoryDTO(4, "생선 • 해산물", "bi bi-tencent-qq"));
-        categories.add(new CategoryDTO(5, "냉장 • 냉동 간편식", "bi bi-snow3"));
-        categories.add(new CategoryDTO(6, "반찬류", "bi bi-box"));
-        categories.add(new CategoryDTO(7, "소스 • 양념", "bi bi-paint-bucket"));
-        categories.add(new CategoryDTO(8, "장류 • 조미료", "bi bi-sun"));
-        categories.add(new CategoryDTO(9, "캔 • 통조림", "bi bi-magnet"));
-        categories.add(new CategoryDTO(10, "면류 • 가공식품", "bi bi-egg-fried"));
-        categories.add(new CategoryDTO(11, "스낵 • 안주류", "bi bi-cookie"));
-        categories.add(new CategoryDTO(12, "액체류", "bi bi-cup-straw"));
-        categories.add(new CategoryDTO(13, "일반용품", "bi bi-cup-straw"));
-        categories.add(new CategoryDTO(14, "주방용품", "bi bi-cup-straw"));
-        categories.add(new CategoryDTO(15, "포장용기 • 일회용품", "bi bi-trash"));
+        categories.add(new CategoryDTO(1, "채소 • 과일"));
+        categories.add(new CategoryDTO(2, "쌀 • 잡곡 • 견과"));
+        categories.add(new CategoryDTO(3, "축산 • 계란류"));
+        categories.add(new CategoryDTO(4, "생선 • 해산물"));
+        categories.add(new CategoryDTO(5, "냉장 • 냉동 간편식"));
+        categories.add(new CategoryDTO(6, "반찬류"));
+        categories.add(new CategoryDTO(7, "소스 • 양념"));
+        categories.add(new CategoryDTO(8, "장류 • 조미료"));
+        categories.add(new CategoryDTO(9, "캔 • 통조림"));
+        categories.add(new CategoryDTO(10, "면류 • 가공식품"));
+        categories.add(new CategoryDTO(11, "스낵 • 안주류"));
+        categories.add(new CategoryDTO(12, "액체류"));
+        categories.add(new CategoryDTO(13, "일반용품"));
+        categories.add(new CategoryDTO(14, "주방용품"));
+        categories.add(new CategoryDTO(15, "포장용기 • 일회용품"));
 
 
         // 모델에 카테고리 목록 추가
@@ -193,16 +193,16 @@ public class HomeController {
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
 
         List<CategoryDTO> categories = new ArrayList<>();
-        CategoryDTO vegetableFruitCategory = new CategoryDTO(1, "채소 • 과일", "bi bi-egg");
+        CategoryDTO vegetableFruitCategory = new CategoryDTO(1, "채소 • 과일");
 
-        categories.add(new CategoryDTO(1, "채소", "bi bi-egg-fill", vegetableFruitCategory));
-        categories.add(new CategoryDTO(1, "과일", "bi bi-apple", vegetableFruitCategory));
-        categories.add(new CategoryDTO(1, "야채", "bi bi-pin-map-fill", vegetableFruitCategory));
-        categories.add(new CategoryDTO(1, "야채", "bi bi-pin-map-fill", vegetableFruitCategory));
+        categories.add(new CategoryDTO(1, "채소", vegetableFruitCategory));
+        categories.add(new CategoryDTO(1, "과일", vegetableFruitCategory));
+        categories.add(new CategoryDTO(1, "야채", vegetableFruitCategory));
+        categories.add(new CategoryDTO(1, "야채", vegetableFruitCategory));
 
         model.addAttribute("categories", categories);
-
         model.addAttribute("products", products);
+
         model.addAttribute("userId", 1);
         model.addAttribute("content", "product-category-list");
         return "layout";
@@ -220,10 +220,10 @@ public class HomeController {
         tags.add(new TagDTO(5, "태그4"));
 
         List<CategoryDTO> categories = new ArrayList<>();
-        categories.add(new CategoryDTO(1, "Category1", ""));
-        categories.add(new CategoryDTO(2, "Category2", ""));
-        categories.add(new CategoryDTO(3, "Category4", ""));
-        categories.add(new CategoryDTO(4, "Category6", ""));
+        categories.add(new CategoryDTO(1, "Category1"));
+        categories.add(new CategoryDTO(2, "Category2"));
+        categories.add(new CategoryDTO(3, "Category4"));
+        categories.add(new CategoryDTO(4, "Category6"));
 
         model.addAttribute("productDTO", productDTO);
         model.addAttribute("productRegistration", new ProductRegistrationDTO(tags, categories));
@@ -251,13 +251,13 @@ public class HomeController {
     @GetMapping("/categoryManagement")
     public String categoryManagementPage(Model model) {
 
-        CategoryDTO parentCategory = new CategoryDTO(12, "부모", "");
+        CategoryDTO parentCategory = new CategoryDTO(12, "부모");
 
         List<CategoryDTO> categories = new ArrayList<>();
-        categories.add(new CategoryDTO(1, "Category1", "", parentCategory));
-        categories.add(new CategoryDTO(2, "Category2", "", parentCategory));
-        categories.add(new CategoryDTO(3, "Category4", "", parentCategory));
-        categories.add(new CategoryDTO(4, "Category6", "", parentCategory));
+        categories.add(new CategoryDTO(1, "Category1", parentCategory));
+        categories.add(new CategoryDTO(2, "Category2", parentCategory));
+        categories.add(new CategoryDTO(3, "Category4", parentCategory));
+        categories.add(new CategoryDTO(4, "Category6", parentCategory));
 
         model.addAttribute("categories", categories);
         model.addAttribute("userId", 1);
@@ -333,10 +333,10 @@ public class HomeController {
         tags.add(new TagDTO(5, "태그4"));
 
         List<CategoryDTO> categories = new ArrayList<>();
-        categories.add(new CategoryDTO(1, "Category1", ""));
-        categories.add(new CategoryDTO(2, "Category2", ""));
-        categories.add(new CategoryDTO(3, "Category4", ""));
-        categories.add(new CategoryDTO(4, "Category6", ""));
+        categories.add(new CategoryDTO(1, "Category1"));
+        categories.add(new CategoryDTO(2, "Category2"));
+        categories.add(new CategoryDTO(3, "Category4"));
+        categories.add(new CategoryDTO(4, "Category6"));
 
         model.addAttribute("productRegistration", new ProductRegistrationDTO(tags, categories));
         model.addAttribute("userId", 1);
