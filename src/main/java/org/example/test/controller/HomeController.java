@@ -217,7 +217,7 @@ public class HomeController {
         tags.add(new TagDTO(2, "태그2"));
         tags.add(new TagDTO(4, "태그3"));
         tags.add(new TagDTO(5, "태그4"));
-        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그5"));
 
         List<CategoryDTO> categories = new ArrayList<>();
         categories.add(new CategoryDTO(1, "Category1"));
