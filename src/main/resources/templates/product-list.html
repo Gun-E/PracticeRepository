@@ -25,10 +25,10 @@
                     상품 카테고리
                 </button>
                 <ul class="dropdown-menu shadow w-75">
-                    <div class="row">
+                    <div class="row mt-2" style="margin-left: 5px;">
                         <li th:each="category : ${categories}" class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <a th:href="@{/category/{id}(id=${category.id})}" class="dropdown-item">
-                                <i th:class="${category.icon} + ' text-success'"></i> [[${category.name}]]
+                            <a th:href="@{/category/{id}(id=${category.id})}" class="dropdown-item mb-2">
+                                <i class="text-success"></i> [[${category.name}]]
                             </a>
                         </li>
                     </div>
