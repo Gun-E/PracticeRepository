@@ -293,7 +293,7 @@ public class HomeController {
         UserDTO userDTO = new UserDTO();
 
         userDTO.setId(id);
-        userDTO.setName("홍길동");
+        userDTO.setName("영암마트");
         userDTO.setPhone("010-1234-5678");
         userDTO.setEmail("hong@example.com");
         userDTO.setCompanyName("ABC 주식회사");
