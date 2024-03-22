@@ -240,7 +240,7 @@ public class HomeController {
         tags.add(new TagDTO(2, "태그2"));
         tags.add(new TagDTO(4, "태그3"));
         tags.add(new TagDTO(5, "태그4"));
-        tags.add(new TagDTO(5, "태그4"));
+        tags.add(new TagDTO(5, "태그5"));
 
         model.addAttribute("tags", tags);
         model.addAttribute("userId", 1);
