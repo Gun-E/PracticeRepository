@@ -7,8 +7,9 @@
             <div class="col-auto">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item">Library</li>
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item" th:if="${categories[0].parentCategory.parentCategory != null}"><a th:href="@{/category/{id}(id=${categories[0].parentCategory.parentCategory.id})}" th:text="${categories[0].parentCategory.parentCategory.name}"></a></li>
+                        <li class="breadcrumb-item" th:text="${categories[0].parentCategory.name}"></li>
                     </ol>
                 </nav>
             </div>

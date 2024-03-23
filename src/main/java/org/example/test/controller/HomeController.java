@@ -193,7 +193,7 @@ public class HomeController {
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
 
         List<CategoryDTO> categories = new ArrayList<>();
-        CategoryDTO vegetableFruitCategory = new CategoryDTO(1, "채소 • 과일");
+        CategoryDTO vegetableFruitCategory = new CategoryDTO(1, "채소 • 과일",new CategoryDTO(2, "test"));
 
         categories.add(new CategoryDTO(1, "채소", vegetableFruitCategory));
         categories.add(new CategoryDTO(1, "과일", vegetableFruitCategory));
