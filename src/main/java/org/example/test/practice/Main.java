@@ -1,5 +1,5 @@
 package org.example.test.practice;
-
+//백준 연습
 import java.util.Scanner;
 
 class Main {
