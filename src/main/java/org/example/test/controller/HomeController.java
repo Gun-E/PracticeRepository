@@ -8,6 +8,7 @@ import java.util.List;
 import org.example.test.domain.AddressDTO;
 import org.example.test.domain.CartDto;
 import org.example.test.domain.CategoryDTO;
+import org.example.test.domain.DiscountDTO;
 import org.example.test.domain.NoticeDetailDto;
 import org.example.test.domain.NoticeDto;
 import org.example.test.domain.OrderDTO;
@@ -193,7 +194,7 @@ public class HomeController {
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
 
         List<CategoryDTO> categories = new ArrayList<>();
-        CategoryDTO vegetableFruitCategory = new CategoryDTO(1, "채소 • 과일",new CategoryDTO(2, "test"));
+        CategoryDTO vegetableFruitCategory = new CategoryDTO(1, "채소 • 과일", new CategoryDTO(2, "test"));
 
         categories.add(new CategoryDTO(1, "채소", vegetableFruitCategory));
         categories.add(new CategoryDTO(1, "과일", vegetableFruitCategory));
@@ -400,26 +401,44 @@ public class HomeController {
         return "layout";
     }
 
+    @GetMapping("/discountManagement")
+    public String discountPage(Model model) {
+        List<DiscountDTO> discountList = new ArrayList<>();
+        discountList.add(
+                new DiscountDTO(1L, "타임 할인", LocalDateTime.of(2024, 3, 1, 0, 0), LocalDateTime.of(2024, 3, 1, 0, 0)));
+        discountList.add(
+                new DiscountDTO(2L, "주간 할인", LocalDateTime.of(2024, 3, 1, 0, 0), LocalDateTime.of(2024, 3, 1, 0, 0)));
+        discountList.add(
+                new DiscountDTO(3L, "카테고리 할인", LocalDateTime.of(2024, 3, 1, 0, 0), LocalDateTime.of(2024, 3, 1, 0, 0)));
+        discountList.add(
+                new DiscountDTO(4L, "신상 할인", LocalDateTime.of(2024, 3, 1, 0, 0), LocalDateTime.of(2024, 3, 1, 0, 0)));
+        model.addAttribute("discounts", discountList);
+        model.addAttribute("userId", 1);
+        model.addAttribute("content", "discount-management");
+        return "layout";
+    }
+
     @GetMapping("/orderList")
     public String getOrderListPage(Model model) {
         List<OrderListDto> orderList = new ArrayList<>();
-        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0 ,0),"마트1"));
-        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2,0,0),"마트2"));
-        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3,0,0),"마트3"));
+        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0, 0), "마트1"));
+        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2, 0, 0), "마트2"));
+        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "마트3"));
 
         model.addAttribute("orderList", orderList);
         model.addAttribute("userId", 1);
         model.addAttribute("content", "user-order-list");
         return "layout";
     }
+
     @GetMapping("/orderManagement")
     public String orderListManagementPage(Model model) {
         List<OrderListDto> orderList = new ArrayList<>();
 
-        orderList.add(new OrderListDto(1, "새 주문", 80000, LocalDateTime.of(2024, 3, 3,0,0),"new 마트"));
-        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0 ,0),"마트1"));
-        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2,0,0),"마트2"));
-        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3,0,0),"마트3"));
+        orderList.add(new OrderListDto(1, "새 주문", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "new 마트"));
+        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0, 0), "마트1"));
+        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2, 0, 0), "마트2"));
+        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "마트3"));
 
         model.addAttribute("orders", orderList);
         model.addAttribute("userId", 1);
@@ -459,5 +478,10 @@ public class HomeController {
     public String register(Model model) {
         model.addAttribute("userId", 1);
         return "register";
+    }
+    @GetMapping("/error")
+    public String error(Model model) {
+        model.addAttribute("userId", 1);
+        return "error";
     }
 }
