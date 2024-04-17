@@ -6,99 +6,103 @@
                      style="max-width: 100%; height: auto;">
             </div>
             <div class="col-lg-7 mt-3">
-                <div class="row">
-                    <div class="col">
-                        <h1 class="fw-bold mt-1 mb-4" th:text="${productDTO.name}">상품 이름</h1>
-                    </div>
-                    <div class="col-auto">
-                        <form th:action="@{/productModify/{id}(id=${productDTO.id})}" method="get" id="productModifyForm">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill">
+                <form id="combinedForm" th:action="@{/action}" method="post">
+                    <input type="hidden" name="productId" th:value="${productDTO.id}">
+                    <input type="hidden" name="productSalePrice" th:value="${productDTO.salePrice}">
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="fw-bold mt-1 mb-4" th:text="${productDTO.name}">상품 이름</h1>
+                        </div>
+                        <div class="col-auto">
+                            <a th:href="@{/productModify/{id}(id=${productDTO.id})}" class="btn btn-sm btn-outline-secondary rounded-pill">
                                 <i class="bi bi-pencil-fill"></i>
-                            </button>
-                        </form>
-                    </div>
-                    <div class="col-auto">
-                        <form th:action="@{/productDelete/{id}(id=${productDTO.id})}" method="post">
-                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">정가</div>
-                    <div class="col-md-8"
-                         th:text="${#numbers.formatInteger(productDTO.originalPrice,3, 'COMMA')} + '원'"></div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">판매가</div>
-                    <h4 id="salePrice" class="col-md-8 fw-bold text-success"
-                        th:text="${#numbers.formatInteger(productDTO.salePrice,3, 'COMMA')} + '원'"></h4>
-                </div>
-
-                <hr class="my-3">
-
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">브랜드/원산지</div>
-                    <div class="col-md-8" th:text="${productDTO.brandOrigin}"></div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">중량/용량</div>
-                    <div class="col-md-8" th:text="${productDTO.weight}"></div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">포장 타입</div>
-                    <div class="col-md-8" th:text="${productDTO.packaging}"></div>
-                </div>
-
-                <hr class="my-3">
-
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">태그</div>
-                    <div class="col-md-8">
-                        <div th:each="tag : ${productDTO.tags}" class="badge rounded-pill text-bg-success"
-                             th:text="${tag}"></div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">카테고리</div>
-                    <div class="col-md-8" th:text="${productDTO.category}">카테고리 이름</div>
-                </div>
-
-                <hr class="my-3">
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold mb-1">수량</div>
-                    <div class="col-md-8 d-flex align-items-center justify-content-between">
-                        <div class="input-group w-25">
-                            <button id="minusBtn" class="btn btn-success btn-sm" type="button">-</button>
-                            <input id="quantityInput" type="text" class="form-control form-control-sm text-center"
-                                   th:value="${productDTO.quantity}" min="1">
-                            <button id="plusBtn" class="btn btn-success btn-sm" type="button">+</button>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <fieldset id="deleteFieldSet">
+                                <button type="submit" th:formaction="@{/productDelete/{id}(id=${productDTO.id})}" class="btn btn-sm btn-outline-danger rounded-pill">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </fieldset>
                         </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 fw-bold">판매가 합계</div>
-                    <div class="col-md-8">
-                        <h4 id="totalSalePrice" class="fw-bold text-success"></h4>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">정가</div>
+                        <div class="col-md-8"
+                             th:text="${#numbers.formatInteger(productDTO.originalPrice,3, 'COMMA')} + '원'"></div>
                     </div>
-                </div>
-                <div class="row mt-4 mb-2">
-                    <div class="col-7">
-                        <form th:action="@{/order}" method="get" id="orderForm">
-                            <button class="btn btn-success fw-bold w-100">주문하기</button>
-                        </form>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">판매가</div>
+                        <h4 id="salePrice" class="col-md-8 fw-bold text-success"
+                            th:text="${#numbers.formatInteger(productDTO.salePrice,3, 'COMMA')} + '원'"></h4>
                     </div>
-                    <div class="col-2">
-                        <button class="btn btn-secondary w-100"><i class="bi bi-heart-fill"></i></button>
+
+                    <hr class="my-3">
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">브랜드/원산지</div>
+                        <div class="col-md-8" th:text="${productDTO.brandOrigin}"></div>
                     </div>
-                    <div class="col-3">
-                        <form th:action="@{/cart}" method="get">
-                            <button class="btn btn-outline-dark w-100"><i class="bi bi-basket-fill"></i></button>
-                        </form>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">중량/용량</div>
+                        <div class="col-md-8" th:text="${productDTO.weight}"></div>
                     </div>
-                </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">포장 타입</div>
+                        <div class="col-md-8" th:text="${productDTO.packaging}"></div>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">태그</div>
+                        <div class="col-md-8">
+                            <div th:each="tag : ${productDTO.tags}" class="badge rounded-pill text-bg-success"
+                                 th:text="${tag}"></div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">카테고리</div>
+                        <div class="col-md-8" th:text="${productDTO.category}">카테고리 이름</div>
+                    </div>
+
+                    <hr class="my-3">
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold mb-1">수량</div>
+                        <div class="col-md-8 d-flex align-items-center justify-content-between">
+                            <div class="input-group w-25">
+                                <button id="minusBtn" class="btn btn-success btn-sm" type="button">-</button>
+                                <input id="quantityInput" type="text" class="form-control form-control-sm text-center"
+                                       name="productAmount" value="1" min="1">
+                                <button id="plusBtn" class="btn btn-success btn-sm" type="button">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">판매가 합계</div>
+                        <div class="col-md-8">
+                            <h4 id="totalSalePrice" class="fw-bold text-success"></h4>
+                        </div>
+                    </div>
+                    <div class="row mt-4 mb-2">
+                        <div class="col-7">
+                            <fieldset id="orderFieldSet">
+                                <button th:formaction="@{/order}" class="btn btn-success fw-bold w-100">주문하기</button>
+                            </fieldset>
+                        </div>
+                        <div class="col-2">
+                            <fieldset id="StarredFieldSet">
+                            <button th:formaction="@{/starred}" class="btn btn-secondary w-100"><i class="bi bi-heart-fill"></i></button>
+                            </fieldset>
+                        </div>
+                        <div class="col-3">
+                            <fieldset id="cartFieldSet">
+                                <button th:formaction="@{/cart}" class="btn btn-outline-dark w-100"><i class="bi bi-basket-fill"></i></button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
