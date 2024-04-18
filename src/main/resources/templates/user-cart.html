@@ -13,13 +13,16 @@
                         <div class="row mt-2 mb-3">
                             <div class="col-auto mt-1">
                                 <a th:href="@{'/productDetail/' + ${item.id}}" class="btn p-0 border-0 bg-transparent">
-                                    <img th:src="${item.image}" alt="상품 이미지" class="card-img img-fluid object-fit-cover" style="width: 100px; height: 100px;">
+                                    <img th:src="${item.image}" alt="상품 이미지"
+                                         class="card-img img-fluid object-fit-contain"
+                                         style="width: 100px; height: 100px;">
                                 </a>
                             </div>
                             <div class="col mt-1">
                                 <div class="row mb-1">
                                     <div class="col mt-1">
-                                        <a th:href="@{'/productDetail/' + ${item.id}}" class="btn p-0 border-0 bg-transparent">
+                                        <a th:href="@{'/productDetail/' + ${item.id}}"
+                                           class="btn p-0 border-0 bg-transparent">
                                             <span class="fw-bold fs-5" th:text="${item.name}"></span>
                                             <span class="text-muted" th:text="${item.option}"></span>
                                         </a>
@@ -38,16 +41,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div class="row mb-0">
                             <div class="col">
                                 <h6 class="fw-bold">수량</h6>
                             </div>
-                            <div class="col-auto" style="width: 150px;">
-                                <div class="input-group">
-                                    <button class="btn btn-success btn-sm decrement-btn" type="button">-</button>
-                                    <input type="text" class="form-control form-control-sm quantity-input text-center" th:value="${item.quantity}" readonly>
-                                    <button class="btn btn-success btn-sm increment-btn" type="button">+</button>
-                                </div>
+                            <div class="col-auto">
+                                <h6 class="text-secondary" th:text="${'x '+item.quantity}"></h6>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-auto">
+                                <form th:action="@{'/cart/delete/'+ ${item.id}}" method="post">
+                                    <button type="submit" class="btn btn-success btn-sm">수량 변경</button>
+                                </form>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -55,7 +61,8 @@
                                 <h6 class="fw-bold">상품 금액</h6>
                             </div>
                             <div class="col-6 text-end">
-                                <h4 class="fw-bold text-end product-price" th:text="${#numbers.formatInteger(item.discountedPrice * item.quantity, 3, 'COMMA') + '원'}"></h4>
+                                <h4 class="fw-bold text-end product-price"
+                                    th:text="${#numbers.formatInteger(item.discountedPrice * item.quantity, 3, 'COMMA') + '원'}"></h4>
                             </div>
                         </div>
                     </div>
