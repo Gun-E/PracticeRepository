@@ -8,40 +8,52 @@
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold">주문 목록</div>
             <div class="card-body pb-0">
-                <div th:each="order : ${orderList}">
-                    <div class="container-fluid rounded border mb-3">
-                        <form th:action="@{/orderDetail/{orderId}(orderId=${order.orderId})}" method="get">
-                            <button type="submit" class="btn p-0 border-0 bg-transparent w-100">
-                                <div class="row mt-2 mb-3 border-bottom">
-                                    <div class="col">
-                                        <h5 class="fw-bold text-start" th:text="${#temporals.format(order.day, 'yyyy-MM-dd')}"></h5>
+                <div th:if="${#lists.isEmpty(orderList)}">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="text-center text-secondary py-5">
+                            <i class="bi bi-emoji-surprise display-1"></i>
+                            <h5 class="fw-bold mt-3 mb-3">주문 목록이 비어 있습니다.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div th:unless="${#lists.isEmpty(orderList)}">
+                    <div th:each="order : ${orderList}">
+                        <div class="container-fluid rounded border mb-3">
+                            <form th:action="@{/orderDetail/{orderId}(orderId=${order.orderId})}" method="get">
+                                <button type="submit" class="btn p-0 border-0 bg-transparent w-100">
+                                    <div class="row mt-2 mb-3 border-bottom">
+                                        <div class="col">
+                                            <h5 class="fw-bold text-start" th:text="${#temporals.format(order.day, 'yyyy-MM-dd')}"></h5>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <i class="bi bi-chevron-right"></i>
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <h6 class="fw-bold text-start">주문 상태</h6>
+                                        </div>
+                                        <div class="col-auto">
+                                            <h6 class="fw-bold" th:text="${order.status}"
+                                                th:class="${order.status == '승인 완료'} ? 'text-success fw-bold' :
+                                               (${order.status == '승인 거절'} ? 'text-danger fw-bold' :
+                                               (${order.status == '새 주문'} ? 'text-warning fw-bold' : 'text-secondary fw-bold'))"></h6>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <h6 class="fw-bold text-start">주문 상태</h6>
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <h6 class="fw-bold text-start">주문 금액</h6>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <h5 class="fw-bold"
+                                                th:text="${#numbers.formatInteger(order.totalPrice,3, 'COMMA')+'원'}"></h5>
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <h6 class="fw-bold" th:text="${order.status}"
-                                            th:class="${order.status == '승인 완료'} ? 'text-success fw-bold' :
-                                           (${order.status == '승인 거절'} ? 'text-danger fw-bold' :
-                                           (${order.status == '새 주문'} ? 'text-warning fw-bold' : 'text-secondary fw-bold'))"></h6>
-                                    </div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col-6">
-                                        <h6 class="fw-bold text-start">주문 금액</h6>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        <h5 class="fw-bold"
-                                            th:text="${#numbers.formatInteger(order.totalPrice,3, 'COMMA')+'원'}"></h5>
-                                    </div>
-                                </div>
-                            </button>
-                        </form>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
