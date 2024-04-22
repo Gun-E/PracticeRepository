@@ -23,7 +23,7 @@
                 <img src="/images/logo" alt="Y-MART 로고" class="my-4">
             </a>
         </div>
-        <form action="/register" method="post" id="registerForm">
+        <form action="/user/register" method="post" id="registerForm">
             <div class="mb-3">
                 <label for="name" class="form-label">이름</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요." maxlength="20"
@@ -52,14 +52,15 @@
                 </div>
             </div>
             <div class="mb-5">
-                <label for="detail_address" class="form-label">상세 주소</label>
-                <input type="text" class="form-control" id="detail_address" name="detailAddress"
+                <label for="detailAddress" class="form-label">상세 주소</label>
+                <input type="text" class="form-control" id="detailAddress" name="detailAddress"
                        placeholder="상세 주소를 입력하세요." maxlength="100">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">아이디 (이메일)</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="ex) ymart@example.com"
                        maxlength="50" required>
+                <div class="form-text" id="emailCheckMessage"></div>
             </div>
             <div class="mb-3">
                 <label for="userpasswd" class="form-label">비밀번호</label>
@@ -80,7 +81,7 @@
                     <button type="submit" class="btn btn-success w-100 mb-3" id="registerBtn">회원가입</button>
                 </div>
                 <div class="col-3">
-                    <a href="/login" class="btn btn-secondary w-100">취소</a>
+                    <a href="/loginForm" class="btn btn-secondary w-100">취소</a>
                 </div>
             </div>
         </form>
@@ -132,6 +133,34 @@
 
         // 생성한 버튼을 비밀번호 입력란 뒤에 추가
         $('#userpasswd').after(passwordToggleBtn);
+
+        // 아이디 중복 확인
+        $('#email').on('keyup blur', function () {
+            var email = $(this).val();
+            var emailRegex = /\S+@\S+\.\S+/;
+
+            if (!emailRegex.test(email)) {
+                $('#emailCheckMessage').text('올바른 이메일 주소를 입력하세요.');
+                return;
+            }
+
+            $.ajax({
+                url: '/user/email-duplicate-check',
+                data: { email: email },
+                method: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.available) {
+                        $('#emailCheckMessage').text('사용 가능한 아이디입니다.');
+                    } else {
+                        $('#emailCheckMessage').text('이미 존재하는 아이디입니다.');
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
     });
 
     // 비밀번호 토글 함수
