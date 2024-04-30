@@ -2,79 +2,174 @@
     <div class="col-sm-10 col-11">
         <div class="row">
             <div class="col">
-                <h4 class="fw-bold mb-4">즐겨찾는 상품</h4>
+                <h4 class="fw-bold mb-4">관심상품</h4>
             </div>
         </div>
-        <form id="cartForm" th:action="@{/addCart}" method="post">
-            <div class="card shadow">
-                <div class="card-header bg-success text-white fw-bold">공지사항</div>
-
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered mb-0 text-center">
-                        <thead class="table-success">
-                        <tr>
-                            <th scope="col">체크박스</th>
-                            <th scope="col">상품</th>
-                            <th scope="col">금액</th>
-                            <th scope="col">찜 삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="product : ${products}">
-                            <td>
-                                <input class="form-check-input" type="checkbox" th:value="${product.id}" checked>
-                            </td>
-                            <td>
-                                <a class="btn p-0 border-0 bg-transparent"
-                                   th:href="@{/productDetail/{id}(id=${product.id})}">
-                                    <span class="fw-bold text-success" th:text="${'('+product.brand+')'}"></span>
-                                    <span class="fw-bold" th:text="${product.name}"></span>
-                                    <span class="text-muted" th:text="${product.weight}"></span>
-                                </a>
-                            </td>
-                            <td th:text="${#numbers.formatInteger(product.price,3, 'COMMA')} + '원'"></td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-outline-danger"
-                                        th:attr="data-bs-toggle='modal', data-bs-target='#deleteModal'+${product.id}">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+        <div class="card shadow">
+            <div class="card-header bg-success text-white fw-bold">
+                <i class="bi bi-bookmark-fill"></i> Saved
+            </div>
+            <div class="card-body pb-0">
+                <div th:if="${#lists.isEmpty(starredProducts)}">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="text-center text-secondary py-5">
+                                <i class="bi bi-bookmark display-1"></i>
+                                <h5 class="fw-bold mt-3 mb-3">관심 상품이 비어 있습니다.</h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-success fw-bold w-100" type="submit">장바구니에 추가</button>
+                <div th:each="starredProduct : ${starredProducts}">
+                    <div class="container-fluid rounded border mb-3 z-1 shadow-sm position-relative">
+                        <div class="position-absolute top-0 end-0 me-3 mt-2 z-2">
+                            <form th:action="@{'/starred/delete/'+${starredProduct.productId}}" method="post">
+                                <button type="submit" class="btn btn-link p-0">
+                                    <i class="bi bi-bookmark-fill fs-5 text-dark"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <form method="get" th:action="@{/product/{id}(id=${starredProduct.productId})}">
+                            <div class="row mt-1">
+                                <div class="col-auto mt-1">
+                                    <img th:src="@{'/images/' +${starredProduct.thumbnailFileName}}"
+                                         class="card-img img-fluid object-fit-contain"
+                                         alt="이미지 없음" style="width: 100px; height: 100px; padding: 20px;">
+                                </div>
+                                <div class="col mt-1">
+                                    <div class="row mt-2">
+                                        <h6 class="fw-bold" th:text="${starredProduct.brandName}"></h6>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <h6 class="fw-bold" th:text="${starredProduct.name}"
+                                            style="font-size: 14px;"></h6>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <div class="col">
+                                            <h4 class="fw-bold product-price"
+                                                th:text="${#numbers.formatInteger(starredProduct.sellingPrice, 3, 'COMMA') + '원'}"></h4>
+                                        </div>
+                                    </div>
+                                    <div class="position-absolute bottom-0 end-0 z-2" style="margin-bottom: 11px; margin-right: 11px">
+                                        <button type="button" class="btn btn-outline-success btn-sm rounded-pill"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#myModal"
+                                                th:data-item-id="${starredProduct.productId}"
+                                                th:data-item-quantity=1>
+                                            <i class="bi bi-cart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-link p-0 stretched-link"></button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </form>
+        </div>
+        <!--        <div th:unless="${#lists.isEmpty(starredProducts)}">-->
+        <!--            <nav class="mt-4">-->
+        <!--                <ul class="pagination justify-content-center">-->
+        <!--                    <li class="page-item" th:if="${pageUtil.currentPage!=1}">-->
+        <!--                        <a class="page-link text-success" th:href="@{/starred/list(page=0)}"-->
+        <!--                           aria-disabled="true">-->
+        <!--                            <i class="bi bi-chevron-double-left"></i>-->
+        <!--                        </a>-->
+        <!--                    </li>-->
+        <!--                    <li class="page-item" th:if="${pageUtil.start!=1}">-->
+        <!--                        <a class="page-link text-success"-->
+        <!--                           th:href="@{/starred/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"-->
+        <!--                           aria-disabled="true">-->
+        <!--                            <i class="bi bi-chevron-left"></i>-->
+        <!--                        </a>-->
+        <!--                    </li>-->
+        <!--                    <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"-->
+        <!--                        th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">-->
+        <!--                        <a class="page-link text-success"-->
+        <!--                           th:href="${page == pageUtil.currentPage ? '#' : '/starred/list?page=' + (page - 1)}"-->
+        <!--                           th:text="${page}"-->
+        <!--                           th:aria-disabled="${page == pageUtil.currentPage}">-->
+        <!--                        </a>-->
+        <!--                    </li>-->
+
+        <!--                    <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">-->
+        <!--                        <a class="page-link text-success"-->
+        <!--                           th:href="@{/starred/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"-->
+        <!--                           th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">-->
+        <!--                            <i class="bi bi-chevron-right"></i>-->
+        <!--                        </a>-->
+        <!--                    </li>-->
+        <!--                    <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">-->
+        <!--                        <a class="page-link text-success" th:href="@{/starred/list(page=${pageUtil.totalPages - 1})}"-->
+        <!--                           aria-disabled="true">-->
+        <!--                            <i class="bi bi-chevron-double-right"></i>-->
+        <!--                        </a>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </nav>-->
+        <!--        </div>-->
     </div>
 </div>
-
-<div th:each="product : ${products}" class="modal fade modal-sheet p-4 py-md-5" th:id="'deleteModal'+${product.id}" tabindex="-1"
-     aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade modal-sheet p-4 py-md-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">
-            <div class="modal-header  border-bottom-0">
-                <h5 class="modal-title" id="deleteModalLabel">즐겨찾기 삭제</h5>
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold" id="modalLabel">수량 변경</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                즐겨찾기에서 제거하시겠습니까?
-            </div>
-            <div class="modal-footer border-0">
-                <form th:action="@{/favoriteDelete}" method="post" class="w-100">
-                    <input type="hidden" th:value="${product.id}" name="productId"/>
-                    <div class="row">
-                        <div class="col-7 pr-1">
-                            <button type="submit" class="btn btn-danger w-100">삭제</button>
+                <form id="amountForm" method="post">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="fw-bold" for="quantityInput">수량</label>
                         </div>
-                        <div class="col-5 pl-1">
-                            <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">취소</button>
+                        <div class="col-auto">
+                            <div class="input-group">
+                                <button id="minusBtn" class="btn btn-success btn-sm" type="button">-
+                                </button>
+                                <input id="quantityInput" type="text" class="form-control form-control-sm text-center"
+                                       name="quantity" value="1" min="1">
+                                <button id="plusBtn" class="btn btn-success btn-sm" type="button">+
+                                </button>
+                            </div>
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-success w-100">확인</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#minusBtn").click(decreaseQuantity);
+        $("#plusBtn").click(increaseQuantity);
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var productId = button.data('item-id');
+            var productQuantity = button.data('item-quantity');
+            var formAction = '/장바구니로 보내는 URL/';
+
+            $('#amountForm')
+                .append('<input type="hidden" name="productId" value="' + productId + '">')
+                .attr('action', formAction);
+            $('#quantityInput').val(productQuantity);
+
+        });
+    });
+    function decreaseQuantity() {
+        var quantity = parseInt($("#quantityInput").val());
+        if (quantity > 1) {
+            $("#quantityInput").val(quantity - 1);
+        }
+    }
+
+    function increaseQuantity() {
+        var quantity = parseInt($("#quantityInput").val());
+        if (quantity < 10000) {
+            $("#quantityInput").val(quantity + 1);
+        }
+    }
+</script>

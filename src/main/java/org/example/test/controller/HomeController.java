@@ -46,10 +46,7 @@ public class HomeController {
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
         products.add(new ProductListDTO(1L, "/images/noddle", "삼양", "삼양라면 5 + 1개입", "1box", 5000));
 
-        model.addAttribute("userId", 1);
-        model.addAttribute("role", true);
-
-        model.addAttribute("products", products);
+        model.addAttribute("starredProducts", products);
         model.addAttribute("content", "product-list-starred");
         return "layout";
     }
@@ -420,12 +417,12 @@ public class HomeController {
 
     @GetMapping("/orderList")
     public String getOrderListPage(Model model) {
-//        List<OrderListDto> orderList = new ArrayList<>();
-//        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0, 0), "마트1"));
-//        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2, 0, 0), "마트2"));
-//        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "마트3"));
+        List<OrderListDto> orderList = new ArrayList<>();
+        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0, 0), "마트1"));
+        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2, 0, 0), "마트2"));
+        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "마트3"));
 
-//        model.addAttribute("orderList", orderList);
+        model.addAttribute("orderList", orderList);
         model.addAttribute("userId", 1);
         model.addAttribute("content", "user-order-list");
         return "layout";
@@ -476,7 +473,6 @@ public class HomeController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("userId", 1);
         return "register";
     }
     @GetMapping("/error")

@@ -10,10 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductListDTO {
-    private Long id;
-    private String imagePath;
-    private String brand;
+    private Long productId;
+    private String thumbnailFileName;
+    private String brandName;
     private String name;
     private String weight;
-    private int price;
+    private int sellingPrice;
 }

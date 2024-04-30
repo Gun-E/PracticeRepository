@@ -8,36 +8,49 @@
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold">장바구니 내역</div>
             <div class="card-body pb-0">
+                <div th:if="${#lists.isEmpty(cartList)}">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="text-center text-secondary py-5">
+                                <i class="bi bi-cart display-1"></i>
+                                <h5 class="fw-bold mt-3 mb-3">장바구니가 비어 있습니다.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div th:each="item, itemStat : ${cartList}" th:id="'cartItem' + ${itemStat.index}">
-                    <div class="container-fluid rounded border mb-3">
+                    <div class="container-fluid rounded border shadow-sm mb-3">
                         <div class="row mt-2 mb-3">
                             <div class="col-auto mt-1">
-                                <a th:href="@{'/productDetail/' + ${item.id}}" class="btn p-0 border-0 bg-transparent">
-                                    <img th:src="${item.image}" alt="상품 이미지"
+                                <a th:href="@{/product/{id}(id=${item.productId})}"
+                                   class="btn p-0 border-0 bg-transparent">
+                                    <img th:src="@{'/images/' +${item.thumbnailFileName}}"
                                          class="card-img img-fluid object-fit-contain"
-                                         style="width: 100px; height: 100px;">
+                                         alt="이미지 없음" style="width: 100px; height: 100px; padding: 20px;">
                                 </a>
                             </div>
                             <div class="col mt-1">
                                 <div class="row mb-1">
                                     <div class="col mt-1">
-                                        <a th:href="@{'/productDetail/' + ${item.id}}"
-                                           class="btn p-0 border-0 bg-transparent">
-                                            <span class="fw-bold fs-5" th:text="${item.name}"></span>
-                                            <span class="text-muted" th:text="${item.option}"></span>
-                                        </a>
+                                        <form th:action="@{/product/{id}(id=${item.productId})}" method="get">
+                                            <button type="submit" class="btn p-0 border-0 bg-transparent">
+                                                <span class="fw-bold" th:text="${item.productName}"></span>
+                                            </button>
+                                        </form>
                                     </div>
                                     <div class="col-auto">
-                                        <form th:action="@{'/cart/delete/'+ ${item.id}}" method="post">
-                                            <button type="submit" class="btn-close"></button>
-                                        </form>
+                                        <button type="button" class="btn-close"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                th:data-item-shopping-cart-id="${item.shoppingCartId}"
+                                                th:data-item-id="${item.productId}">
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <h8 class="text-decoration-line-through text-muted mb-0"
-                                        th:text="${#numbers.formatInteger(item.originalPrice,3, 'COMMA')} + '원'"></h8>
+                                    <h6 class="text-decoration-line-through text-muted mb-0"
+                                        th:text="${#numbers.formatInteger(item.listPrice,3, 'COMMA')} + '원'"></h6>
                                     <h5 id="salePrice" class="fw-bold text-success salePrice"
-                                        th:text="${#numbers.formatInteger(item.discountedPrice,3, 'COMMA')} + '원'"></h5>
+                                        th:text="${#numbers.formatInteger(item.sellingPrice,3, 'COMMA')} + '원'"></h5>
                                 </div>
                             </div>
                         </div>
@@ -46,14 +59,20 @@
                                 <h6 class="fw-bold">수량</h6>
                             </div>
                             <div class="col-auto">
-                                <h6 class="text-secondary" th:text="${'x '+item.quantity}"></h6>
+                                <h6 class="text-secondary" th:text="${'x ' + item.productQuantity}"></h6>
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <div class="col">
+                                <h6 class="fw-bold"></h6>
+                            </div>
                             <div class="col-auto">
-                                <form th:action="@{'/cart/delete/'+ ${item.id}}" method="post">
-                                    <button type="submit" class="btn btn-success btn-sm">수량 변경</button>
-                                </form>
+                                <button type="button" class="btn btn-success btn-sm"  data-bs-toggle="modal"
+                                        data-bs-target="#myModal"
+                                        th:data-item-id="${item.productId}"
+                                        th:data-item-quantity="${item.productQuantity}">
+                                    수량 변경
+                                </button>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -62,29 +81,30 @@
                             </div>
                             <div class="col-6 text-end">
                                 <h4 class="fw-bold text-end product-price"
-                                    th:text="${#numbers.formatInteger(item.discountedPrice * item.quantity, 3, 'COMMA') + '원'}"></h4>
+                                    th:text="${#numbers.formatInteger(item.sellingPrice * item.productQuantity, 3, 'COMMA') + '원'}"></h4>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="card-footer">
-                <div class="row mt-3 mb-3">
-                    <div class="col-6">
-                        <h6 class="fw-bold">
-                            총 가격
-                        </h6>
+            <div th:unless="${#lists.isEmpty(cartList)}">
+                <div class="card-footer">
+                    <div class="row mt-3 mb-3">
+                        <div class="col-6">
+                            <h6 class="fw-bold">
+                                총 가격
+                            </h6>
+                        </div>
+                        <div class="col-6">
+                            <h3 id="totalPrice" class="fw-bold text-end total-price"></h3>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <h3 id="totalPrice" class="fw-bold text-end total-price"></h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <form th:action="@{/order}" method="get" id="orderForm">
-                            <button type="submit" class="btn btn-success w-100 fw-bold">주문하기</button>
-                        </form>
+                    <div class="row">
+                        <div class="col-12">
+                            <form th:action="@{/order-list/order}" method="post" id="orderForm">
+                                <button type="submit" class="btn btn-success w-100 fw-bold">주문하기</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,55 +112,120 @@
     </div>
 </div>
 
+<div class="modal fade modal-sheet p-4 py-md-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold" id="modalLabel">수량 변경</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="amountForm" method="post">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="fw-bold" for="quantityInput">수량</label>
+                        </div>
+                        <div class="col-auto">
+                            <div class="input-group">
+                                <button id="minusBtn" class="btn btn-success btn-sm" type="button">-
+                                </button>
+                                <input id="quantityInput" type="text" class="form-control form-control-sm text-center"
+                                       name="quantity" value="1" min="1">
+                                <button id="plusBtn" class="btn btn-success btn-sm" type="button">+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">확인</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-sheet p-4 py-md-5" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold" id="deleteModalLabel">상품 삭제 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mt-3 mb-3 py-0">
+                장바구니에서 상품을 삭제하시겠습니까?
+            </div>
+            <div class="container-fluid">
+                <div class="row mt-4 mb-2">
+                    <div class="col-7">
+                        <form id="deleteForm" method="post">
+                            <button type="submit" class="btn btn-danger w-100">삭제</button>
+                        </form>
+                    </div>
+                    <div class="col-5">
+                        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        // 총 가격을 계산하고 업데이트하는 함수
-        function calculateAndUpdateTotalPrice() {
-            var totalPrice = 0;
-
-            $('.card-body .container-fluid').each(function () {
-                var productPriceString = $(this).find('.product-price').text().replace('원', '').replace(/,/g, '').trim();
-                var productPrice = parseInt(productPriceString);
-                totalPrice += productPrice;
-            });
-
-            $('.total-price').text(totalPrice.toLocaleString() + '원');
-        }
-
-        // 개별 상품의 가격을 계산하고 업데이트하는 함수
-        function updateProductPrice(container) {
-            var quantity = parseInt(container.find('.quantity-input').val());
-
-            var pricePerUnitString = container.find('.salePrice').text().replace('원', '').replace(/,/g, '').trim();
-            var pricePerUnit = parseInt(pricePerUnitString);
-
-            var totalPrice = quantity * pricePerUnit;
-
-            container.find('.product-price').text(totalPrice.toLocaleString() + '원');
-        }
-
-        // 초기에 총 가격 계산
+        // 총 가격 계산
         calculateAndUpdateTotalPrice();
 
-        // 증가 버튼 클릭 이벤트
-        $('.increment-btn').click(function () {
-            var input = $(this).parent().find('.quantity-input');
-            var currentValue = parseInt(input.val());
-            input.val(currentValue + 1);
-            updateProductPrice($(this).closest('.container-fluid'));
-            calculateAndUpdateTotalPrice();
-        });
+        $("#minusBtn").click(decreaseQuantity);
+        $("#plusBtn").click(increaseQuantity);
+        $('#myModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var productId = button.data('item-id');
+            var productQuantity = button.data('item-quantity');
+            var formAction = '/amount/modify/' + productId;
 
-        // 감소 버튼 클릭 이벤트
-        $('.decrement-btn').click(function () {
-            var input = $(this).parent().find('.quantity-input');
-            var currentValue = parseInt(input.val());
-            if (currentValue > 1) {
-                input.val(currentValue - 1);
-                updateProductPrice($(this).closest('.container-fluid'));
-                calculateAndUpdateTotalPrice();
-            }
+            $('#amountForm').attr('action', formAction);
+            $('#quantityInput').val(productQuantity);
+        });
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var shoppingCartId = button.data('item-shopping-cart-id');
+            var productId = button.data('item-id');
+            var formAction = '/cart/delete/' +shoppingCartId + '/'+ productId;
+
+            $('#deleteForm').attr('action', formAction);
         });
     });
+
+    // 총 가격을 계산하고 업데이트하는 함수
+    function calculateAndUpdateTotalPrice() {
+        var totalPrice = 0;
+
+        $('.card-body .container-fluid').each(function () {
+            var productPriceString = $(this).find('.product-price').text().replace('원', '').replace(/,/g, '').trim();
+            var productPrice = parseInt(productPriceString);
+            totalPrice += productPrice;
+        });
+
+        $('.total-price').text(totalPrice.toLocaleString() + '원');
+
+        if (totalPrice <= 50000) {
+            $('#orderForm button[type="submit"]').prop('disabled', false);
+        } else {
+            $('#orderForm button[type="submit"]').prop('disabled', true);
+        }
+    }
+
+    function decreaseQuantity() {
+        var quantity = parseInt($("#quantityInput").val());
+        if (quantity > 1) {
+            $("#quantityInput").val(quantity - 1);
+        }
+    }
+
+    function increaseQuantity() {
+        var quantity = parseInt($("#quantityInput").val());
+        if (quantity < 10000) {
+            $("#quantityInput").val(quantity + 1);
+        }
+    }
 </script>
