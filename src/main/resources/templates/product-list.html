@@ -14,13 +14,15 @@
         </div>
         <div class="row mb-2">
             <div class="col">
-                <button class="btn btn-success  btn-sm dropdown-toggle fw-bold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-success  btn-sm dropdown-toggle fw-bold" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                     상품 카테고리
                 </button>
                 <ul class="dropdown-menu shadow w-75">
                     <div class="row mt-2" style="margin-left: 5px;">
                         <li th:each="category : ${categories}" class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <a th:href="@{/category/{id}(id=${category.id})}" class="dropdown-item mb-2">
+                            <a th:href="@{/product/category/{id}(id=${category.productCategoryId})}"
+                               class="dropdown-item mb-2">
                                 <i class="text-success"></i> [[${category.name}]]
                             </a>
                         </li>
@@ -28,10 +30,11 @@
                 </ul>
             </div>
             <div class="col-auto">
-                <form class="form-inline">
+                <form class="form-inline" th:action="@{/product/search}" method="get">
+                    <label for="search-input" class="visually-hidden">검색어 입력</label>
                     <div class="input-group input-group-sm">
-                        <input type="search" class="form-control focus-ring focus-ring-success" placeholder="검색어 입력">
-                        <button class="btn btn-success input-group-append" type="button"><i class="bi bi-search"></i>
+                        <input type="search" id="search-input" name="query" class="form-control" placeholder="검색어 입력">
+                        <button class="btn btn-success input-group-append" type="submit"><i class="bi bi-search"></i>
                         </button>
                     </div>
                 </form>
@@ -40,9 +43,10 @@
 
         <div class="row text-center">
             <div th:each="product : ${products}" class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 col-xxl-2 mb-3">
-                <form th:action="@{{id}(id=${product.productId})}" method="get">
+                <form th:action="@{'/product/' + ${product.productId}}" method="get">
                     <div class="card h-100 border border-success shadow">
-                        <img th:src="@{'/images/' +${product.thumbnailFileName}}" class="card-img-top img-fluid object-fit-contain"
+                        <img th:src="@{'/images/' +${product.thumbnailFileName}}"
+                             class="card-img-top img-fluid object-fit-contain"
                              alt="이미지 없음" style="height: 210px; padding: 20px;">
                         <div class="card-body d-flex flex-column justify-content-between">
                             <h6 class="text-muted mb-3" th:text="${'[' + product.brandName + ']'}"></h6>
@@ -57,20 +61,47 @@
                 </form>
             </div>
         </div>
+
         <nav class="mt-4">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i
-                            class="bi bi-caret-left-fill"></i></a>
-                </li>
-                <li class="page-item"><a class="page-link text-success" href="#">1</a></li>
-                <li class="page-item"><a class="page-link text-success" href="#">2</a></li>
-                <li class="page-item"><a class="page-link text-success" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link text-success" href="#"><i class="bi bi-caret-right-fill"></i></a>
-                </li>
-            </ul>
+<!--            <ul class="pagination justify-content-center">-->
+<!--                <li class="page-item" th:if="${pageUtil.currentPage!=1}">-->
+<!--                    <a class="page-link text-success" th:href="@{/product/list(page=0)}"-->
+<!--                       aria-disabled="true">-->
+<!--                        <i class="bi bi-chevron-double-left"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:if="${pageUtil.start!=1}">-->
+<!--                    <a class="page-link text-success"-->
+<!--                       th:href="@{/product/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"-->
+<!--                       aria-disabled="true">-->
+<!--                        <i class="bi bi-chevron-left"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"-->
+<!--                    th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">-->
+<!--                    <a class="page-link text-success"-->
+<!--                       th:href="${page == pageUtil.currentPage ? '#' : '/product/list?page=' + (page - 1)}"-->
+<!--                       th:text="${page}"-->
+<!--                       th:aria-disabled="${page == pageUtil.currentPage}">-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">-->
+<!--                    <a class="page-link text-success"-->
+<!--                       th:href="@{/product/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"-->
+<!--                       th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">-->
+<!--                        <i class="bi bi-chevron-right"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">-->
+<!--                    <a class="page-link text-success" th:href="@{/product/list(page=${pageUtil.totalPages - 1})}"-->
+<!--                       aria-disabled="true">-->
+<!--                        <i class="bi bi-chevron-double-right"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
         </nav>
+
     </div>
 </div>
 

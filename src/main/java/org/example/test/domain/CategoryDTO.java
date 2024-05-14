@@ -11,12 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDTO {
-    private int id;
+    private int productCategoryId;
     private String name;
     private CategoryDTO parentCategory;
 
     public CategoryDTO(int id, String name) {
-        this.id = id;
+        this.productCategoryId = id;
         this.name = name;
     }
 }
