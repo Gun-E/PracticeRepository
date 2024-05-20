@@ -27,11 +27,11 @@
                              class="d-inline-block align-text-top">
                     </a>
                 </div>
-                <div class="col-6">
+                <div class="col-6 d-none d-lg-block">
                     <form class="form-inline mt-3 position-relative" th:action="@{/product/search}"
                           method="get">
-                        <label for="search-input" class="visually-hidden">검색어 입력</label>
-                        <input type="search" id="search-input" name="query"
+                        <label for="search-input-large" class="visually-hidden">검색어 입력</label>
+                        <input type="search" id="search-input-large" name="query"
                                class="form-control rounded-pill border border-success"
                                placeholder="검색어 입력">
                         <button class="btn position-absolute end-0 bottom-0 z-2" type="submit">
@@ -46,10 +46,10 @@
                                 <i class="bi bi-person-circle text-secondary fs-5"></i>
                             </button>
                         </form>
-                        <form class="form-inline mt-3" action="/logoutForm" method="POST" th:if="${loggedIn}">
-                            <button class="btn btn-outline-secondary rounded-pill btn-sm my-2 my-sm-0 fw-bold"
-                                    type="submit">로그아웃 <i class="bi bi-box-arrow-right"></i></button>
-                        </form>
+                        <button class="btn btn-outline-light rounded-pill mt-2" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#myPageContent" aria-controls="myPageContent" th:if="${loggedIn}">
+                            <i class="bi bi-person-circle text-secondary fs-5"></i>
+                        </button>
                         <button class="btn btn-outline-light rounded-pill mt-2" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
                             <span class="navbar-toggler-icon"></span>
@@ -57,10 +57,21 @@
                     </div>
                 </div>
             </div>
+            <div class="row d-lg-none">
+                <form class="form-inline position-relative" th:action="@{/product/search}"
+                      method="get">
+                    <label for="search-input-small" class="visually-hidden">검색어 입력</label>
+                    <input type="search" id="search-input-small" name="query"
+                           class="form-control rounded-pill border border-success"
+                           placeholder="검색어 입력">
+                    <button class="btn position-absolute end-0 bottom-0 z-2 me-3" type="submit">
+                        <i class="bi bi-search text-secondary fw-bold"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </header>
-
 
 <div style="margin-top: 90px; margin-bottom: 100px">
     <main th:replace="~{${content}}"></main>
@@ -78,9 +89,10 @@
         <span class="text-secondary">Copyright &copy; Y-MART Corp. All Rights Reserved.</span>
     </div>
 </footer>
+
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="navbarSupportedContent">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title">네비게이션 메뉴</h5>
+        <h5 class="offcanvas-title">Y-Mart 메뉴</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
     </div>
@@ -93,9 +105,6 @@
                 <a class="nav-link" href="/starred/list">관심상품</a>
             </li>
             <li class="nav-item" th:if="${isUser}">
-                <a class="nav-link" th:href="${'/user/mypage'}">마이페이지</a>
-            </li>
-            <li class="nav-item" th:if="${isUser}">
                 <a class="nav-link" href="/cart">장바구니</a>
             </li>
             <li class="nav-item" th:if="${isUser}">
@@ -104,12 +113,55 @@
             <li class="nav-item">
                 <a class="nav-link" href="/notice">공지사항</a>
             </li>
+        </ul>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="myPageContent">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">내 정보</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="navbar-nav fw-bold">
+            <li class="nav-item" th:if="${isUser}">
+                <a class="nav-link" th:href="${'/user/mypage'}">마이페이지</a>
+            </li>
             <li class="nav-item" th:if="${isAdmin}">
                 <a class="nav-link text-danger" href="/admin">
                     <i class="bi bi-wrench-adjustable"></i> 관리자</a>
             </li>
+            <li class="nav-item">
+                <form class="form-inline my-2 my-lg-0" action="/logoutForm" method="POST">
+                    <button class="btn btn-outline-secondary rounded-pill btn-sm my-2 my-sm-0 fw-bold" type="submit">
+                        로그아웃 <i
+                            class="bi bi-box-arrow-right"></i></button>
+                </form>
+            </li>
         </ul>
     </div>
+</div>
+<div class="position-fixed bottom-0 end-0 mb-4 me-4 cart-button z-2" th:if="${isUser}">
+    <div class="row">
+        <a href="/cart" class="btn btn-link p-0">
+            <i class="bi bi-cart text-secondary" style="font-size: 2.5rem;"></i>
+        </a>
+    </div>
+    <div class="row">
+        <a href="/order-list" class="btn btn-link p-0">
+            <i class="bi bi-pass text-secondary" style="font-size: 2.5rem;"></i>
+        </a>
+    </div>
+    <div class="row">
+        <a href="/starred/list" class="btn btn-link p-0">
+            <i class="bi bi-heart-fill text-danger" style="font-size: 2.5rem;"></i>
+        </a>
+    </div>
+</div>
+<div class="position-fixed bottom-0 end-0 mb-4 me-4 z-2" th:if="${isAdmin}">
+    <a href="/admin" class="btn p-0" style="font-size: 4.5rem;">
+        👷
+    </a>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -127,6 +179,7 @@
                 $(this).removeClass('active');
             }
         });
+
         $(window).scroll(function () {
             const header = $('header');
             if ($(window).scrollTop() > 0) {
