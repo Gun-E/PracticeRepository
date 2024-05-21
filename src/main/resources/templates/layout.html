@@ -32,7 +32,7 @@
                           method="get">
                         <label for="search-input-large" class="visually-hidden">검색어 입력</label>
                         <input type="search" id="search-input-large" name="query"
-                               class="form-control rounded-pill border border-success"
+                               class="form-control rounded-pill border border-success shadow-sm"
                                placeholder="검색어 입력">
                         <button class="btn position-absolute end-0 bottom-0 z-2" type="submit">
                             <i class="bi bi-search text-secondary fw-bold"></i>
@@ -46,28 +46,30 @@
                                 <i class="bi bi-person-circle text-secondary fs-5"></i>
                             </button>
                         </form>
-                        <button class="btn btn-outline-light rounded-pill mt-2" type="button" data-bs-toggle="offcanvas"
+                        <button class="btn btn-link mt-2" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#myPageContent" aria-controls="myPageContent" th:if="${loggedIn}">
                             <i class="bi bi-person-circle text-secondary fs-5"></i>
                         </button>
-                        <button class="btn btn-outline-light rounded-pill mt-2" type="button" data-bs-toggle="offcanvas"
+                        <button class="btn btn-link mt-2" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="row d-lg-none">
-                <form class="form-inline position-relative" th:action="@{/product/search}"
-                      method="get">
-                    <label for="search-input-small" class="visually-hidden">검색어 입력</label>
-                    <input type="search" id="search-input-small" name="query"
-                           class="form-control rounded-pill border border-success"
-                           placeholder="검색어 입력">
-                    <button class="btn position-absolute end-0 bottom-0 z-2 me-3" type="submit">
-                        <i class="bi bi-search text-secondary fw-bold"></i>
-                    </button>
-                </form>
+            <div class="container d-lg-none">
+                <div class="row">
+                    <form class="form-inline position-relative" th:action="@{/product/search}"
+                          method="get">
+                        <label for="search-input-small" class="visually-hidden">검색어 입력</label>
+                        <input type="search" id="search-input-small" name="query"
+                               class="form-control rounded-pill border border-success shadow-sm"
+                               placeholder="검색어 입력">
+                        <button class="btn position-absolute end-0 bottom-0 z-2 me-3" type="submit">
+                            <i class="bi bi-search text-secondary fw-bold"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
