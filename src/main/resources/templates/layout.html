@@ -13,6 +13,19 @@
         * {
             font-family: 'Lato', 'Nanum Gothic', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Dotum', '돋움', sans-serif !important;
         }
+        @media (max-width: 991.98px) {
+            #main-content {
+                margin-top: 130px !important;
+                margin-bottom: 100px !important;
+            }
+        }
+
+        @media (min-width: 992px) {
+            #main-content {
+                margin-top: 100px !important;
+                margin-bottom: 100px !important;
+            }
+        }
     </style>
 </head>
 
@@ -31,9 +44,9 @@
                     <form class="form-inline mt-3 position-relative" th:action="@{/product/search}"
                           method="get">
                         <label for="search-input-large" class="visually-hidden">검색어 입력</label>
-                        <input type="search" id="search-input-large" name="query"
+                        <input type="text" id="search-input-large" name="query"
                                class="form-control rounded-pill border border-success shadow-sm"
-                               placeholder="검색어 입력">
+                               placeholder="검색어 입력" th:value="${search}">
                         <button class="btn position-absolute end-0 bottom-0 z-2" type="submit">
                             <i class="bi bi-search text-secondary fw-bold"></i>
                         </button>
@@ -62,9 +75,9 @@
                     <form class="form-inline position-relative" th:action="@{/product/search}"
                           method="get">
                         <label for="search-input-small" class="visually-hidden">검색어 입력</label>
-                        <input type="search" id="search-input-small" name="query"
+                        <input type="text" id="search-input-small" name="query"
                                class="form-control rounded-pill border border-success shadow-sm"
-                               placeholder="검색어 입력">
+                               placeholder="검색어 입력" th:value="${search}">
                         <button class="btn position-absolute end-0 bottom-0 z-2 me-3" type="submit">
                             <i class="bi bi-search text-secondary fw-bold"></i>
                         </button>
@@ -75,7 +88,7 @@
     </div>
 </header>
 
-<div style="margin-top: 90px; margin-bottom: 100px">
+<div id="main-content">
     <main th:replace="~{${content}}"></main>
 </div>
 
@@ -134,10 +147,9 @@
                     <i class="bi bi-wrench-adjustable"></i> 관리자</a>
             </li>
             <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0" action="/logoutForm" method="POST">
+                <form class="form-inline mt-4 my-2 my-lg-0" action="/logoutForm" method="POST">
                     <button class="btn btn-outline-secondary rounded-pill btn-sm my-2 my-sm-0 fw-bold" type="submit">
-                        로그아웃 <i
-                            class="bi bi-box-arrow-right"></i></button>
+                        로그아웃 <i class="bi bi-box-arrow-right"></i></button>
                 </form>
             </li>
         </ul>
@@ -165,6 +177,7 @@
         👷
     </a>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
@@ -174,11 +187,10 @@
 
         $('.navbar-nav a').each(function () {
             const linkPath = $(this).attr('href');
-
             if (currentPath === linkPath) {
-                $(this).addClass('active');
+                $(this).removeClass('text-secondary');
             } else {
-                $(this).removeClass('active');
+                $(this).addClass('text-secondary');
             }
         });
 

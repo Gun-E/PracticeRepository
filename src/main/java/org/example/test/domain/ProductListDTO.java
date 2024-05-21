@@ -15,5 +15,6 @@ public class ProductListDTO {
     private String brandName;
     private String name;
     private String weight;
+    private int listPrice;
     private int sellingPrice;
 }
