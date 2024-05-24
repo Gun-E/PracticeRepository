@@ -12,7 +12,7 @@
                 </form>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row mb-2">
             <div class="col">
                 <button class="btn btn-success  btn-sm dropdown-toggle fw-bold" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -31,28 +31,44 @@
             </div>
         </div>
 
-        <div class="row">
-            <div th:each="product : ${products}" class="col-auto px-1 my-2">
+        <div class="row justify-content-start">
+            <div th:each="product : ${products}" class="col-4 col-sm-4 col-md-3 col-lg-2 px-1 my-2">
                 <form th:action="@{'/product/' + ${product.productId}}" method="get">
-                    <div class="card border border-success shadow-sm" style="height: 250px; width: 140px;">
-                        <img th:src="@{'/images/' + ${product.thumbnailFileName}}"
-                             class="card-img-top img-fluid object-fit-contain"
-                             alt="이미지 없음" style="height: 110px; width: 140px;">
-                        <button class="btn btn-link position-absolute end-0 z-2" style="bottom: 38%"><i class="bi bi-heart-fill text-danger"></i></button>
-                        <div class="card-body d-flex flex-column">
-                            <span class="text-dark mb-2 fw-bold" th:text="${product.brandName}"
-                                  style="font-size: 14px"></span>
-                            <span class="text-muted mb-2 fw-bold" th:if="${#strings.length(product.name) <= 11}"
-                                  th:text="${product.name}" style="font-size: 12px"></span>
-                            <span class="text-muted mb-2 fw-bold" th:if="${#strings.length(product.name) > 11}"
-                                  th:text="${#strings.substring(product.name, 0, 11)} + '...'"
-                                  style="font-size: 12px"></span>
-                            <span class="text-secondary text-decoration-line-through mt-1"
+                    <div class="card border shadow-sm z-1">
+                        <div class="d-flex justify-content-center" style="height: 90px;">
+                            <img th:src="@{'/images/' + ${product.thumbnailFileName}}"
+                                 class="card-img-top object-fit-contain"
+                                 alt="이미지 없음" style="padding: 8px">
+                        </div>
+
+                        <!--찜 삭제-->
+                        <!--                        <button id="starredDeleteButton" class="btn btn-link position-absolute end-0 z-2"-->
+                        <!--                                th:data-product-id="${product.productId}"-->
+                        <!--                                style="bottom: 36%"-->
+                        <!--                                th:if="${isUser}">-->
+                        <!--                            <i class="bi bi-heart-fill text-danger"></i>-->
+                        <!--                        </button>-->
+                        <!--찜 등록-->
+                        <button id="starredRegisterButton" class="btn btn-link position-absolute end-0 z-2"
+                                type="submit"
+                                th:data-product-id="${product.productId}"
+                                style="bottom: 36%"
+                                >
+                            <i class="bi bi-heart-fill text-secondary"></i>
+                        </button>
+
+                        <div class="card-body d-flex flex-column p-2 ms-1">
+                            <span id="brandName" class="text-dark mb-2 fw-bold" th:text="${product.brandName}"
+                                  style="font-size: 13px"></span>
+                            <span id="productName" class="text-muted mb-2 fw-bold text-truncate"
+                                  th:text="${product.name}"
+                                  style="font-size: 10px;"></span>
+                            <span id="listPrice" class="text-secondary text-decoration-line-through mt-1"
                                   th:text="${#numbers.formatInteger(product.listPrice,3, 'COMMA')}"
                                   style="font-size: 12px;"></span>
-                            <span class="text-success fw-bold"
+                            <span id="sellingPrice" class="text-success fw-bold"
                                   th:text="${#numbers.formatInteger(product.sellingPrice,3, 'COMMA')} + '원'"
-                                  style="font-size: 18px;"></span>
+                                  style="font-size: 13px;"></span>
                             <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                         </div>
                     </div>
@@ -60,45 +76,92 @@
             </div>
         </div>
 
-        <!--        <nav class="mt-4">-->
-        <!--            <ul class="pagination justify-content-center">-->
-        <!--                <li class="page-item" th:if="${pageUtil.currentPage!=1}">-->
-        <!--                    <a class="page-link text-success" th:href="@{/product/list(page=0)}"-->
-        <!--                       aria-disabled="true">-->
-        <!--                        <i class="bi bi-chevron-double-left"></i>-->
-        <!--                    </a>-->
-        <!--                </li>-->
-        <!--                <li class="page-item" th:if="${pageUtil.start!=1}">-->
-        <!--                    <a class="page-link text-success"-->
-        <!--                       th:href="@{/product/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"-->
-        <!--                       aria-disabled="true">-->
-        <!--                        <i class="bi bi-chevron-left"></i>-->
-        <!--                    </a>-->
-        <!--                </li>-->
-        <!--                <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"-->
-        <!--                    th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">-->
-        <!--                    <a class="page-link text-success"-->
-        <!--                       th:href="${page == pageUtil.currentPage ? '#' : '/product/list?page=' + (page - 1)}"-->
-        <!--                       th:text="${page}"-->
-        <!--                       th:aria-disabled="${page == pageUtil.currentPage}">-->
-        <!--                    </a>-->
-        <!--                </li>-->
+<!--        <nav class="mt-4">-->
+<!--            <ul class="pagination justify-content-center">-->
+<!--                <li class="page-item" th:if="${pageUtil.currentPage!=1}">-->
+<!--                    <a class="page-link text-success" th:href="@{/product/list(page=0)}"-->
+<!--                       aria-disabled="true">-->
+<!--                        <i class="bi bi-chevron-double-left"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:if="${pageUtil.start!=1}">-->
+<!--                    <a class="page-link text-success"-->
+<!--                       th:href="@{/product/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"-->
+<!--                       aria-disabled="true">-->
+<!--                        <i class="bi bi-chevron-left"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"-->
+<!--                    th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">-->
+<!--                    <a class="page-link text-success"-->
+<!--                       th:href="${page == pageUtil.currentPage ? '#' : '/product/list?page=' + (page - 1)}"-->
+<!--                       th:text="${page}"-->
+<!--                       th:aria-disabled="${page == pageUtil.currentPage}">-->
+<!--                    </a>-->
+<!--                </li>-->
 
-        <!--                <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">-->
-        <!--                    <a class="page-link text-success"-->
-        <!--                       th:href="@{/product/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"-->
-        <!--                       th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">-->
-        <!--                        <i class="bi bi-chevron-right"></i>-->
-        <!--                    </a>-->
-        <!--                </li>-->
-        <!--                <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">-->
-        <!--                    <a class="page-link text-success" th:href="@{/product/list(page=${pageUtil.totalPages - 1})}"-->
-        <!--                       aria-disabled="true">-->
-        <!--                        <i class="bi bi-chevron-double-right"></i>-->
-        <!--                    </a>-->
-        <!--                </li>-->
-        <!--            </ul>-->
-        <!--        </nav>-->
+<!--                <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">-->
+<!--                    <a class="page-link text-success"-->
+<!--                       th:href="@{/product/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"-->
+<!--                       th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">-->
+<!--                        <i class="bi bi-chevron-right"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">-->
+<!--                    <a class="page-link text-success" th:href="@{/product/list(page=${pageUtil.totalPages - 1})}"-->
+<!--                       aria-disabled="true">-->
+<!--                        <i class="bi bi-chevron-double-right"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
 
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#starredDeleteButton').click(function () {
+            const productId = $(this).data('product-id');
+            const button = $(this);
+            $.ajax({
+                url: '/starred/ajax/delete',
+                method: 'POST',
+                dataType: 'json',
+                data: {productId: productId},
+                success: function (response) {
+                    if (response.success) {
+                        $('#starredRegisterButton').show();
+                        button.hide();
+                    } else {
+                        console.error('삭제 서비스 중 오류');
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
+        $('#starredRegisterButton').click(function () {
+            const productId = $(this).data('product-id');
+            const button = $(this);
+            $.ajax({
+                url: '/starred/ajax/register',
+                method: 'POST',
+                dataType: 'json',
+                data: {productId: productId},
+                success: function (response) {
+                    if (response.success) {
+                        button.hide();
+                        $('#starredDeleteButton').show();
+                    } else {
+                        console.error('등록 서비스 중 오류');
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>

@@ -13,20 +13,19 @@
         * {
             font-family: 'Lato', 'Nanum Gothic', 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', 'AppleGothic', 'Dotum', '돋움', sans-serif !important;
         }
-        @media (max-width: 991.98px) {
-            #main-content {
-                margin-top: 130px !important;
-                margin-bottom: 100px !important;
-            }
+        #logo {
+            width: 192px;
+            height: auto;
         }
 
-        @media (min-width: 992px) {
-            #main-content {
-                margin-top: 100px !important;
-                margin-bottom: 100px !important;
+        @media (max-width: 375px) {
+            #logo {
+                width: 130px;
+                height: auto;
             }
         }
     </style>
+
 </head>
 
 <body>
@@ -34,43 +33,31 @@
     <div class="container-fluid d-flex">
         <div class="col">
             <div class="row justify-content-between mb-2">
-                <div class="col-auto">
+                <div class="col-auto mt-1">
+                    <button class="btn btn-link mt-2" type="submit" data-bs-toggle="offcanvas"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="col-auto d-flex justify-content-center align-items-center">
                     <a class="navbar-brand" href="/">
-                        <img src="/images/layout/logo.gif" alt="Logo" width="192" height="52"
-                             class="d-inline-block align-text-top">
+                        <img id="logo" src="/images/layout/logo.gif" alt="Logo"
+                             class="object-fit-contain">
                     </a>
                 </div>
-                <div class="col-6 d-none d-lg-block">
-                    <form class="form-inline mt-3 position-relative" th:action="@{/product/search}"
-                          method="get">
-                        <label for="search-input-large" class="visually-hidden">검색어 입력</label>
-                        <input type="text" id="search-input-large" name="query"
-                               class="form-control rounded-pill border border-success shadow-sm"
-                               placeholder="검색어 입력" th:value="${search}">
-                        <button class="btn position-absolute end-0 bottom-0 z-2" type="submit">
-                            <i class="bi bi-search text-secondary fw-bold"></i>
-                        </button>
-                    </form>
-                </div>
-                <div class="col-auto">
-                    <div class="d-flex align-items-center mt-1">
-                        <form class="form-inline" action="/loginForm" method="GET" th:if="${!loggedIn}">
-                            <button class="btn btn-outline-light rounded-pill mt-2" type="submit">
-                                <i class="bi bi-person-circle text-secondary fs-5"></i>
-                            </button>
-                        </form>
-                        <button class="btn btn-link mt-2" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#myPageContent" aria-controls="myPageContent" th:if="${loggedIn}">
+                <div class="col-auto mt-1">
+                    <form class="form-inline" action="/loginForm" method="GET" th:if="${!loggedIn}">
+                        <button class="btn btn-link mt-2" type="submit">
                             <i class="bi bi-person-circle text-secondary fs-5"></i>
                         </button>
-                        <button class="btn btn-link mt-2" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
+                    </form>
+                    <button class="btn btn-link mt-2" type="submit" data-bs-toggle="offcanvas"
+                            data-bs-target="#myPageContent" aria-controls="myPageContent" th:if="${loggedIn}">
+                        <i class="bi bi-person-circle text-secondary fs-5"></i>
+                    </button>
                 </div>
             </div>
-            <div class="container d-lg-none">
+            <div class="container">
                 <div class="row">
                     <form class="form-inline position-relative" th:action="@{/product/search}"
                           method="get">
@@ -88,7 +75,8 @@
     </div>
 </header>
 
-<div id="main-content">
+<div id="main-content" style="margin-top: 135px !important;
+                margin-bottom: 100px !important;">
     <main th:replace="~{${content}}"></main>
 </div>
 
@@ -105,7 +93,7 @@
     </div>
 </footer>
 
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="navbarSupportedContent">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="navbarSupportedContent">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title">Y-Mart 메뉴</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
