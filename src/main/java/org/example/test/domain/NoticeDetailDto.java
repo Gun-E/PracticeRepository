@@ -11,9 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NoticeDetailDto {
-    private int id;
+    private Long noticeId;
     private String title;
     private String content;
-    private String name;
-    private LocalDate day;
+    private String userName;
+    private LocalDate createdDate;
 }

@@ -55,6 +55,9 @@ public class HomeController {
     @GetMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "admin-management");
         return "layout";
     }
@@ -74,6 +77,9 @@ public class HomeController {
 
         model.addAttribute("userId", 1);
         model.addAttribute("user", userDTO);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "user-detail");
         return "layout";
     }
@@ -81,21 +87,24 @@ public class HomeController {
     @GetMapping("/notice")
     public String noticePage(Model model) {
         List<NoticeDto> notices = new ArrayList<>();
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 1, 0, 0), "🦾 새로운 기능 추가되었습니다.", "관리자1"));
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 2, 0, 0), "🖥️ 서버 점검 안내입니다.", "관리자2"));
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 3, 0, 0), "✏️ 이용약관이 변경되었습니다.", "관리자3"));
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.", "관리자4"));
-        notices.add(new NoticeDto(1, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.", "관리자4"));
+        notices.add(new NoticeDto(1L, LocalDateTime.of(2024, 3, 1, 0, 0), "🦾 새로운 기능 추가되었습니다.", "관리자1"));
+        notices.add(new NoticeDto(1L, LocalDateTime.of(2024, 3, 2, 0, 0), "🖥️ 서버 점검 안내입니다.", "관리자2"));
+        notices.add(new NoticeDto(1L, LocalDateTime.of(2024, 3, 3, 0, 0), "✏️ 이용약관이 변경되었습니다.", "관리자3"));
+        notices.add(new NoticeDto(1L, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.", "관리자4"));
+        notices.add(new NoticeDto(1L, LocalDateTime.of(2024, 3, 4, 0, 0), "😘 회원가입 이벤트가 진행 중입니다.", "관리자4"));
 
         model.addAttribute("userId", 1);
         model.addAttribute("notices", notices);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "notice");
 
         return "layout";
     }
 
-    @GetMapping("/notice_detail/{id}")
-    public String showNoticeDetail(@PathVariable int id, Model model) {
+    @GetMapping("/notice/{id}")
+    public String showNoticeDetail(@PathVariable Long id, Model model) {
 
         NoticeDetailDto noticeDetailDto = new NoticeDetailDto(
                 id,
@@ -106,6 +115,9 @@ public class HomeController {
         );
 
         model.addAttribute("notice_detail", noticeDetailDto);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "notice_detail");
         model.addAttribute("userId", 1);
 
@@ -117,12 +129,15 @@ public class HomeController {
         NoticeDetailDto noticeDTO = new NoticeDetailDto();
         model.addAttribute("noticeDTO", noticeDTO);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "notice_management");
         return "layout";
     }
 
     @GetMapping("/noticeModify/{id}")
-    public String showNoticeModify(@PathVariable int id, Model model) {
+    public String showNoticeModify(@PathVariable Long id, Model model) {
         NoticeDetailDto noticeDTO = new NoticeDetailDto(
                 id,
                 "새로운 기능 추가 안내",
@@ -132,6 +147,9 @@ public class HomeController {
         );
         model.addAttribute("noticeDTO", noticeDTO);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "notice_management");
         return "layout";
     }
@@ -206,6 +224,9 @@ public class HomeController {
         model.addAttribute("products", products);
 
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "product-category-list");
         return "layout";
     }
@@ -230,6 +251,9 @@ public class HomeController {
         model.addAttribute("productDTO", productDTO);
         model.addAttribute("productRegistration", new ProductRegistrationDTO(tags, categories));
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "product-management");
         return "layout";
     }
@@ -246,6 +270,9 @@ public class HomeController {
 
         model.addAttribute("tags", tags);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "tag-management");
         return "layout";
     }
@@ -263,6 +290,9 @@ public class HomeController {
 
         model.addAttribute("categories", categories);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "category-management");
         return "layout";
     }
@@ -286,6 +316,9 @@ public class HomeController {
 
         model.addAttribute("users", users);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "user-management");
         return "layout";
     }
@@ -305,6 +338,9 @@ public class HomeController {
 
         model.addAttribute("user", userDTO);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "user-detail-modify");
         return "layout";
     }
@@ -342,6 +378,9 @@ public class HomeController {
 
         model.addAttribute("productRegistration", new ProductRegistrationDTO(tags, categories));
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "product-management");
         return "layout";
     }
@@ -362,6 +401,9 @@ public class HomeController {
         productDTO.setQuantity(1);
 
         model.addAttribute("productDTO", productDTO);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "product-detail");
         model.addAttribute("userId", 1);
 
@@ -375,6 +417,9 @@ public class HomeController {
         cartList.add(new CartDto(1, "소고기", "국내산", 100000, 90000, List.of("태그3", "태그2"), "/images/beef", "500g", 1));
 
         model.addAttribute("cartList", cartList);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "user-cart");
         model.addAttribute("userId", 1);
 
@@ -398,6 +443,9 @@ public class HomeController {
 
         model.addAttribute("order", order);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "user-order-address");
         return "layout";
     }
@@ -415,6 +463,9 @@ public class HomeController {
                 new DiscountDTO(4L, "신상 할인", LocalDateTime.of(2024, 3, 1, 0, 0), LocalDateTime.of(2024, 3, 1, 0, 0)));
         model.addAttribute("discounts", discountList);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "discount-management");
         return "layout";
     }
@@ -428,6 +479,9 @@ public class HomeController {
 
         model.addAttribute("orderList", orderList);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "user-order-list");
         return "layout";
     }
@@ -443,6 +497,9 @@ public class HomeController {
 
         model.addAttribute("orders", orderList);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "order-management");
         return "layout";
     }
@@ -465,6 +522,9 @@ public class HomeController {
 
         model.addAttribute("orderDetail", orderDetailDto);
         model.addAttribute("userId", 1);
+        model.addAttribute("isUser",false);
+        model.addAttribute("isAdmin",false);
+        model.addAttribute("loggedIn",false);
         model.addAttribute("content", "user-order-detail");
         return "layout";
     }

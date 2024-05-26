@@ -1,35 +1,42 @@
 <div class="container-fluid d-flex justify-content-center">
     <div class="col-sm-10 col-11">
-        <div class="row align-items-center mb-4">
+        <div class="row">
             <div class="col">
-                <h4 class="fw-bold">공지사항</h4>
+                <h4 class="mb-4 fw-bold">공지사항</h4>
             </div>
             <div class="col-auto">
-                <form th:action="@{/noticeModify/{id}(id=${notice_detail.id})}" method="get" id="noticeModifyForm">
+                <form th:action="@{/notice/modify/{id}(id=${notice_detail.noticeId})}" method="get"
+                      id="noticeModifyForm">
                     <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill">
                         <i class="bi bi-pencil-fill"></i>
                     </button>
                 </form>
             </div>
             <div class="col-auto">
-                <form th:action="@{/noticeDelete/{id}(id=${notice_detail.id})}" method="post">
+                <form th:action="@{/notice/delete/{id}(id=${notice_detail.noticeId})}" method="post">
                     <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill">
                         <i class="bi bi-trash-fill"></i>
                     </button>
                 </form>
             </div>
         </div>
-        <div class="card shadow">
-            <div class="card-header bg-success text-white fw-bold">공지사항</div>
-            <div class="card-body">
-                <h5 class="card-title fw-bold mb-3" th:text="${notice_detail.title}"></h5>
-                <hr class="border-top border-secondary">
-                <p class="card-text" th:text="${notice_detail.content}"></p>
-                <hr class="border-top border-secondary">
-                <p class="card-text">작성자: <span th:text="${notice_detail.name}"></span></p>
-                <p class="card-text">작성일: <span th:text="${notice_detail.day}"></span></p>
+        <div class="row row-cols-1 g-3">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div class="col">
+                            <h6 class="card-title fw-bold text-truncate" th:text="${notice_detail.title}"></h6>
+                            <p class="card-text text-muted">
+                                <span th:text="${#temporals.format(notice_detail.createdDate, 'yyyy. MM. dd. HH:mm')}"></span>
+                            </p>
+                            <hr class="border-top border-secondary">
+                            <p class="card-text mt-2 mb-2" th:text="${notice_detail.content}"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
         <button class="btn btn-secondary btn-sm mt-4" onclick="history.back()">목록으로</button>
     </div>
 </div>
