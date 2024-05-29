@@ -1,13 +1,8 @@
 <div class="container-fluid d-flex justify-content-center">
     <div class="col-sm-10 col-11">
-        <div class="row">
-            <div class="col">
-                <h4 class="fw-bold mb-4">관심상품</h4>
-            </div>
-        </div>
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold">
-                <i class="bi bi-bookmark-fill"></i> Saved
+                관심상품
             </div>
             <div class="card-body pb-0">
                 <div th:if="${#lists.isEmpty(starredProducts)}">
@@ -22,19 +17,28 @@
                 </div>
                 <div th:each="starredProduct : ${starredProducts}">
                     <div class="container-fluid rounded border mb-3 z-1 shadow-sm position-relative">
-                        <div class="position-absolute top-0 end-0 me-3 mt-2 z-2">
-                            <form th:action="@{'/starred/delete/'+${starredProduct.productId}}" method="post">
+                        <div class="position-absolute top-0 end-0 mt-2 z-2" style="margin-right: 18px;">
+                            <form th:action="@{'/starred/delete/list/'+${starredProduct.productId}}" method="post">
                                 <button type="submit" class="btn btn-link p-0">
-                                    <i class="bi bi-bookmark-fill fs-5 text-dark"></i>
+                                    <i class="bi bi-heart-fill fs-5 text-danger"></i>
                                 </button>
                             </form>
+                        </div>
+                        <div class="position-absolute bottom-0 end-0 me-3 mb-2 z-2">
+                            <button type="button" class="btn btn-link p-0"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#myModal"
+                                    th:data-item-id="${starredProduct.productId}"
+                                    th:data-item-quantity=1>
+                                <i class="bi bi-basket2-fill fs-3 text-secondary-emphasis"></i>
+                            </button>
                         </div>
                         <form method="get" th:action="@{/product/{id}(id=${starredProduct.productId})}">
                             <div class="row mt-1">
                                 <div class="col-auto mt-1">
                                     <img th:src="@{'/images/' +${starredProduct.thumbnailFileName}}"
-                                         class="card-img img-fluid object-fit-contain"
-                                         alt="이미지 없음" style="width: 100px; height: 100px; padding: 20px;">
+                                         class="card-img object-fit-contain"
+                                         alt="이미지 없음" style="height: 80px; width: 80px; padding: 8px;">
                                 </div>
                                 <div class="col mt-1">
                                     <div class="row mt-2">
@@ -50,15 +54,6 @@
                                                 th:text="${#numbers.formatInteger(starredProduct.sellingPrice, 3, 'COMMA') + '원'}"></h4>
                                         </div>
                                     </div>
-                                    <div class="position-absolute bottom-0 end-0 z-2" style="margin-bottom: 11px; margin-right: 11px">
-                                        <button type="button" class="btn btn-outline-success btn-sm rounded-pill"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#myModal"
-                                                th:data-item-id="${starredProduct.productId}"
-                                                th:data-item-quantity=1>
-                                            <i class="bi bi-cart"></i>
-                                        </button>
-                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-link p-0 stretched-link"></button>
                             </div>
@@ -67,47 +62,47 @@
                 </div>
             </div>
         </div>
-        <!--        <div th:unless="${#lists.isEmpty(starredProducts)}">-->
-        <!--            <nav class="mt-4">-->
-        <!--                <ul class="pagination justify-content-center">-->
-        <!--                    <li class="page-item" th:if="${pageUtil.currentPage!=1}">-->
-        <!--                        <a class="page-link text-success" th:href="@{/starred/list(page=0)}"-->
-        <!--                           aria-disabled="true">-->
-        <!--                            <i class="bi bi-chevron-double-left"></i>-->
-        <!--                        </a>-->
-        <!--                    </li>-->
-        <!--                    <li class="page-item" th:if="${pageUtil.start!=1}">-->
-        <!--                        <a class="page-link text-success"-->
-        <!--                           th:href="@{/starred/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"-->
-        <!--                           aria-disabled="true">-->
-        <!--                            <i class="bi bi-chevron-left"></i>-->
-        <!--                        </a>-->
-        <!--                    </li>-->
-        <!--                    <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"-->
-        <!--                        th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">-->
-        <!--                        <a class="page-link text-success"-->
-        <!--                           th:href="${page == pageUtil.currentPage ? '#' : '/starred/list?page=' + (page - 1)}"-->
-        <!--                           th:text="${page}"-->
-        <!--                           th:aria-disabled="${page == pageUtil.currentPage}">-->
-        <!--                        </a>-->
-        <!--                    </li>-->
+        <div th:unless="${#lists.isEmpty(starredProducts)}">
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:if="${pageUtil.currentPage!=1}">
+                        <a class="page-link text-success" th:href="@{/starred/list(page=0)}"
+                           aria-disabled="true">
+                            <i class="bi bi-chevron-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" th:if="${pageUtil.start!=1}">
+                        <a class="page-link text-success"
+                           th:href="@{/starred/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"
+                           aria-disabled="true">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"
+                        th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">
+                        <a class="page-link text-success"
+                           th:href="${page == pageUtil.currentPage ? '#' : '/starred/list?page=' + (page - 1)}"
+                           th:text="${page}"
+                           th:aria-disabled="${page == pageUtil.currentPage}">
+                        </a>
+                    </li>
 
-        <!--                    <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">-->
-        <!--                        <a class="page-link text-success"-->
-        <!--                           th:href="@{/starred/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"-->
-        <!--                           th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">-->
-        <!--                            <i class="bi bi-chevron-right"></i>-->
-        <!--                        </a>-->
-        <!--                    </li>-->
-        <!--                    <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">-->
-        <!--                        <a class="page-link text-success" th:href="@{/starred/list(page=${pageUtil.totalPages - 1})}"-->
-        <!--                           aria-disabled="true">-->
-        <!--                            <i class="bi bi-chevron-double-right"></i>-->
-        <!--                        </a>-->
-        <!--                    </li>-->
-        <!--                </ul>-->
-        <!--            </nav>-->
-        <!--        </div>-->
+                    <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">
+                        <a class="page-link text-success"
+                           th:href="@{/starred/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"
+                           th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">
+                        <a class="page-link text-success" th:href="@{/starred/list(page=${pageUtil.totalPages - 1})}"
+                           aria-disabled="true">
+                            <i class="bi bi-chevron-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
 <div class="modal fade modal-sheet p-4 py-md-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
@@ -115,7 +110,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header border-bottom-0">
-                <h5 class="modal-title fw-bold" id="modalLabel">수량 변경</h5>
+                <h5 class="modal-title fw-bold" id="modalLabel">장바구니 추가</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -147,27 +142,28 @@
         $("#minusBtn").click(decreaseQuantity);
         $("#plusBtn").click(increaseQuantity);
         $('#myModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var productId = button.data('item-id');
-            var productQuantity = button.data('item-quantity');
-            var formAction = '/장바구니로 보내는 URL/';
+            const button = $(event.relatedTarget);
+            const productId = button.data('item-id');
+            const productQuantity = button.data('item-quantity');
+            const formAction = '/cart/registerFromStarred';
 
             $('#amountForm')
                 .append('<input type="hidden" name="productId" value="' + productId + '">')
                 .attr('action', formAction);
             $('#quantityInput').val(productQuantity);
-
         });
+
     });
+
     function decreaseQuantity() {
-        var quantity = parseInt($("#quantityInput").val());
+        const quantity = parseInt($("#quantityInput").val());
         if (quantity > 1) {
             $("#quantityInput").val(quantity - 1);
         }
     }
 
     function increaseQuantity() {
-        var quantity = parseInt($("#quantityInput").val());
+        const quantity = parseInt($("#quantityInput").val());
         if (quantity < 10000) {
             $("#quantityInput").val(quantity + 1);
         }
