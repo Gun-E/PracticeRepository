@@ -77,7 +77,7 @@
     </div>
 </header>
 
-<div id="main-content" style="margin-top: 137px !important;
+<div id="main-content" style="margin-top: 140px !important;
                 margin-bottom: 100px !important;">
     <main th:replace="~{${content}}"></main>
 </div>
@@ -95,7 +95,7 @@
     </div>
 </footer>
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="navbarSupportedContent">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="navbarSupportedContent" style="width: 250px">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title">Y-Mart 메뉴</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
@@ -121,7 +121,7 @@
         </ul>
     </div>
 </div>
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="myPageContent">
+<div class="offcanvas offcanvas-end offcanvas-md" data-bs-scroll="true" tabindex="-1" id="myPageContent" style="width: 250px">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title">내 정보</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
@@ -145,28 +145,7 @@
         </ul>
     </div>
 </div>
-<div class="position-fixed bottom-0 end-0 mb-4 me-4 cart-button z-2" th:if="${isUser}">
-    <div class="row">
-        <a href="/cart" class="btn btn-link p-0">
-            <i class="bi bi-cart text-secondary" style="font-size: 2.5rem;"></i>
-        </a>
-    </div>
-    <div class="row">
-        <a href="/order-list" class="btn btn-link p-0">
-            <i class="bi bi-pass text-secondary" style="font-size: 2.5rem;"></i>
-        </a>
-    </div>
-    <div class="row">
-        <a href="/starred/list" class="btn btn-link p-0">
-            <i class="bi bi-heart-fill text-danger" style="font-size: 2.5rem;"></i>
-        </a>
-    </div>
-</div>
-<div class="position-fixed bottom-0 end-0 mb-4 me-4 z-2" th:if="${isAdmin}">
-    <a href="/admin" class="btn p-0" style="font-size: 4.5rem;">
-        👷
-    </a>
-</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

@@ -1,6 +1,5 @@
 package org.example.test.controller;
 
-import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class HomeController {
         products.add(new ProductListDTO(1L, "농심)김치사발면.png", "국내산", "한우 A++", "500g",5000,  9999999));
         products.add(new ProductListDTO(1L, "농심)새우탕컵.png", "삼양", "삼양라면 5 + 1개입", "1box", 5000, 5000));
         products.add(new ProductListDTO(1L, "농심)신라면컵.jpg", "삼양", "삼양라면 5 + 1개입", "1box", 5000, 5000));
-        products.add(new ProductListDTO(1L, "농심)안성탕면(멀티팩).jpg", "삼양", "삼양라면 5 + 1개입", "1box", 5000, 5000));
+        products.add(new ProductListDTO(1L, "농심)안성탕면(멀티팩).jpg", "삼양", "삼양라면 5 + 1개입 testestsetsets", "1box", 5000, 5000));
         products.add(new ProductListDTO(1L, "농심)오징어짬뽕컵.jpg", "삼양", "삼양라면 5 + 1개입", "1box", 5000, 5000));
         products.add(new ProductListDTO(1L, "삼양)불닭볶음면멀티.jpg", "삼양", "삼양라면 5 + 1개입", "1box", 5000, 5000));
         products.add(new ProductListDTO(1L, "오뚜기)진라면-소컵(순한맛).jpg", "삼양", "삼양라면 5 + 1개입", "1box",5000,  5000));
@@ -188,6 +187,7 @@ public class HomeController {
         categories.add(new CategoryDTO(15, "포장용기 • 일회용품"));
 
         model.addAttribute("categories", categories);
+        model.addAttribute("cartCount", 12);
         model.addAttribute("products", products);
         model.addAttribute("isUser",false);
         model.addAttribute("isAdmin",false);
@@ -429,8 +429,8 @@ public class HomeController {
     @GetMapping("/order")
     public String getOrderPage(Model model) {
         List<ProductDTO> products = new ArrayList<>();
-        products.add(new ProductDTO(1, "삼양", "라면", "1 box", 2));
-        products.add(new ProductDTO(1, "국내산", "소고기", "500g", 1));
+        products.add(new ProductDTO(1L, "삼양", "라면", "1 box", 2));
+        products.add(new ProductDTO(1L, "국내산", "소고기", "500g", 1));
 
         List<AddressDTO> addressList = new ArrayList<>();
         addressList.add(new AddressDTO(1, "서울시 강남구"));
@@ -473,9 +473,9 @@ public class HomeController {
     @GetMapping("/orderList")
     public String getOrderListPage(Model model) {
         List<OrderListDto> orderList = new ArrayList<>();
-        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0, 0), "마트1"));
-        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2, 0, 0), "마트2"));
-        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "마트3"));
+        orderList.add(new OrderListDto(1L,1L, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0, 0), "마트1"));
+        orderList.add(new OrderListDto(1L,1L, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2, 0, 0), "마트2"));
+        orderList.add(new OrderListDto(1L,1L, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "마트3"));
 
         model.addAttribute("orderList", orderList);
         model.addAttribute("userId", 1);
@@ -490,10 +490,10 @@ public class HomeController {
     public String orderListManagementPage(Model model) {
         List<OrderListDto> orderList = new ArrayList<>();
 
-        orderList.add(new OrderListDto(1, "새 주문", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "new 마트"));
-        orderList.add(new OrderListDto(1, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0, 0), "마트1"));
-        orderList.add(new OrderListDto(1, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2, 0, 0), "마트2"));
-        orderList.add(new OrderListDto(1, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "마트3"));
+        orderList.add(new OrderListDto(1L,1L, "새 주문", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "new 마트"));
+        orderList.add(new OrderListDto(1L,1L, "승인 완료", 50000, LocalDateTime.of(2024, 3, 1, 0, 0), "마트1"));
+        orderList.add(new OrderListDto(1L,1L, "승인 거절", 30000, LocalDateTime.of(2024, 3, 2, 0, 0), "마트2"));
+        orderList.add(new OrderListDto(1L,1L, "승인 보류", 80000, LocalDateTime.of(2024, 3, 3, 0, 0), "마트3"));
 
         model.addAttribute("orders", orderList);
         model.addAttribute("userId", 1);
@@ -504,20 +504,21 @@ public class HomeController {
         return "layout";
     }
 
-    @GetMapping("/orderDetail/1")
+    @GetMapping("/order-list-detail/1")
     public String getOrderDetailPage(Model model) {
         OrderDetailDto orderDetailDto = new OrderDetailDto();
-        orderDetailDto.setOrderNumber(12345);
-        orderDetailDto.setStatus("승인 완료");
-        orderDetailDto.setDay(LocalDate.now());
+        orderDetailDto.setOrderListId(1L);
+        orderDetailDto.setOrderNumber(12345L);
+        orderDetailDto.setOrderApprovalStatus("승인 완료");
+        orderDetailDto.setOrderDate(LocalDate.now());
         orderDetailDto.setAddress("서울시 강남구");
         orderDetailDto.setTotalPrice(50000);
         orderDetailDto.setCompanyName("마트1");
         orderDetailDto.setUserName("홍길동");
 
         List<ProductDTO> products = new ArrayList<>();
-        products.add(new ProductDTO(1, "삼양", "라면", "1 box", 2));
-        products.add(new ProductDTO(1, "국내산", "소고기", "500g", 1));
+        products.add(new ProductDTO(1L, "삼양", "라면aslkjdhflasdkjhfljkashdflkjahsdlfkjhasdlkjhflasjkdh", "1 box", 2));
+        products.add(new ProductDTO(1L, "국내산", "소고기", "500g", 1));
         orderDetailDto.setProducts(products);
 
         model.addAttribute("orderDetail", orderDetailDto);

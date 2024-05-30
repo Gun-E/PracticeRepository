@@ -4,8 +4,9 @@
             <div class="col">
                 <h4 class="mb-4 fw-bold">주문 상세</h4>
             </div>
-            <div class="col-auto">
-                <form th:action="@{/oderDetail/download}" method="post">
+            <div class="col-auto" th:if="${isAdmin}">
+                <form th:action="@{/order-list-detail/{orderListId}/excel/download(orderListId=${orderDetail.orderListId})}"
+                      method="get">
                     <button type="submit" class="btn btn-sm btn-success rounded-pill">
                         <i class="bi bi-file-earmark-spreadsheet-fill"></i> <i class="bi bi-download"></i>
                     </button>
@@ -28,11 +29,10 @@
                         <label for="orderStatus" class="form-label fw-bold">주문 상태</label>
                     </div>
                     <div class="col-6">
-                        <p id="orderStatus" th:text="${orderDetail.status}"
-                           th:class="${orderDetail.status == '승인 완료'} ? 'text-success fw-bold' :
-             (${orderDetail.status == '승인 거절'} ? 'text-danger fw-bold' :
-             (${orderDetail.status == '새 주문'} ? 'text-warning fw-bold' : 'text-secondary fw-bold'))"></p>
-
+                        <p id="orderStatus" th:text="${orderDetail.orderApprovalStatus}"
+                           th:class="${orderDetail.orderApprovalStatus == '승인 완료'} ? 'text-success fw-bold' :
+             (${orderDetail.orderApprovalStatus == '승인 거절'} ? 'text-danger fw-bold' :
+             (${orderDetail.orderApprovalStatus == '승인 대기'} ? 'text-secondary fw-bold' : 'text-warning fw-bold'))"></p>
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                         <label for="orderDate" class="form-label fw-bold">주문 날짜</label>
                     </div>
                     <div class="col-6">
-                        <p id="orderDate" th:text="${orderDetail.day}"></p>
+                        <p id="orderDate" th:text="${#temporals.format(orderDetail.orderDate, 'yyyy년 MM월 dd일')}"></p>
                     </div>
                 </div>
 
@@ -50,17 +50,19 @@
                         <h6 class="fw-bold mb-3">상품 목록</h6>
                         <div th:each="product : ${orderDetail.products}">
                             <div class="row">
-                                <div class="col-6">
-                                    <div>
-                                        <span class="fw-bold text-success" th:text="${'('+product.brand+')'}"></span>
-                                        <span class="fw-bold" th:text="${product.name}"></span>
-                                        <span class="text-muted" th:text="${product.option}"></span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="" th:text="${'x '+product.amount}"></div>
+                                <div class="col text-truncate">
+                                    <span class="fw-bold text-success" th:text="${'('+product.brandName+')'}"></span>
+                                    <span class="fw-bold" th:text="${product.name}"></span>
                                 </div>
                             </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <span class="text-muted" th:text="${product.weight}"></span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="" th:text="${'x '+product.quantity}"></div>
+                                </div>
+                        </div>
                         </div>
                     </div>
                 </div>

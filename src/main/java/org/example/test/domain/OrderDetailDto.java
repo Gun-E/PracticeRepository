@@ -12,9 +12,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class OrderDetailDto {
-    private int orderNumber;
-    private String status;
-    private LocalDate day;
+    private Long orderListId;
+    private Long orderNumber;
+    private String orderApprovalStatus;
+    private LocalDate orderDate;
     private List<ProductDTO> products;
     private int subTotal;
     private int totalPrice;

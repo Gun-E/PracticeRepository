@@ -1,12 +1,7 @@
 <div class="container-fluid d-flex justify-content-center">
     <div class="col-sm-10 col-11">
-        <div class="row align-items-center">
-            <div class="col">
-                <h4 class="mb-4 fw-bold">장바구니</h4>
-            </div>
-        </div>
         <div class="card shadow">
-            <div class="card-header bg-success text-white fw-bold">장바구니 내역</div>
+            <div class="card-header bg-success text-white fw-bold">장바구니</div>
             <div class="card-body pb-0">
                 <div th:if="${#lists.isEmpty(cartList)}">
                     <div class="row align-items-center">
@@ -25,8 +20,8 @@
                                 <a th:href="@{/product/{id}(id=${item.productId})}"
                                    class="btn p-0 border-0 bg-transparent">
                                     <img th:src="@{'/images/' +${item.thumbnailFileName}}"
-                                         class="card-img img-fluid object-fit-contain"
-                                         alt="이미지 없음" style="width: 100px; height: 100px; padding: 20px;">
+                                         class="card-img object-fit-contain"
+                                         alt="이미지 없음" style="padding: 8px;">
                                 </a>
                             </div>
                             <div class="col mt-1">
@@ -34,7 +29,9 @@
                                     <div class="col mt-1">
                                         <form th:action="@{/product/{id}(id=${item.productId})}" method="get">
                                             <button type="submit" class="btn p-0 border-0 bg-transparent">
+                                                <span class="fw-bold text-success" th:text="${'('+item.brandName+')'}"></span>
                                                 <span class="fw-bold" th:text="${item.productName}"></span>
+                                                <span class="text-muted" th:text="${item.weight}"></span>
                                             </button>
                                         </form>
                                     </div>
@@ -67,8 +64,9 @@
                                 <h6 class="fw-bold"></h6>
                             </div>
                             <div class="col-auto">
-                                <button type="button" class="btn btn-success btn-sm"  data-bs-toggle="modal"
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#myModal"
+                                        th:data-item-shopping-cart-id="${item.shoppingCartId}"
                                         th:data-item-id="${item.productId}"
                                         th:data-item-quantity="${item.productQuantity}">
                                     수량 변경
@@ -99,9 +97,12 @@
                             <h3 id="totalPrice" class="fw-bold text-end total-price"></h3>
                         </div>
                     </div>
+                    <div class="row" id="maxPriceText">
+                        <h6 class="text-secondary">* 최소 주문 금액은 50,000원 입니다.</h6>
+                    </div>
                     <div class="row">
                         <div class="col-12">
-                            <form th:action="@{/order-list/order}" method="post" id="orderForm">
+                            <form th:action="@{/order-list/order-address}" method="get" id="orderForm">
                                 <button type="submit" class="btn btn-success w-100 fw-bold">주문하기</button>
                             </form>
                         </div>
@@ -123,11 +124,13 @@
             <div class="modal-body">
                 <form id="amountForm" method="post">
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-5">
                             <label class="fw-bold" for="quantityInput">수량</label>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-7">
                             <div class="input-group">
+                                <input type="hidden" name="productId" id="hiddenProductId">
+                                <input type="hidden" name="shoppingCartId" id="hiddenShoppingCartId">
                                 <button id="minusBtn" class="btn btn-success btn-sm" type="button">-
                                 </button>
                                 <input id="quantityInput" type="text" class="form-control form-control-sm text-center"
@@ -180,17 +183,21 @@
         $('#myModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var productId = button.data('item-id');
+            var shoppingCartId = button.data('item-shopping-cart-id');
             var productQuantity = button.data('item-quantity');
-            var formAction = '/amount/modify/' + productId;
+            var formAction = '/cart/modify';
+
 
             $('#amountForm').attr('action', formAction);
             $('#quantityInput').val(productQuantity);
+            $('#hiddenProductId').val(productId);
+            $('#hiddenShoppingCartId').val(shoppingCartId);
         });
         $('#deleteModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var shoppingCartId = button.data('item-shopping-cart-id');
             var productId = button.data('item-id');
-            var formAction = '/cart/delete/' +shoppingCartId + '/'+ productId;
+            var formAction = '/cart/delete/' + shoppingCartId + '/' + productId;
 
             $('#deleteForm').attr('action', formAction);
         });
@@ -208,10 +215,12 @@
 
         $('.total-price').text(totalPrice.toLocaleString() + '원');
 
-        if (totalPrice <= 50000) {
-            $('#orderForm button[type="submit"]').prop('disabled', false);
-        } else {
+        if (totalPrice < 50000) {
             $('#orderForm button[type="submit"]').prop('disabled', true);
+            $('#maxPriceText').show();
+        } else {
+            $('#orderForm button[type="submit"]').prop('disabled', false);
+            $('#maxPriceText').hide();
         }
     }
 

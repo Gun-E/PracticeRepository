@@ -11,7 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderListDto {
-    private int orderId;
+    private Long orderListId;
+    private Long orderId;
     private String status;
     private int totalPrice;
     private LocalDateTime day;
