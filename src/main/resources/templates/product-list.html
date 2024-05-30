@@ -1,4 +1,4 @@
-<div class="container-fluid d-flex justify-content-center mb-3 z-1">
+<div class="container-fluid d-flex justify-content-center mb-3">
     <div class="col-11">
         <div class="row" th:if="${isAdmin}">
             <div class="col">
@@ -42,19 +42,22 @@
                         </div>
 
                         <!--찜 삭제-->
-                        <!--                        <button id="starredDeleteButton" class="btn btn-link position-absolute end-0 z-2"-->
-                        <!--                                th:data-product-id="${product.productId}"-->
-                        <!--                                style="bottom: 36%"-->
-                        <!--                                th:if="${isUser}">-->
-                        <!--                            <i class="bi bi-heart-fill text-danger"></i>-->
-                        <!--                        </button>-->
+                        <button id="starredDeleteButton" class="btn btn-link position-absolute end-0 z-2 starred-delete-button"
+                                type="button"
+                                th:data-product-id="${product.productId}"
+                                style="bottom: 36%; display: none"
+                                th:if="${isUser}">
+                            <!-- if에 상품이 찜 되어 있는지 조건문 추가 후 display: none 삭제해주세여!!-->
+                            <i class="bi bi-heart-fill text-danger"></i>
+                        </button>
                         <!--찜 등록-->
-                        <button id="starredRegisterButton" class="btn btn-link position-absolute end-0 z-2"
-                                type="submit"
+                        <button id="starredRegisterButton" class="btn btn-link position-absolute end-0 z-2 starred-register-button"
+                                type="button"
                                 th:data-product-id="${product.productId}"
                                 style="bottom: 36%"
-                                >
-                            <i class="bi bi-heart-fill text-secondary"></i>
+                                th:if="${isUser}">
+                            <!-- if에 상품이 찜 되어 있는지 조건문 추가 하셔야 합니다 !!!!-->
+                            <i class="bi bi-heart text-secondary"></i>
                         </button>
 
                         <div class="card-body d-flex flex-column p-2 ms-1">
@@ -69,91 +72,91 @@
                             <span id="sellingPrice" class="text-success fw-bold"
                                   th:text="${#numbers.formatInteger(product.sellingPrice,3, 'COMMA')} + '원'"
                                   style="font-size: 13px;"></span>
-                            <button type="submit" class="btn btn-link p-0 stretched-link"></button>
+                            <button type="submit" class="btn btn-link p-0 stretched-link z-1"></button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 
-<!--        <nav class="mt-4">-->
-<!--            <ul class="pagination justify-content-center">-->
-<!--                <li class="page-item" th:if="${pageUtil.currentPage!=1}">-->
-<!--                    <a class="page-link text-success" th:href="@{/product/list(page=0)}"-->
-<!--                       aria-disabled="true">-->
-<!--                        <i class="bi bi-chevron-double-left"></i>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--                <li class="page-item" th:if="${pageUtil.start!=1}">-->
-<!--                    <a class="page-link text-success"-->
-<!--                       th:href="@{/product/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"-->
-<!--                       aria-disabled="true">-->
-<!--                        <i class="bi bi-chevron-left"></i>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--                <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"-->
-<!--                    th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">-->
-<!--                    <a class="page-link text-success"-->
-<!--                       th:href="${page == pageUtil.currentPage ? '#' : '/product/list?page=' + (page - 1)}"-->
-<!--                       th:text="${page}"-->
-<!--                       th:aria-disabled="${page == pageUtil.currentPage}">-->
-<!--                    </a>-->
-<!--                </li>-->
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${pageUtil.currentPage!=1}">
+                    <a class="page-link text-success" th:href="@{/product/list(page=0)}"
+                       aria-disabled="true">
+                        <i class="bi bi-chevron-double-left"></i>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${pageUtil.start!=1}">
+                    <a class="page-link text-success"
+                       th:href="@{/product/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"
+                       aria-disabled="true">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </li>
+                <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"
+                    th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">
+                    <a class="page-link text-success"
+                       th:href="${page == pageUtil.currentPage ? '#' : '/product/list?page=' + (page - 1)}"
+                       th:text="${page}"
+                       th:aria-disabled="${page == pageUtil.currentPage}">
+                    </a>
+                </li>
 
-<!--                <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">-->
-<!--                    <a class="page-link text-success"-->
-<!--                       th:href="@{/product/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"-->
-<!--                       th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">-->
-<!--                        <i class="bi bi-chevron-right"></i>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--                <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">-->
-<!--                    <a class="page-link text-success" th:href="@{/product/list(page=${pageUtil.totalPages - 1})}"-->
-<!--                       aria-disabled="true">-->
-<!--                        <i class="bi bi-chevron-double-right"></i>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </nav>-->
-
+                <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">
+                    <a class="page-link text-success"
+                       th:href="@{/product/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"
+                       th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">
+                    <a class="page-link text-success" th:href="@{/product/list(page=${pageUtil.totalPages - 1})}"
+                       aria-disabled="true">
+                        <i class="bi bi-chevron-double-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
+</div>
+<div class="position-fixed bottom-0 end-0 mb-4 me-4 cart-button z-2" th:if="${isUser}">
+    <div class="row">
+        <a href="/cart" class="btn btn-outline-secondary rounded-pill shadow-sm">
+            <i class="bi bi-cart text-secondary" style="font-size: 2.5rem;"></i>
+        </a>
+    </div>
+    <div class="row">
+        <a href="/order-list" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-pass text-secondary" style="font-size: 2.5rem;"></i>
+        </a>
+    </div>
+    <div class="row">
+        <a href="/starred/list" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-heart-fill text-danger" style="font-size: 2.5rem;"></i>
+        </a>
+    </div>
+</div>
+<div class="position-fixed bottom-0 end-0 mb-4 me-4 z-2" th:if="${isAdmin}">
+    <a href="/admin" class="btn p-0" style="font-size: 4.5rem;">
+        👷
+    </a>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#starredDeleteButton').click(function () {
-            const productId = $(this).data('product-id');
-            const button = $(this);
-            $.ajax({
-                url: '/starred/ajax/delete',
-                method: 'POST',
-                dataType: 'json',
-                data: {productId: productId},
-                success: function (response) {
-                    if (response.success) {
-                        $('#starredRegisterButton').show();
-                        button.hide();
-                    } else {
-                        console.error('삭제 서비스 중 오류');
-                    }
-                },
-                error: function (error) {
-                    console.error(error);
-                }
-            });
-        });
-        $('#starredRegisterButton').click(function () {
+        $(document).on('click', '.starred-register-button', function () {
             const productId = $(this).data('product-id');
             const button = $(this);
             $.ajax({
                 url: '/starred/ajax/register',
                 method: 'POST',
                 dataType: 'json',
-                data: {productId: productId},
+                data: { productId: productId },
                 success: function (response) {
-                    if (response.success) {
+                    if (response.result) {
                         button.hide();
-                        $('#starredDeleteButton').show();
+                        button.siblings('.starred-delete-button').show();
                     } else {
                         console.error('등록 서비스 중 오류');
                     }
@@ -163,5 +166,28 @@
                 }
             });
         });
+
+        $(document).on('click', '.starred-delete-button', function () {
+            const productId = $(this).data('product-id');
+            const button = $(this);
+            $.ajax({
+                url: '/starred/ajax/delete',
+                method: 'POST',
+                dataType: 'json',
+                data: { productId: productId },
+                success: function (response) {
+                    if (response.result) {
+                        button.hide();
+                        button.siblings('.starred-register-button').show();
+                    } else {
+                        console.error('삭제 서비스 중 오류');
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
     });
+
 </script>
