@@ -413,8 +413,8 @@ public class HomeController {
     @GetMapping("/userCart")
     public String cart(Model model) {
         List<CartDto> cartList = new ArrayList<>();
-        cartList.add(new CartDto(1, "상품1", "브랜드", 10000, 5000, List.of("태그1", "태그2"), "/images/noddle", "1box", 1));
-        cartList.add(new CartDto(1, "소고기", "국내산", 100000, 90000, List.of("태그3", "태그2"), "/images/beef", "500g", 1));
+        cartList.add(new CartDto(1L, "상품1", "브랜드", 10000L, 5000L, "layout/noddle.jpg", "1box",1L, 1L));
+        cartList.add(new CartDto(1L, "소고기", "국내산", 100000L, 90000L,  "layout/라면박스.jpg","500g", 1L, 1L));
 
         model.addAttribute("cartList", cartList);
         model.addAttribute("isUser",false);
@@ -426,22 +426,21 @@ public class HomeController {
         return "layout";
     }
 
-    @GetMapping("/order")
+    @GetMapping("/order-list/order-address")
     public String getOrderPage(Model model) {
         List<ProductDTO> products = new ArrayList<>();
-        products.add(new ProductDTO(1L, "삼양", "라면", "1 box", 2));
-        products.add(new ProductDTO(1L, "국내산", "소고기", "500g", 1));
+        products.add(new ProductDTO(1L, "삼양", "라면라라면라면라면라면라면라면면라면라면라면라면라면", "1 box", 2L));
+        products.add(new ProductDTO(1L, "국내산", "소고기", "500g", 1L));
 
         List<AddressDTO> addressList = new ArrayList<>();
-        addressList.add(new AddressDTO(1, "서울시 강남구"));
-        addressList.add(new AddressDTO(2, "서울시 종로구"));
+        addressList.add(new AddressDTO(1L, "서울시 강남구"));
+        addressList.add(new AddressDTO(2L, "서울시 종로구"));
 
-        OrderDTO order = new OrderDTO();
-        order.setProducts(products);
-        order.setAddressList(addressList);
-        order.setTotalPrice(50000.0);
 
-        model.addAttribute("order", order);
+
+        model.addAttribute("products", products);
+        model.addAttribute("addressList", addressList);
+        model.addAttribute("totalPrice", 9999999);
         model.addAttribute("userId", 1);
         model.addAttribute("isUser",false);
         model.addAttribute("isAdmin",false);
@@ -517,8 +516,8 @@ public class HomeController {
         orderDetailDto.setUserName("홍길동");
 
         List<ProductDTO> products = new ArrayList<>();
-        products.add(new ProductDTO(1L, "삼양", "라면aslkjdhflasdkjhfljkashdflkjahsdlfkjhasdlkjhflasjkdh", "1 box", 2));
-        products.add(new ProductDTO(1L, "국내산", "소고기", "500g", 1));
+        products.add(new ProductDTO(1L, "삼양", "라면aslkjdhflasdkjhfljkashdflkjahsdlfkjhasdlkjhflasjkdh", "1 box", 2L));
+        products.add(new ProductDTO(1L, "국내산", "소고기", "500g", 1L));
         orderDetailDto.setProducts(products);
 
         model.addAttribute("orderDetail", orderDetailDto);
