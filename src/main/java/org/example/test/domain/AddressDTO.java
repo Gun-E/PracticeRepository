@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class AddressDTO {
-    private int id;
-    private String name;
+    private Long id;
+    private String addressLine;
 }
