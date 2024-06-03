@@ -5,67 +5,132 @@
                 <h4 class="mb-4 fw-bold">배송지 입력</h4>
             </div>
         </div>
-        <div class="card shadow">
-            <div class="card-header bg-success text-white fw-bold">주문 내역</div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div th:each="product : ${order.products}">
-                        <div class="row mb-2">
+        <form id="orderForm" th:action="@{/order-list/order}" method="post">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white fw-bold">주문 내역</div>
+                <div th:if="${#lists.isEmpty(products)}">
+                    <div class="card-body">
+                        <div class="row align-items-center">
                             <div class="col">
-                                <div>
-                                    <span class="fw-bold text-success" th:text="${'('+product.brand+')'}"></span>
-                                    <span class="fw-bold" th:text="${product.name}"></span>
-                                    <span class="text-muted" th:text="${product.option}"></span>
+                                <div class="text-center text-secondary py-5">
+                                    <i class="bi bi-emoji-smile display-1"></i>
+                                    <h5 class="fw-bold mt-3 mb-3">주문 요청이 완료 되었습니다.</h5>
                                 </div>
-                            </div>
-                            <div class="col-auto">
-                                <div class="text-muted" th:text="${'x '+product.amount}"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-4">
-                    <div class="col">
-                        <h6 class="fw-bold mb-2">배송지</h6>
-                        <select class="form-select">
-                            <option selected>배송지 선택</option>
-                            <option th:each="address : ${order.addressList}"
-                                    th:value="${address.id}"
-                                    th:text="${address.name}"></option>
-                        </select>
+                <div th:unless="${#lists.isEmpty(products)}">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div th:each="product : ${products}">
+                                <div class="row mb-2">
+                                    <div class="col">
+                                        <span class="fw-bold text-success"
+                                              th:text="${'('+product.brandName+')'}"></span>
+                                        <span class="fw-bold" th:text="${product.productName}"></span>
+                                        <span class="text-muted" th:text="${product.weight}"></span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="text-muted" th:text="${'x '+product.productQuantity}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label for="addressForm" class="fw-bold mb-2">배송지</label>
+                                <select id="addressForm" class="form-select" name="addressId">
+                                    <option th:each="address : ${addressList}"
+                                            th:value="${address.id}"
+                                            th:text="${address.addressLine}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="fw-bold mb-2">요청사항</h6>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingInput" name="comment"
+                                           placeholder="요청사항 (선택)" maxlength="100">
+                                    <label for="floatingInput">요청사항 (선택)</label>
+                                </div>
+                            </div>
+                            <small id="charCountMessage" class="fw-light text-secondary mt-2"></small>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <h6 class="fw-bold mb-2">요청사항</h6>
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="요청사항 (선택)">
-                            <label for="floatingInput">요청사항 (선택)</label>
+                    <div class="card-footer">
+                        <div class="row mt-3 mb-3">
+                            <div class="col">
+                                <h6 class="fw-bold">
+                                    총 가격
+                                </h6>
+                            </div>
+                            <div class="col-auto">
+                                <h3 id="totalPrice" class="fw-bold text-end"
+                                    th:text="${#numbers.formatInteger(totalPrice,3, 'COMMA')+'원'}"></h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <button type="button" class="btn btn-success w-100 fw-bold" id="orderButton">주문하기
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-secondary w-100 fw-bold" onclick="history.back()">
+                                    취소
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="row mt-3 mb-3">
-                    <div class="col-6">
-                        <h6 class="fw-bold">
-                            총 가격
-                        </h6>
-                    </div>
-                    <div class="col-6">
-                        <h3 id="totalPrice" class="fw-bold text-end"
-                            th:text="${#numbers.formatInteger(order.totalPrice,3, 'COMMA')+'원'}"></h3>
-                    </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade modal-sheet p-4 py-md-5" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold" id="orderModalLabel">주문 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mt-3 mb-2 py-0">
+                주문하시겠습니까?
+            </div>
+            <div class="row p-3">
+                <div class="col-7">
+                    <button id="confirmOrderButton" type="submit" class="btn btn-success w-100">확인
+                    </button>
                 </div>
-                <div class="row">
-                    <div class="col-8">
-                        <button type="button" class="btn btn-success w-100 fw-bold">주문하기</button>
-                    </div>
-                    <div class="col-4">
-                        <button type="button" class="btn btn-secondary w-100 fw-bold" onclick="history.back()">취소</button>
-                    </div>
+                <div class="col-5">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">취소</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#orderButton').click(function () {
+            $('#orderModal').modal('show');
+        });
+
+        $('#confirmOrderButton').click(function () {
+            $("#orderForm").submit();
+        });
+
+        $('#floatingInput').on('input', function () {
+            var maxLength = $(this).attr('maxlength');
+            var currentLength = $(this).val().length;
+            if (currentLength >= maxLength) {
+                $('#charCountMessage').text('* 요청사항은 100글자까지 입력 가능합니다.');
+            } else {
+                $('#charCountMessage').text('');
+            }
+        });
+    });
+</script>
