@@ -11,13 +11,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartDto {
-    private int id;
-    private String name;
-    private String brand;
-    private int originalPrice;
-    private int discountedPrice;
-    private List<String> tags;
-    private String image;
-    private String option;
-    private int quantity;
+    private Long productId;
+    private String productName;
+    private String brandName;
+    private Long listPrice;
+    private Long sellingPrice;
+    private String thumbnailFileName;
+    private String weight;
+    private Long productQuantity;
+    private Long shoppingCartId;
 }
