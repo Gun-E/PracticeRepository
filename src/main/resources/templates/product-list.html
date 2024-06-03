@@ -31,14 +31,14 @@
             </div>
         </div>
 
-        <div class="row justify-content-start">
-            <div th:each="product : ${products}" class="col-4 col-sm-4 col-md-3 col-lg-2 px-1 my-2">
+        <div class="row d-flex justify-content-start">
+            <div th:each="product : ${products}" class="col-6 col-sm-4 col-md-3 col-lg-2 px-1 my-2">
                 <form th:action="@{'/product/' + ${product.productId}}" method="get">
-                    <div class="card border shadow-sm z-1">
-                        <div class="d-flex justify-content-center" style="height: 90px;">
+                    <div class="card border-0 z-1">
+                        <div class="border rounded-4 shadow-sm d-flex justify-content-center" style="height: 150px;">
                             <img th:src="@{'/images/' + ${product.thumbnailFileName}}"
-                                 class="card-img-top object-fit-contain"
-                                 alt="이미지 없음" style="padding: 8px">
+                                 class="img-fluid rounded border-0 rounded-4"
+                                 alt="이미지 없음" style="height: 100%; width: auto; object-fit: contain; padding: 7px">
                         </div>
 
                         <!--찜 삭제-->
@@ -46,34 +46,34 @@
                                 class="btn btn-link position-absolute end-0 z-2 starred-delete-button"
                                 type="button"
                                 th:data-product-id="${product.productId}"
-                                style="bottom: 36%; display: none"
+                                style="bottom: 27%; display: none"
                                 th:if="${isUser}">
                             <!-- if에 상품이 찜 되어 있는지 조건문 추가 후 display: none 삭제해주세여!!-->
-                            <i class="bi bi-heart-fill text-danger"></i>
+                            <i class="bi bi-heart-fill text-danger" style="font-size: 18px;"></i>
                         </button>
                         <!--찜 등록-->
                         <button id="starredRegisterButton"
                                 class="btn btn-link position-absolute end-0 z-2 starred-register-button"
                                 type="button"
                                 th:data-product-id="${product.productId}"
-                                style="bottom: 36%"
+                                style="bottom: 27%"
                                 th:if="${isUser}">
                             <!-- if에 상품이 찜 되어 있는지 조건문 추가 하셔야 합니다 !!!!-->
-                            <i class="bi bi-heart text-secondary"></i>
+                            <i class="bi bi-heart text-secondary" style="font-size: 18px;"></i>
                         </button>
 
                         <div class="card-body d-flex flex-column p-2 ms-1">
-                            <span id="brandName" class="text-dark mb-2 fw-bold" th:text="${product.brandName}"
-                                  style="font-size: 13px"></span>
-                            <span id="productName" class="text-muted mb-2 fw-bold text-truncate"
+                            <span id="brandName" class="text-dark mb-1 fw-bold" th:text="${product.brandName}"
+                                  style="font-size: 16px"></span>
+                            <span id="productName" class="text-muted mb-1 fw-bold text-truncate"
                                   th:text="${product.name}"
-                                  style="font-size: 10px;"></span>
-                            <span id="listPrice" class="text-secondary text-decoration-line-through mt-1"
+                                  style="font-size: 13px;"></span>
+                            <span id="listPrice" class="text-secondary text-decoration-line-through"
                                   th:text="${#numbers.formatInteger(product.listPrice,3, 'COMMA')}"
-                                  style="font-size: 12px;"></span>
+                                  style="font-size: 13px;"></span>
                             <span id="sellingPrice" class="text-success fw-bold"
                                   th:text="${#numbers.formatInteger(product.sellingPrice,3, 'COMMA')} + '원'"
-                                  style="font-size: 13px;"></span>
+                                  style="font-size: 15px;"></span>
                             <button type="submit" class="btn btn-link p-0 stretched-link z-1"></button>
                         </div>
                     </div>
@@ -126,6 +126,7 @@
     <div class="row mb-2">
         <a href="/cart" class="btn btn-light rounded-pill shadow">
             <i class="bi bi-cart text-secondary" style="font-size: 1.2rem;"></i>
+            <!-- 뱃지입니다  장바구니 수량을 가져와주세요-->
             <span class="badge rounded-pill text-bg-danger position-absolute top-0 start-50 mt-2"
                   style="font-size: 0.5rem" th:text='${cartCount > 99 ? "99+" : cartCount}'></span>
         </a>

@@ -29,7 +29,8 @@
                                     <div class="col mt-1">
                                         <form th:action="@{/product/{id}(id=${item.productId})}" method="get">
                                             <button type="submit" class="btn p-0 border-0 bg-transparent">
-                                                <span class="fw-bold text-success" th:text="${'('+item.brandName+')'}"></span>
+                                                <span class="fw-bold text-success"
+                                                      th:text="${'('+item.brandName+')'}"></span>
                                                 <span class="fw-bold" th:text="${item.productName}"></span>
                                                 <span class="text-muted" th:text="${item.weight}"></span>
                                             </button>
@@ -113,7 +114,7 @@
     </div>
 </div>
 
-<div class="modal fade modal-sheet p-4 py-md-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+<div class="modal fade modal-sheet p-4 mt-5" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadow">
@@ -129,8 +130,6 @@
                         </div>
                         <div class="col-7">
                             <div class="input-group">
-                                <input type="hidden" name="productId" id="hiddenProductId">
-                                <input type="hidden" name="shoppingCartId" id="hiddenShoppingCartId">
                                 <button id="minusBtn" class="btn btn-success btn-sm" type="button">-
                                 </button>
                                 <input id="quantityInput" type="text" class="form-control form-control-sm text-center"
@@ -138,9 +137,11 @@
                                 <button id="plusBtn" class="btn btn-success btn-sm" type="button">+
                                 </button>
                             </div>
+                            <input type="hidden" name="shoppingCartId" id="hiddenShoppingCartId">
+                            <input type="hidden" name="productId" id="hiddenProductId">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success w-100">확인</button>
+                    <button type="submit" id="submitButton" class="btn btn-success w-100">확인</button>
                 </form>
             </div>
         </div>
@@ -180,24 +181,25 @@
 
         $("#minusBtn").click(decreaseQuantity);
         $("#plusBtn").click(increaseQuantity);
+        $("#quantityInput").on('input', updateSubmitButtonState);
         $('#myModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var productId = button.data('item-id');
-            var shoppingCartId = button.data('item-shopping-cart-id');
-            var productQuantity = button.data('item-quantity');
-            var formAction = '/cart/modify';
-
+            const button = $(event.relatedTarget);
+            const productId = button.data('item-id');
+            const shoppingCartId = button.data('item-shopping-cart-id');
+            const productQuantity = button.data('item-quantity');
+            const formAction = '/cart/modify';
 
             $('#amountForm').attr('action', formAction);
             $('#quantityInput').val(productQuantity);
             $('#hiddenProductId').val(productId);
             $('#hiddenShoppingCartId').val(shoppingCartId);
+            updateSubmitButtonState();
         });
         $('#deleteModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var shoppingCartId = button.data('item-shopping-cart-id');
-            var productId = button.data('item-id');
-            var formAction = '/cart/delete/' + shoppingCartId + '/' + productId;
+            const button = $(event.relatedTarget);
+            const shoppingCartId = button.data('item-shopping-cart-id');
+            const productId = button.data('item-id');
+            const formAction = '/cart/delete/' + shoppingCartId + '/' + productId;
 
             $('#deleteForm').attr('action', formAction);
         });
@@ -205,11 +207,11 @@
 
     // 총 가격을 계산하고 업데이트하는 함수
     function calculateAndUpdateTotalPrice() {
-        var totalPrice = 0;
+        let totalPrice = 0;
 
         $('.card-body .container-fluid').each(function () {
-            var productPriceString = $(this).find('.product-price').text().replace('원', '').replace(/,/g, '').trim();
-            var productPrice = parseInt(productPriceString);
+            const productPriceString = $(this).find('.product-price').text().replace('원', '').replace(/,/g, '').trim();
+            const productPrice = parseInt(productPriceString);
             totalPrice += productPrice;
         });
 
@@ -225,16 +227,25 @@
     }
 
     function decreaseQuantity() {
-        var quantity = parseInt($("#quantityInput").val());
+        const quantity = parseInt($("#quantityInput").val());
         if (quantity > 1) {
             $("#quantityInput").val(quantity - 1);
+            updateSubmitButtonState();
         }
     }
 
     function increaseQuantity() {
-        var quantity = parseInt($("#quantityInput").val());
-        if (quantity < 10000) {
-            $("#quantityInput").val(quantity + 1);
+        const quantity = parseInt($("#quantityInput").val());
+        $("#quantityInput").val(quantity + 1);
+        updateSubmitButtonState();
+    }
+
+    function updateSubmitButtonState() {
+        const quantity = parseInt($("#quantityInput").val());
+        if (quantity <= 0) {
+            $("#submitButton").prop('disabled', true);
+        } else {
+            $("#submitButton").prop('disabled', false);
         }
     }
 </script>

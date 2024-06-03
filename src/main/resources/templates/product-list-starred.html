@@ -56,45 +56,45 @@
             </div>
         </div>
         <div th:unless="${#lists.isEmpty(starredProducts)}">
-            <!--            <nav class="mt-4">-->
-            <!--                <ul class="pagination justify-content-center">-->
-            <!--                    <li class="page-item" th:if="${pageUtil.currentPage!=1}">-->
-            <!--                        <a class="page-link text-success" th:href="@{/starred/list(page=0)}"-->
-            <!--                           aria-disabled="true">-->
-            <!--                            <i class="bi bi-chevron-double-left"></i>-->
-            <!--                        </a>-->
-            <!--                    </li>-->
-            <!--                    <li class="page-item" th:if="${pageUtil.start!=1}">-->
-            <!--                        <a class="page-link text-success"-->
-            <!--                           th:href="@{/starred/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"-->
-            <!--                           aria-disabled="true">-->
-            <!--                            <i class="bi bi-chevron-left"></i>-->
-            <!--                        </a>-->
-            <!--                    </li>-->
-            <!--                    <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"-->
-            <!--                        th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">-->
-            <!--                        <a class="page-link text-success"-->
-            <!--                           th:href="${page == pageUtil.currentPage ? '#' : '/starred/list?page=' + (page - 1)}"-->
-            <!--                           th:text="${page}"-->
-            <!--                           th:aria-disabled="${page == pageUtil.currentPage}">-->
-            <!--                        </a>-->
-            <!--                    </li>-->
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:if="${pageUtil.currentPage!=1}">
+                        <a class="page-link text-success" th:href="@{/starred/list(page=0)}"
+                           aria-disabled="true">
+                            <i class="bi bi-chevron-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" th:if="${pageUtil.start!=1}">
+                        <a class="page-link text-success"
+                           th:href="@{/starred/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"
+                           aria-disabled="true">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"
+                        th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">
+                        <a class="page-link text-success"
+                           th:href="${page == pageUtil.currentPage ? '#' : '/starred/list?page=' + (page - 1)}"
+                           th:text="${page}"
+                           th:aria-disabled="${page == pageUtil.currentPage}">
+                        </a>
+                    </li>
 
-            <!--                    <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">-->
-            <!--                        <a class="page-link text-success"-->
-            <!--                           th:href="@{/starred/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"-->
-            <!--                           th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">-->
-            <!--                            <i class="bi bi-chevron-right"></i>-->
-            <!--                        </a>-->
-            <!--                    </li>-->
-            <!--                    <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">-->
-            <!--                        <a class="page-link text-success" th:href="@{/starred/list(page=${pageUtil.totalPages - 1})}"-->
-            <!--                           aria-disabled="true">-->
-            <!--                            <i class="bi bi-chevron-double-right"></i>-->
-            <!--                        </a>-->
-            <!--                    </li>-->
-            <!--                </ul>-->
-            <!--            </nav>-->
+                    <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">
+                        <a class="page-link text-success"
+                           th:href="@{/starred/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"
+                           th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">
+                        <a class="page-link text-success" th:href="@{/starred/list(page=${pageUtil.totalPages - 1})}"
+                           aria-disabled="true">
+                            <i class="bi bi-chevron-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -123,7 +123,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success w-100">확인</button>
+                    <button type="submit" id="submitButton" class="btn btn-success w-100">확인</button>
                 </form>
             </div>
         </div>
@@ -134,6 +134,7 @@
     $(document).ready(function () {
         $("#minusBtn").click(decreaseQuantity);
         $("#plusBtn").click(increaseQuantity);
+        $("#quantityInput").on('input', updateSubmitButtonState);
         $('#myModal').on('show.bs.modal', function (event) {
             const button = $(event.relatedTarget);
             const productId = button.data('item-id');
@@ -144,6 +145,7 @@
                 .append('<input type="hidden" name="productId" value="' + productId + '">')
                 .attr('action', formAction);
             $('#quantityInput').val(productQuantity);
+            updateSubmitButtonState();
         });
 
     });
@@ -152,13 +154,21 @@
         const quantity = parseInt($("#quantityInput").val());
         if (quantity > 1) {
             $("#quantityInput").val(quantity - 1);
+            updateSubmitButtonState();
         }
     }
 
     function increaseQuantity() {
         const quantity = parseInt($("#quantityInput").val());
-        if (quantity < 10000) {
-            $("#quantityInput").val(quantity + 1);
+        $("#quantityInput").val(quantity + 1);
+        updateSubmitButtonState();
+    }
+    function updateSubmitButtonState() {
+        const quantity = parseInt($("#quantityInput").val());
+        if (quantity <= 0) {
+            $("#submitButton").prop('disabled', true);
+        } else {
+            $("#submitButton").prop('disabled', false);
         }
     }
 </script>
