@@ -36,9 +36,14 @@
                 <form th:action="@{'/product/' + ${product.productId}}" method="get">
                     <div class="card border-0 z-1">
                         <div class="border rounded-4 shadow-sm d-flex justify-content-center" style="height: 150px;">
-                            <img th:src="@{'/images/' + ${product.thumbnailFileName}}"
+                            <img th:if="${product.thumbnailFileName != null}"
+                                 th:src="@{'/web/images/' + ${product.thumbnailFileName}}"
                                  class="img-fluid rounded border-0 rounded-4"
                                  alt="이미지 없음" style="height: 100%; width: auto; object-fit: contain; padding: 7px">
+                            <img th:unless="${product.thumbnailFileName != null}"
+                                 th:src="@{'/images/layout/no_image.png'}"
+                                 class="card-img-top object-fit-contain"
+                                 alt="이미지 없음" style="padding: 8px">
                         </div>
 
                         <!--찜 삭제-->
@@ -64,7 +69,7 @@
 
                         <div class="card-body d-flex flex-column p-2 ms-1">
                             <span id="brandName" class="text-dark mb-1 fw-bold" th:text="${product.brandName}"
-                                  style="font-size: 16px"></span>
+                                  style="font-size: 14px"></span>
                             <span id="productName" class="text-muted mb-1 fw-bold text-truncate"
                                   th:text="${product.name}"
                                   style="font-size: 13px;"></span>
@@ -81,48 +86,48 @@
             </div>
         </div>
 
-        <!--        <nav class="mt-4">-->
-        <!--            <ul class="pagination justify-content-center">-->
-        <!--                <li class="page-item" th:if="${pageUtil.currentPage!=1}">-->
-        <!--                    <a class="page-link text-success" th:href="@{/product/list(page=0)}"-->
-        <!--                       aria-disabled="true">-->
-        <!--                        <i class="bi bi-chevron-double-left"></i>-->
-        <!--                    </a>-->
-        <!--                </li>-->
-        <!--                <li class="page-item" th:if="${pageUtil.start!=1}">-->
-        <!--                    <a class="page-link text-success"-->
-        <!--                       th:href="@{/product/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"-->
-        <!--                       aria-disabled="true">-->
-        <!--                        <i class="bi bi-chevron-left"></i>-->
-        <!--                    </a>-->
-        <!--                </li>-->
-        <!--                <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"-->
-        <!--                    th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">-->
-        <!--                    <a class="page-link text-success"-->
-        <!--                       th:href="${page == pageUtil.currentPage ? '#' : '/product/list?page=' + (page - 1)}"-->
-        <!--                       th:text="${page}"-->
-        <!--                       th:aria-disabled="${page == pageUtil.currentPage}">-->
-        <!--                    </a>-->
-        <!--                </li>-->
+<!--        <nav class="mt-4">-->
+<!--            <ul class="pagination justify-content-center">-->
+<!--                <li class="page-item" th:if="${pageUtil.currentPage!=1}">-->
+<!--                    <a class="page-link text-success" th:href="@{/product/list(page=0)}"-->
+<!--                       aria-disabled="true">-->
+<!--                        <i class="bi bi-chevron-double-left"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:if="${pageUtil.start!=1}">-->
+<!--                    <a class="page-link text-success"-->
+<!--                       th:href="@{/product/list(page=${(pageUtil.start - pageUtil.MAX_PAGE) < 1 ? 0 : (pageUtil.start - pageUtil.MAX_PAGE)-1})}"-->
+<!--                       aria-disabled="true">-->
+<!--                        <i class="bi bi-chevron-left"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:each="page: ${#numbers.sequence(pageUtil.start, pageUtil.end)}"-->
+<!--                    th:classappend="${page == pageUtil.currentPage ? 'fw-bold disabled': ''}">-->
+<!--                    <a class="page-link text-success"-->
+<!--                       th:href="${page == pageUtil.currentPage ? '#' : '/product/list?page=' + (page - 1)}"-->
+<!--                       th:text="${page}"-->
+<!--                       th:aria-disabled="${page == pageUtil.currentPage}">-->
+<!--                    </a>-->
+<!--                </li>-->
 
-        <!--                <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">-->
-        <!--                    <a class="page-link text-success"-->
-        <!--                       th:href="@{/product/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"-->
-        <!--                       th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">-->
-        <!--                        <i class="bi bi-chevron-right"></i>-->
-        <!--                    </a>-->
-        <!--                </li>-->
-        <!--                <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">-->
-        <!--                    <a class="page-link text-success" th:href="@{/product/list(page=${pageUtil.totalPages - 1})}"-->
-        <!--                       aria-disabled="true">-->
-        <!--                        <i class="bi bi-chevron-double-right"></i>-->
-        <!--                    </a>-->
-        <!--                </li>-->
-        <!--            </ul>-->
-        <!--        </nav>-->
+<!--                <li class="page-item" th:if="${pageUtil.start+pageUtil.MAX_PAGE<pageUtil.totalPages}">-->
+<!--                    <a class="page-link text-success"-->
+<!--                       th:href="@{/product/list(page=${pageUtil.start < pageUtil.end ? (pageUtil.start + pageUtil.MAX_PAGE)-1: '#'})}"-->
+<!--                       th:aria-disabled="${pageUtil.start+pageUtil.MAX_PAGE>pageUtil.totalPages}">-->
+<!--                        <i class="bi bi-chevron-right"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:if="${pageUtil.currentPage!=pageUtil.totalPages}">-->
+<!--                    <a class="page-link text-success" th:href="@{/product/list(page=${pageUtil.totalPages - 1})}"-->
+<!--                       aria-disabled="true">-->
+<!--                        <i class="bi bi-chevron-double-right"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
     </div>
 </div>
-<div class="position-fixed bottom-0 end-0 mb-4 me-4 cart-button z-2">
+<div class="position-fixed bottom-0 end-0 mb-4 me-4 cart-button z-2" th:if="${isUser}">
     <div class="row mb-2">
         <a href="/cart" class="btn btn-light rounded-pill shadow">
             <i class="bi bi-cart text-secondary" style="font-size: 1.2rem;"></i>

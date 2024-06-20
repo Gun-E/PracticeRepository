@@ -32,9 +32,9 @@ public class HomeController {
     public String home(Model model) {
         List<ProductListDTO> products = new ArrayList<>();
 
-        products.add(new ProductListDTO(1L, "layout/noddle.jpg", "삼양", "삼양라면 5 + 1개입", "1box",5000, 5000));
-        products.add(new ProductListDTO(1L, "layout/라면박스.jpg", "삼양", "삼양라면 1 박스", "1box", 5000, 50000));
-        products.add(new ProductListDTO(1L, "layout/당근.jpg", "국내산", "당근", "1개", 5000, 100));
+        products.add(new ProductListDTO(1L, "noddle.jpg", "삼양", "삼양라면 5 + 1개입", "1box",5000, 5000));
+        products.add(new ProductListDTO(1L, "라면박스.jpg", "삼양", "삼양라면 1 박스", "1box", 5000, 50000));
+        products.add(new ProductListDTO(1L, "당근.jpg", "국내산", "당근", "1개", 5000, 100));
         products.add(new ProductListDTO(1L, "농심)김치사발면.png", "국내산", "한우 A++", "500g",5000,  9999999));
         products.add(new ProductListDTO(1L, "농심)새우탕컵.png", "삼양", "삼양라면 5 + 1개입", "1box", 5000, 5000));
         products.add(new ProductListDTO(1L, "농심)신라면컵.jpg", "삼양", "삼양라면 5 + 1개입", "1box", 5000, 5000));
@@ -157,9 +157,9 @@ public class HomeController {
     public String allPage(Model model) {
         List<ProductListDTO> products = new ArrayList<>();
 
-        products.add(new ProductListDTO(1L, "layout/noddle.jpg", "삼양", "삼양라면 5 + 1개입", "1box",5000, 5000));
-        products.add(new ProductListDTO(1L, "layout/라면박스.jpg", "삼양", "삼양라면 1 박스", "1box", 5000, 50000));
-        products.add(new ProductListDTO(1L, "layout/당근.jpg", "국내산", "당근", "1개", 5000, 500000));
+        products.add(new ProductListDTO(1L, "noddle.jpg", "삼양", "삼양라면 5 + 1개입", "1box",5000, 5000));
+        products.add(new ProductListDTO(1L, "라면박스.jpg", "삼양", "삼양라면 1 박스", "1box", 5000, 50000));
+        products.add(new ProductListDTO(1L, "당근.jpg", "국내산", "당근", "1개", 5000, 500000));
         products.add(new ProductListDTO(1L, "농심)김치사발면.png", "국내산", "한우 A++", "500g",5000,  999999));
         products.add(new ProductListDTO(1L, "농심)새우탕컵.jpg", "농심", "새우탕컵", "1box", 5000, 5000));
         products.add(new ProductListDTO(1L, "농심)신라면컵.jpg", "농심", "신라면컵", "1box", 5000, 5000));
@@ -200,9 +200,9 @@ public class HomeController {
     public String categoryPage(@PathVariable int id, Model model) {
         List<ProductListDTO> products = new ArrayList<>();
 
-        products.add(new ProductListDTO(1L, "layout/noddle.jpg", "삼양", "삼양라면 5 + 1개입", "1box",5000, 5000));
-        products.add(new ProductListDTO(1L, "layout/라면박스.jpg", "삼양", "삼양라면 1 박스", "1box", 5000, 50000));
-        products.add(new ProductListDTO(1L, "layout/당근.jpg", "국내산", "당근", "1개", 5000, 100));
+        products.add(new ProductListDTO(1L, "noddle.jpg", "삼양", "삼양라면 5 + 1개입", "1box",5000, 5000));
+        products.add(new ProductListDTO(1L, "라면박스.jpg", "삼양", "삼양라면 1 박스", "1box", 5000, 50000));
+        products.add(new ProductListDTO(1L, "당근.jpg", "국내산", "당근", "1개", 5000, 100));
         products.add(new ProductListDTO(1L, "농심)김치사발면.png", "국내산", "한우 A++", "500g",5000,  9999999));
         products.add(new ProductListDTO(1L, "농심)새우탕컵.jpg", "농심", "새우탕컵", "1box", 5000, 5000));
         products.add(new ProductListDTO(1L, "농심)신라면컵.jpg", "농심", "신라면컵", "1box", 5000, 5000));
@@ -413,8 +413,8 @@ public class HomeController {
     @GetMapping("/userCart")
     public String cart(Model model) {
         List<CartDto> cartList = new ArrayList<>();
-        cartList.add(new CartDto(1L, "상품1", "브랜드", 10000L, 5000L, "layout/noddle.jpg", "1box",1L, 1L));
-        cartList.add(new CartDto(1L, "소고기", "국내산", 100000L, 90000L,  "layout/라면박스.jpg","500g", 1L, 1L));
+        cartList.add(new CartDto(1L, "상품1", "브랜드", 10000L, 5000L, "noddle.jpg", "1box",1L, 1L));
+        cartList.add(new CartDto(1L, "소고기", "국내산", 100000L, 90000L,  "라면박스.jpg","500g", 1L, 1L));
 
         model.addAttribute("cartList", cartList);
         model.addAttribute("isUser",false);

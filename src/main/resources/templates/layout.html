@@ -27,14 +27,13 @@
             }
         }
     </style>
-
 </head>
 
 <body>
-<header class="navbar navbar-expand-lg navbar-light fixed-top bg-white shadow-sm">
+<header class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: rgba(255, 255, 255, 0.8); padding: 0">
     <div class="container-fluid d-flex">
         <div class="col">
-            <div class="row justify-content-between mb-2">
+            <div class="row justify-content-between mb-1">
                 <div class="col-auto mt-1">
                     <button class="btn btn-link mt-2" type="submit" data-bs-toggle="offcanvas"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
@@ -43,7 +42,7 @@
                 </div>
                 <div class="col-auto d-flex justify-content-center align-items-center">
                     <a class="navbar-brand" href="/">
-                        <img id="logo" src="/images/layout/logo.gif" alt="Logo"
+                        <img id="logo" src="/images/layout/logo.png" alt="Logo"
                              class="object-fit-contain">
                     </a>
                 </div>
@@ -60,7 +59,7 @@
                 </div>
             </div>
             <div class="container">
-                <div class="row">
+                <div class="row mb-2">
                     <form class="form-inline position-relative" th:action="@{/product/search}"
                           method="get">
                         <label for="search-input-small" class="visually-hidden">검색어 입력</label>
@@ -77,7 +76,7 @@
     </div>
 </header>
 
-<div id="main-content" style="margin-top: 140px !important;
+<div id="main-content" style="margin-top: 120px !important;
                 margin-bottom: 100px !important;">
     <main th:replace="~{${content}}"></main>
 </div>
@@ -121,7 +120,7 @@
         </ul>
     </div>
 </div>
-<div class="offcanvas offcanvas-end offcanvas-md" data-bs-scroll="true" tabindex="-1" id="myPageContent" style="width: 250px">
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="myPageContent" style="width: 250px">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title">내 정보</h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
@@ -146,7 +145,6 @@
     </div>
 </div>
 
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
@@ -166,11 +164,9 @@
         $(window).scroll(function () {
             const header = $('header');
             if ($(window).scrollTop() > 0) {
-                header.removeClass('shadow-sm');
-                header.addClass('shadow');
-            } else {
-                header.removeClass('shadow');
                 header.addClass('shadow-sm');
+            } else {
+                header.removeClass('shadow-sm');
             }
         });
     });
