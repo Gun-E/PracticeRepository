@@ -1,4 +1,4 @@
-# Practice Repository
+# Practice Repository (JAVA)
 # 백준 알고리즘, 프로그래머스 자바 연습 저장소
 # 기술 스택
 # HTML,타임리프,부트 스트랩,애니메이트.css
