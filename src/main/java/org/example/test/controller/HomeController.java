@@ -529,7 +529,7 @@ public class HomeController {
         return "layout";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginForm")
     public String login(Model model) {
         model.addAttribute("userId", 1);
         return "login";
