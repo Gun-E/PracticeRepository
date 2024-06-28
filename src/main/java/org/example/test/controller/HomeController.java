@@ -10,7 +10,6 @@ import org.example.test.domain.CategoryDTO;
 import org.example.test.domain.DiscountDTO;
 import org.example.test.domain.NoticeDetailDto;
 import org.example.test.domain.NoticeDto;
-import org.example.test.domain.OrderDTO;
 import org.example.test.domain.OrderDetailDto;
 import org.example.test.domain.OrderListDto;
 import org.example.test.domain.ProductDTO;
@@ -543,5 +542,10 @@ public class HomeController {
     public String error(Model model) {
         model.addAttribute("userId", 1);
         return "error";
+    }
+    @GetMapping("/user/find-password")
+    public String findId(Model model) {
+        model.addAttribute("userId", 1);
+        return "find_password";
     }
 }
