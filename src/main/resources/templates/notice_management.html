@@ -1,25 +1,25 @@
 <div class="container-fluid d-flex justify-content-center">
     <div class="col-sm-10 col-11">
         <div class="row">
-            <h4 class="mb-4 fw-bold" th:text="${noticeDTO.id} ? '공지사항 수정 (관리자)' : '공지사항 등록 (관리자)'"></h4>
+            <h4 class="mb-4 fw-bold" th:text="'공지사항 등록 (관리자)'"></h4>
         </div>
         <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold">공지사항</div>
             <div class="card-body">
-                <form th:action="@{/notice}" th:object="${noticeDTO}" method="post" id="noticeForm">
+                <form th:action="@{/notice/register}" method="post" id="noticeForm">
                     <h6 class="fw-bold mb-2">공지 제목</h6>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="title" placeholder="공지사항 제목" th:value="${noticeDTO.title}">
+                        <input type="text" class="form-control" id="title" name = "title" placeholder="공지사항 제목" required>
                         <label for="title">공지사항 제목</label>
                     </div>
                     <h6 class="fw-bold mb-2">공지 내용</h6>
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" id="content" placeholder="공지사항 내용" style="height: 150px;" th:text="${noticeDTO.content}"></textarea>
+                        <textarea class="form-control" id="content" name = "content" placeholder="공지사항 내용" style="height: 150px;" required></textarea>
                         <label for="content">공지사항 내용</label>
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <button type="submit" class="btn btn-success fw-bold w-100" th:text="${noticeDTO.id} ? '수정' : '등록'"></button>
+                            <button type="submit" class="btn btn-success fw-bold w-100" th:text="등록"></button>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-secondary w-100 fw-bold" onclick="history.back()">취소</button>
@@ -30,3 +30,9 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#title').on('keyup', function (){
+
+    })
+</script>

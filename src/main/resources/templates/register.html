@@ -212,8 +212,8 @@
 
     // 비밀번호 토글 함수
     function togglePassword() {
-        var passwordInput = $('#userpasswd');
-        var passwordIcon = $('#passwordIcon');
+        const passwordInput = $('#userpasswd');
+        const passwordIcon = $('#passwordIcon');
 
         if (passwordInput.attr('type') === "password") {
             passwordInput.attr('type', 'text');
@@ -226,9 +226,9 @@
 
     // 비밀번호 확인 체크
     $('#userpasswd_confirm').on('keyup', function () {
-        var password = $('#userpasswd').val();
-        var confirmPassword = $(this).val();
-        var passwordMatchMessage = $('#passwordMatchMessage');
+        const password = $('#userpasswd').val();
+        const confirmPassword = $(this).val();
+        const passwordMatchMessage = $('#passwordMatchMessage');
 
         if (password === confirmPassword) {
             passwordMatchMessage.hide();

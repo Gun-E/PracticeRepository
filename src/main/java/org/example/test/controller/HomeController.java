@@ -548,4 +548,9 @@ public class HomeController {
         model.addAttribute("userId", 1);
         return "find_password";
     }
+    @GetMapping("/find-password/verify")
+    public String findPassword(Model model) {
+        model.addAttribute("userId", 1);
+        return "update_password";
+    }
 }
