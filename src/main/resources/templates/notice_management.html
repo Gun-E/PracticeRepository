@@ -19,7 +19,7 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <button type="submit" class="btn btn-success fw-bold w-100" th:text="등록"></button>
+                            <button id="noticeSubmitBtn" type="submit" class="btn btn-success fw-bold w-100" th:text="등록"></button>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-secondary w-100 fw-bold" onclick="history.back()">취소</button>
@@ -32,7 +32,16 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $('#title').on('keyup', function (){
+    $(document).ready(function (){
+        const title = $('#title').val();
+        const content = $('#content').val();
+        const btn = $('noticeSubmitBtn')
 
+        if (title.trim().length === 0 || content.trim().length === 0){
+            btn.prop('disabled', true);
+        }
+        else {
+            btn.prop('disabled', false);
+        }
     })
 </script>
