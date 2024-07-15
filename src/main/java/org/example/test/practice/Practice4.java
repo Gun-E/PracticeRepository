@@ -8,7 +8,8 @@ public class Practice4 {
     }
 
     public int solution(String str1, String str2) {
-        if (str2.contains(str1)) return 1;
-        return 0;
+        boolean a = str2.contains(str1);
+        int b = a ? 1 : 0;
+        return b;
     }
 }
